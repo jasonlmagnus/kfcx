@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+  }
+}
+
+@layer components {
+  .stat-card {
+    @apply rounded-lg bg-kf-gradient p-5 text-white text-center;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold mb-1;
+  }
+
+  .stat-label {
+    @apply text-sm opacity-90;
+  }
+
+  .section-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-kf-primary mb-3;
+  }
+
+  .list-item {
+    @apply p-3 mb-2 bg-white rounded-md border-l-3 leading-relaxed text-sm text-gray-700;
+  }
+
+  .list-item-positive {
+    @apply border-l-nps-promoter;
+  }
+
+  .list-item-negative {
+    @apply border-l-nps-detractor;
+  }
+
+  .list-item-neutral {
+    @apply border-l-nps-passive;
+  }
+
+  .list-item-info {
+    @apply border-l-kf-primary;
+  }
+
+  .filter-select {
+    @apply px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-kf-primary focus:border-transparent;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-kf-primary text-white rounded-lg font-medium hover:bg-kf-secondary transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors;
+  }
+}
+
+@layer utilities {
+  .bg-kf-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .border-l-3 {
+    border-left-width: 3px;
+  }
+}

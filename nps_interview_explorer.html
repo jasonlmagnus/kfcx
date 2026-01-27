@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPS Interview Data Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+        }
+
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        select, input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 200px;
+        }
+
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .tabs {
+            display: flex;
+            padding: 0 30px;
+            background: #fff;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .tab:hover {
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .interview-card {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+
+        .interview-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .score {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .score.high {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .score.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .score.low {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .section-content {
+            line-height: 1.8;
+            color: #555;
+            white-space: pre-wrap;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+        }
+
+        .transcript {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            max-height: 600px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .summary-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .summary-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .summary-card .meta {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .excerpt {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .download-btn {
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #5568d3;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .highlight {
+            background-color: #ffeb3b;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NPS Interview Data Explorer</h1>
+            <p>Explore and analyze interview transcripts with interactive filtering and search</p>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Filter by Score</label>
+                <select id="scoreFilter">
+                    <option value="all">All Scores</option>
+                    <option value="10">10 - Excellent</option>
+                    <option value="9">9 - Very Good</option>
+                    <option value="6">6 - Average</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Filter by Company</label>
+                <select id="companyFilter">
+                    <option value="all">All Companies</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Search Text</label>
+                <input type="text" id="searchInput" placeholder="Search in transcripts...">
+            </div>
+
+            <div class="control-group">
+                <label>&nbsp;</label>
+                <button class="download-btn" onclick="downloadAllData()">Download All JSON</button>
+            </div>
+        </div>
+
+        <div id="stats" class="stats" style="padding: 20px 30px; display: none;">
+        </div>
+
+        <div class="tabs" id="tabs">
+            <div class="tab active" onclick="showTab('overview')">Overview</div>
+        </div>
+
+        <div class="content" id="content">
+            <div id="overview" class="interview-card active">
+                <div class="summary-grid" id="summaryGrid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const interviews = [
+            {
+                "id": "lisa_partnerre",
+                "source_file": "NPS Interview Transcript_02.10.25_Lisa, PartnerRe.docx",
+                "date": "02.10.25",
+                "client": "Lisa, PartnerRe",
+                "project": "Executive Search",
+                "score": 9,
+                "overview": "Lisa Bolger, Chief People Officer at ClientCompany, discussed her company's relationship with CompanyA. ClientCompany, with 13,150 employees and an ELT of 15, has used CompanyA for key executive roles, with CompanyA winning the majority of tenders in the last two years. Bolger praised CompanyA's tailored services, thoughtful questions, and alignment with ClientCompany's needs. She highlighted the importance of communication, flexibility, and the personal touch in the search process. Bolger also mentioned ongoing searches and her plans to transition out of her role by early next year to pursue coaching.",
+                "issues": "For the ongoing claims role search in the US:\n- Challenges with coordinating meetings and interviews with different stakeholders.\n- Difficulty in scheduling last-minute interviews with the CFF.\n\nFor a previous unsuccessful search with another agency:\n- Concern about CompanyA potentially overselling candidates.\n- Need for more listening and focus on client needs, especially from the US team.\n\nGeneral concern:\n- Balancing execution focus with strategic thinking in ClientCompany's culture.",
+                "transcript": "[Full transcript available in original file]"
+            },
+            {
+                "id": "vanessa_heidelberg",
+                "source_file": "NPS Interview Transcript_011025_Vanessa, Heidelberg Materials.docx",
+                "date": "01.10.25",
+                "client": "Vanessa, Heidelberg Materials",
+                "project": "Executive Search",
+                "score": 10,
+                "overview": "Vanessa, HR Director for Benelux region, expressed extreme satisfaction with CompanyA's services for recruiting a procurement director. The search was highly confidential as the previous director was still in place. CompanyA convinced her with their approach to maintaining confidentiality. She praised their reactivity, client orientation, and service quality. All three final candidates were excellent, which was unprecedented in her experience. The selected candidate started successfully.",
+                "issues": "Minor timing issue: First candidate report was sent only 48 hours before interview (Friday evening for Monday morning interview). This was resolved for subsequent interviews after feedback was provided.",
+                "transcript": "[Full transcript available in original file]"
+            },
+            {
+                "id": "greg_trisummit",
+                "source_file": "NPS Interview Transcript_011225_Greg, TriSummit Utilities Inc.docx",
+                "date": "01.12.25",
+                "client": "Greg Aarssen, TriSummit Utilities Inc.",
+                "project": "ES",
+                "score": 10,
+                "overview": "Greg Aarssen, a director at Clientcompany Utilities, discussed his first experience with CompanyA, which led to hiring a new CEO. CompanyA's deep understanding of the company's culture and business needs, coupled with their quick turnaround time, made them the preferred choice over three other firms. The internal candidate was extensively tested using CompanyA's assessment tools, confirming their suitability. Aarssen praised CompanyA's responsiveness, proactive communication, and the personalized approach of ConsultantA and Craig King.",
+                "issues": "Marketing and visibility: Greg suggested CompanyA could improve their marketing and communication strategies. He noted he would not have heard of CompanyA without prior relationships and golf sponsorship awareness.",
+                "transcript": "[Full transcript available in original file]"
+            },
+            {
+                "id": "jeanette_ocorian",
+                "source_file": "NPS Interview Transcript_011225_Jeanette, Ocorian.docx",
+                "date": "01.12.25",
+                "client": "Jeanette Rooms, Ocorian",
+                "project": "ES",
+                "score": 6,
+                "overview": "Jeanette, Chief People Officer, discussed her experience with Korn Ferry for recruiting senior roles. She highlighted issues with Korn Ferry's lack of female consultants, which hindered diversity efforts. Compensation details were delayed, causing negotiation delays and nearly losing a candidate. Despite finding two good candidates, the process was prolonged, initially expected to take 2-3 months but lasting 5-6 months. Communication was inefficient, with reports often arriving too late.",
+                "issues": "Major Issues:\n- All consultants were male, making it difficult to attract female candidates for mixed slate\n- Compensation information was delayed until offer stage\n- Had to repeatedly ask for details about candidate compensation structure\n- Nearly lost a candidate due to delays\n- Process took 5-6 months instead of expected 2-3 months\n- Reports arrived 1-2 hours before calls with no time to review\n- Lack of assertiveness and urgency from consultants\n- Candidates presented didn't match brief initially\n- Client had to drive the process instead of consultants leading",
+                "transcript": "[Full transcript available in original file]"
+            }
+        ];
+
+        let currentFilters = {
+            score: 'all',
+            company: 'all',
+            search: ''
+        };
+
+        function init() {
+            populateFilters();
+            createTabs();
+            renderOverview();
+            updateStats();
+        }
+
+        function populateFilters() {
+            const companyFilter = document.getElementById('companyFilter');
+            const companies = [...new Set(interviews.map(i => i.client.split(',')[1]?.trim() || i.client))];
+            companies.forEach(company => {
+                const option = document.createElement('option');
+                option.value = company;
+                option.textContent = company;
+                companyFilter.appendChild(option);
+            });
+        }
+
+        function createTabs() {
+            const tabsContainer = document.getElementById('tabs');
+            const contentContainer = document.getElementById('content');
+
+            interviews.forEach((interview, index) => {
+                const tab = document.createElement('div');
+                tab.className = 'tab';
+                tab.textContent = interview.client;
+                tab.onclick = () => showTab(interview.id);
+                tabsContainer.appendChild(tab);
+
+                const card = document.createElement('div');
+                card.id = interview.id;
+                card.className = 'interview-card';
+                card.innerHTML = renderInterviewDetail(interview);
+                contentContainer.appendChild(card);
+            });
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.interview-card').forEach(card => card.classList.remove('active'));
+
+            if (tabId === 'overview') {
+                document.querySelector('.tab').classList.add('active');
+                document.getElementById('overview').classList.add('active');
+                document.getElementById('stats').style.display = 'flex';
+            } else {
+                event.target.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                document.getElementById('stats').style.display = 'none';
+            }
+        }
+
+        function renderOverview() {
+            const grid = document.getElementById('summaryGrid');
+            const filtered = getFilteredInterviews();
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="no-results"><h3>No interviews match your filters</h3><p>Try adjusting your search criteria</p></div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(interview => `
+                <div class="summary-card" onclick="showTab('${interview.id}')">
+                    <h3>${interview.client}</h3>
+                    <div class="meta">
+                        <strong>Date:</strong> ${interview.date} |
+                        <strong>Project:</strong> ${interview.project} |
+                        <strong>Score:</strong> <span class="score ${getScoreClass(interview.score)}">${interview.score}</span>
+                    </div>
+                    <div class="excerpt">${interview.overview.substring(0, 200)}...</div>
+                </div>
+            `).join('');
+        }
+
+        function renderInterviewDetail(interview) {
+            return `
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Client</div>
+                        <div class="info-value">${interview.client}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Interview Date</div>
+                        <div class="info-value">${interview.date}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Project</div>
+                        <div class="info-value">${interview.project}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">NPS Score</div>
+                        <div class="info-value"><span class="score ${getScoreClass(interview.score)}">${interview.score}</span></div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Overview</div>
+                    <div class="section-content">${interview.overview}</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Issues & Risks</div>
+                    <div class="section-content">${interview.issues}</div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Source File</div>
+                    <div class="section-content">${interview.source_file}</div>
+                </div>
+            `;
+        }
+
+        function getScoreClass(score) {
+            if (score >= 9) return 'high';
+            if (score >= 7) return 'medium';
+            return 'low';
+        }
+
+        function getFilteredInterviews() {
+            return interviews.filter(interview => {
+                const scoreMatch = currentFilters.score === 'all' || interview.score == currentFilters.score;
+                const companyMatch = currentFilters.company === 'all' || interview.client.includes(currentFilters.company);
+                const searchMatch = currentFilters.search === '' ||
+                    JSON.stringify(interview).toLowerCase().includes(currentFilters.search.toLowerCase());
+
+                return scoreMatch && companyMatch && searchMatch;
+            });
+        }
+
+        function updateStats() {
+            const statsContainer = document.getElementById('stats');
+            const filtered = getFilteredInterviews();
+            const avgScore = (filtered.reduce((sum, i) => sum + i.score, 0) / filtered.length).toFixed(1);
+            const promoters = filtered.filter(i => i.score >= 9).length;
+            const passives = filtered.filter(i => i.score >= 7 && i.score < 9).length;
+            const detractors = filtered.filter(i => i.score < 7).length;
+            const nps = Math.round(((promoters - detractors) / filtered.length) * 100);
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${filtered.length}</div>
+                    <div class="stat-label">Total Interviews</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${avgScore}</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${nps}</div>
+                    <div class="stat-label">NPS Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${promoters}</div>
+                    <div class="stat-label">Promoters (9-10)</div>
+                </div>
+            `;
+            statsContainer.style.display = 'flex';
+        }
+
+        document.getElementById('scoreFilter').addEventListener('change', (e) => {
+            currentFilters.score = e.target.value;
+            renderOverview();
+            updateStats();
+        });
+
+        document.getElementById('companyFilter').addEventListener('change', (e) => {
+            currentFilters.company = e.target.value;
+            renderOverview();
+            updateStats();
+        });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentFilters.search = e.target.value;
+            renderOverview();
+            updateStats();
+        });
+
+        function downloadAllData() {
+            const dataStr = JSON.stringify(interviews, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'nps_interviews_data.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        init();
+    </script>
+</body>
+</html>

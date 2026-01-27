@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPS Interview Report Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .controls {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .stats {
+            padding: 20px 30px;
+            background: #fff;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 150px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: flex;
+            height: calc(100vh - 400px);
+            min-height: 500px;
+        }
+
+        .report-list {
+            width: 400px;
+            border-right: 1px solid #e9ecef;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .report-card {
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            background: white;
+            margin: 10px;
+            border-radius: 8px;
+        }
+
+        .report-card:hover {
+            background-color: #f0f0f0;
+        }
+
+        .report-card.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .report-card.active .score-badge {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .client-name {
+            font-weight: 600;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .score-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .report-meta {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .report-preview {
+            font-size: 0.9em;
+            margin-top: 10px;
+            opacity: 0.9;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .report-detail {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .detail-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .detail-title {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+
+        .detail-meta {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.95em;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-content {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .list-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #667eea;
+            line-height: 1.6;
+        }
+
+        .list-item.positive {
+            border-left-color: #28a745;
+        }
+
+        .list-item.negative {
+            border-left-color: #dc3545;
+        }
+
+        .list-item.neutral {
+            border-left-color: #ffc107;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 968px) {
+            .content {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .report-list {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e9ecef;
+                max-height: 400px;
+            }
+
+            .report-detail {
+                min-height: 500px;
+            }
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        .score-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .score-promoter {
+            background-color: #28a745;
+        }
+
+        .score-passive {
+            background-color: #ffc107;
+        }
+
+        .score-detractor {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>NPS Interview Report Explorer</h1>
+            <div class="subtitle">Explore and analyze customer feedback insights</div>
+        </header>
+
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search reports...">
+            </div>
+            <div class="filter-group">
+                <select id="scoreFilter">
+                    <option value="all">All Scores</option>
+                    <option value="promoter">Promoters (9-10)</option>
+                    <option value="passive">Passives (7-8)</option>
+                    <option value="detractor">Detractors (0-6)</option>
+                </select>
+                <select id="sortOrder">
+                    <option value="date-desc">Date (Newest)</option>
+                    <option value="date-asc">Date (Oldest)</option>
+                    <option value="score-desc">Score (High to Low)</option>
+                    <option value="score-asc">Score (Low to High)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="avgScore">-</div>
+                <div class="stat-label">Average NPS Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalReports">-</div>
+                <div class="stat-label">Total Reports</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="promoterCount">-</div>
+                <div class="stat-label">Promoters</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="detractorCount">-</div>
+                <div class="stat-label">Detractors</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="report-list" id="reportList">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📋</div>
+                    <div>Loading reports...</div>
+                </div>
+            </div>
+            <div class="report-detail" id="reportDetail">
+                <div class="empty-state">
+                    <div class="empty-state-icon">👈</div>
+                    <div>Select a report to view details</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reports = [
+            {
+                "client": "Lisa Bolger, PartnerRe",
+                "interview_date": "02.10.25",
+                "project": "Executive Search",
+                "score": 9,
+                "overview": "Lisa Bolger, Chief People Officer at PartnerRe (1,350 employees, ELT of 15), has had a very positive relationship with CompanyA over the last 18 months. CompanyA has won the majority of tenders against Spencer Stuart and Heidrick & Struggles. The relationship started with consultant K in Zurich, then transitioned to AC who has been the main contact. Lisa praised CompanyA's tailored approach, thoughtful questions, alignment with PartnerRe's needs, and flexibility in negotiations. AC's communication style matches well with the CEO. There have been some challenges with ongoing US searches involving multiple stakeholders, but overall the experience has been excellent. Lisa is planning to transition out of her role by early next year.",
+                "what_went_well": [
+                    "Tailored, customer-centric approach - 'no one size fits all', focuses on what PartnerRe needs rather than what CompanyA offers",
+                    "Thoughtful questions and preparation - extensive preparation and great questions that really understand client needs, especially CEO preferences",
+                    "Winning tender approach - thoughtful questions and alignment focus has been the USP in winning tenders against competitors",
+                    "Flexibility in negotiations - AC has been flexible with retainer vs overall fee structures, accommodating PartnerRe's negotiation style while maintaining necessary terms",
+                    "AC's communication style - open, honest, insightful, matches CEO's thoughtful style, not afraid to challenge and put hard stuff on the table",
+                    "Stakeholder management - respects lines of authority, agreed upfront on main point of contact, challenges biases appropriately",
+                    "Use of CompanyA resources - leader profiles used for 75% of candidates, benchmarking conversations, sharing of data and resources",
+                    "Partnership approach - AC and Lisa communicate frequently via text and Teams, open channels, easy to reach",
+                    "Personal touch - good support during pre-onboarding and onboarding phases, hands-on cooperation",
+                    "Quality of candidates - overall satisfaction, though some challenging searches, got there in the end",
+                    "Reactive to needs - continues to adapt as needs surface"
+                ],
+                "challenges_pain_points": [
+                    "US team communication - need for more listening on US side compared to European side, sometimes tendency to 'over talk' rather than listen",
+                    "Ongoing claims role search in US - challenges coordinating meetings and interviews with different stakeholders, difficulty scheduling last-minute interviews with CFF",
+                    "Perception of overselling - on one search (second attempt after failed search with another agency), concern that CompanyA might be overselling candidates to prove they can do better",
+                    "Some challenging searches - one candidate pulled out after offer, some searches took longer than ideal",
+                    "Timeline management - some delays, though nothing insurmountable",
+                    "Multiple stakeholder coordination - challenges when person leading engagement is not the hiring manager"
+                ],
+                "gaps_identified": [
+                    "US team listening and communication - need for more listening, less talking, especially when trying to prove capability after a failed search with another agency",
+                    "Multi-stakeholder coordination - challenges managing searches with multiple stakeholders across US and Europe, especially when hiring manager is different from engagement lead",
+                    "Balance between selling and fitting - need to maintain balance between presenting good candidates and ensuring authentic fit, avoiding perception of overselling",
+                    "Timeline and logistics management - some delays and coordination issues, especially with last-minute scheduling requests",
+                    "Cultural alignment - US team may need better understanding of PartnerRe's culture (undersell and over deliver) to avoid overselling perception"
+                ],
+                "key_themes": [
+                    "Customer-centricity wins - focusing on client needs rather than CompanyA's offerings is the key differentiator",
+                    "Thoughtful questions and alignment - taking time to understand client needs, CEO preferences, and company culture drives success",
+                    "Communication style matching - AC's style matches CEO's thoughtful approach, creating strong rapport",
+                    "Flexibility and partnership - willingness to be flexible in fee structures while maintaining necessary terms builds trust",
+                    "Relationship business - PartnerRe values personal touch and relationship-focused approach over tech-enabled solutions",
+                    "Execution focus - PartnerRe is execution-focused culture, values getting things done over extensive consulting",
+                    "Authentic challenge - clients appreciate consultants who challenge appropriately, don't just say yes to CEO",
+                    "Stakeholder respect - respecting lines of authority and agreed communication structures is important",
+                    "Cultural sensitivity - understanding client culture (undersell/over deliver) helps avoid mismatched approaches",
+                    "Multi-stakeholder complexity - searches with multiple stakeholders across regions require careful coordination"
+                ],
+                "actions_recommendations": [
+                    "Improve US team listening and communication - train US team on listening skills, especially when working on challenging searches or second attempts",
+                    "Better multi-stakeholder coordination - develop processes for managing searches with multiple stakeholders across regions, especially when hiring manager differs from engagement lead",
+                    "Maintain balance in candidate presentation - ensure US team understands importance of authentic fit over selling, especially when trying to prove capability",
+                    "Continue thoughtful questioning approach - maintain the focus on understanding client needs that has been successful in winning tenders",
+                    "Leverage communication style matching - continue matching consultant styles to client preferences (AC's match with CEO has been very successful)",
+                    "Maintain flexibility in negotiations - continue the flexible approach to fee structures that accommodates client needs",
+                    "Improve timeline and logistics management - better coordination for multi-stakeholder searches, especially around scheduling",
+                    "Cultural awareness training - ensure US team understands PartnerRe's culture (undersell/over deliver) to avoid overselling perception",
+                    "Continue personal touch - maintain the relationship-focused approach that PartnerRe values over tech-enabled solutions"
+                ],
+                "additional_insight": "Lisa noted that PartnerRe is an execution-focused culture that 'starts late and finishes strong' - they're not market makers or trendsetters. They value the personal, tangible, relationship-based approach over analytics and data. The company doesn't use a lot of consultants and prefers to 'just get it done.' Lisa is planning to transition out of her role by March-April-May next year to pursue coaching, and she specifically requested that AC lead the search for her replacement because his approach fits their culture. This shows the value of style matching. The fact that CompanyA has won the majority of tenders against top competitors (Spencer Stuart, Heidrick & Struggles) demonstrates the effectiveness of their customer-centric, thoughtful approach."
+            },
+            {
+                "client": "Vanessa, Heidelberg Materials",
+                "interview_date": "01.10.25",
+                "project": "Executive Search",
+                "score": 10,
+                "overview": "Vanessa, HR Director for Benelux region at Heidelberg Materials, had an extremely positive experience with CompanyA for a confidential procurement director search. The engagement was her first with CompanyA in her current role, though she had worked with consultant OT previously. The search was highly confidential as the previous procurement director was still in place. CompanyA was selected over two other consultancies based on their approach to guaranteeing confidentiality and the trust relationship with OT. The process resulted in three excellent candidates, all of whom met with the general manager - an unprecedented outcome. The selected candidate (Anne) has started in the role.",
+                "what_went_well": [
+                    "CompanyA's approach to confidentiality was exceptional - they provided detailed arguments and references for handling confidential searches, which was critical in Belgium's small market",
+                    "The intake conversation and profile definition process was thorough - CompanyA created the profile description and used LinkedIn profiles to help narrow down requirements",
+                    "Assessment tools were included in the package and provided valuable insights - the assessment reports (2-3 pages) matched what Vanessa observed in interviews",
+                    "Quality of candidates was outstanding - all three final candidates were excellent and could do the job, matching company culture perfectly",
+                    "Reactivity and adaptability - CompanyA quickly adjusted when feedback was given about report timing (needed 3-4 business days before interviews instead of 48 hours)",
+                    "Handled last-minute interview changes smoothly and transparently",
+                    "Support during offer stage - helped explain the total compensation package to the candidate, including special bonus system",
+                    "Client-oriented and service-oriented approach throughout",
+                    "The consultant OT's previous relationship and trust was a key factor in selection"
+                ],
+                "challenges_pain_points": [
+                    "Initial candidate reports were sent only 48 hours before interviews (Friday evening for Monday morning interview) - too short notice for thorough preparation",
+                    "Some information was missing from initial reports, though CompanyA was reactive in adding it for subsequent reports",
+                    "Fees are higher than other headhunters in Belgium - limiting use to Exco level positions only",
+                    "No follow-up yet with the placed candidate (Anne) - Vanessa hopes for follow-up calls at a few weeks, 3 months, and 6 months to get candid feedback"
+                ],
+                "gaps_identified": [
+                    "Follow-up process with placed candidates - Vanessa explicitly requested follow-up calls with Anne to gather feedback that the candidate might not share directly with her",
+                    "Timing of candidate reports - initial reports arrived too late for proper preparation, though this was addressed after feedback",
+                    "Compensation negotiation involvement - Vanessa preferred to handle this herself due to potential conflict of interest (fees based on salary percentage), though CompanyA did provide salary expectations and post-offer support"
+                ],
+                "key_themes": [
+                    "Confidentiality and trust are paramount in small markets like Belgium",
+                    "Quality over quantity - three excellent candidates is better than many mediocre ones",
+                    "Reactivity and adaptability to client feedback is highly valued",
+                    "Relationship and trust with specific consultants drives selection decisions",
+                    "Assessment tools add value when properly integrated and explained",
+                    "Client service orientation and being treated as a valued client throughout the process",
+                    "Cost considerations limit broader use - only for Exco level positions",
+                    "Follow-up and ongoing relationship management after placement is desired"
+                ],
+                "actions_recommendations": [
+                    "Establish standard practice of sending candidate reports 3-4 business days before interviews to allow proper preparation time",
+                    "Implement structured follow-up process with placed candidates at key milestones (few weeks, 3 months, 6 months) to gather feedback and ensure successful integration",
+                    "Consider fee structure flexibility for non-Exco positions to expand market opportunity in Belgium",
+                    "Continue emphasizing confidentiality approach in pitches for sensitive searches",
+                    "Maintain the reactive and adaptable approach that allows for quick course correction based on client feedback",
+                    "Ensure all required information is included in initial candidate reports to avoid back-and-forth",
+                    "Leverage assessment tools more prominently as a differentiator, especially when they align well with candidate observations"
+                ],
+                "additional_insight": "Vanessa compared this experience favorably to a concurrent search with a legal-specialized headhunter that was 'a mess' and she would never use again. She explicitly stated she would use CompanyA for the legal director search if it were Exco level. The contrast highlights the value of CompanyA's approach. Vanessa also noted that CompanyA's core business should remain executive search - she has existing partnerships for leadership development and internal expertise for other HR projects, so expansion into consultancy services is not of interest to her."
+            },
+            {
+                "client": "Greg Aarssen, TriSummit Utilities Inc.",
+                "interview_date": "01.12.25",
+                "project": "Executive Search",
+                "score": 10,
+                "overview": "Greg Aarssen, director and chair of compensation and governance committees at TriSummit Utilities (a Canadian utility holding company), had his first direct experience with CompanyA for a CEO search. The company needed to replace their CEO who resigned, and CompanyA was chosen over three other firms based on their deep understanding of the business, culture, and existing relationships with Alta Gas (the parent company). The process was completed in two months instead of the expected 4-5 months. CompanyA conducted both an internal candidate assessment and external market survey. The internal candidate was ultimately selected after extensive psychometric testing. Greg praised the responsiveness, proactive communication, and personalized approach of ConsultantA and Craig King.",
+                "what_went_well": [
+                    "Speed and efficiency - completed in 2 months instead of expected 4-5 months",
+                    "Deep understanding of business and culture - CompanyA had long-standing relationships with Alta Gas and understood the nuts and bolts of the business",
+                    "Dual-path approach - effectively tested internal candidate while conducting market survey",
+                    "Market survey was comprehensive - looked beyond industry to natural gas, oil, energy, and broader sectors, finding interesting candidates with similar skills",
+                    "Flexibility and willingness to get the job done - consultants made themselves available at various times (early morning, late evening) to accommodate schedules",
+                    "Assessment tools provided confidence - extensive battery of tests on internal candidate confirmed suitability, eliminating need to test external candidates",
+                    "Proactive communication - Greg never felt in the dark, received regular updates even when CompanyA was dealing with external candidates",
+                    "Communication style match - open, honest, to-the-point communication that matched Greg's preferences (he noted this is rare in his experience)",
+                    "ConsultantA and Craig King built immediate rapport - felt like they had worked together for a long time within first 15 minutes",
+                    "Flexibility in fee negotiations - respectful of the company's negotiation style while maintaining necessary terms"
+                ],
+                "challenges_pain_points": [
+                    "Compensation benchmarking conflict - CompanyA couldn't provide compensation review because they were involved in the search (conflict of interest), requiring separate engagement with Meridian Consulting",
+                    "CompanyA's marketing and visibility - Greg only knew of them through golf sponsorship and wouldn't have heard of them otherwise; suggests need for better marketing/education",
+                    "Succession planning gaps - the company's succession matrix had names but no real assessment of capability, creating blind spots that the assessment process revealed"
+                ],
+                "gaps_identified": [
+                    "Marketing and brand awareness - CompanyA is not well-known outside of golf sponsorship; competitors like Hugessen are more visible in corporate governance education",
+                    "Compensation benchmarking services - when CompanyA is involved in search, they can't provide independent compensation validation, creating need for third-party services",
+                    "Succession planning depth - companies have succession matrices but lack real assessment of capability; opportunity for CompanyA to provide evaluation services",
+                    "Board-level coaching and development - opportunity identified for third-party assistance in board-level coaching, especially given shareholder need for external validation",
+                    "Education and thought leadership - opportunity to provide more educational content (one-pagers, conversations) rather than long papers, especially for older executives"
+                ],
+                "key_themes": [
+                    "Speed and agility are critical differentiators - completing searches faster than competitors",
+                    "Business and cultural understanding drives selection - deep knowledge of client's business and culture is highly valued",
+                    "Communication style matching is important - adapting to client's preferred communication style (direct, honest, to-the-point)",
+                    "Assessment tools provide confidence and eliminate blind spots in internal candidate evaluation",
+                    "Market surveys validate internal candidates and provide external benchmarks",
+                    "Third-party validation is important for shareholders - external experts provide credibility that internal voices cannot",
+                    "Marketing and visibility need improvement - golf sponsorship story needs better explanation and broader reach",
+                    "Succession planning is a growth opportunity - companies need help evaluating their succession matrices",
+                    "Board services represent untapped opportunity - especially for coaching and development"
+                ],
+                "actions_recommendations": [
+                    "Improve marketing and brand visibility - expand beyond golf sponsorship to corporate governance education, director training, and thought leadership",
+                    "Better articulate golf sponsorship story - explain the 'realizing potential' narrative more clearly in marketing materials",
+                    "Develop succession planning evaluation services - help companies assess capability gaps in their succession matrices",
+                    "Create board-level coaching and development offerings - leverage the need for third-party validation that shareholders require",
+                    "Develop educational content formats - create one-pagers and conversation opportunities rather than long papers, especially for senior executives",
+                    "Consider compensation benchmarking structure - explore ways to provide independent compensation validation even when involved in searches, or partner more effectively with third parties",
+                    "Maintain flexibility and responsiveness - continue the approach of making consultants available at various times to accommodate client schedules",
+                    "Leverage business understanding - continue to invest in deep knowledge of client businesses and cultures as a key differentiator"
+                ],
+                "additional_insight": "Greg noted that CompanyA is 'not inexpensive' and clients need to be able to pay for quality, suggesting this is part of their 'high grading' strategy. He also mentioned that his company's shareholders are 'cheap' (not just frugal) and tend to cut corners on important investments, which creates challenges. The board spends significant time on people issues (30-45 minutes per meeting, plus committee time and individual preparation), indicating a substantial opportunity for CompanyA's broader services. Greg is planning to meet with ConsultantA to discuss succession planning services, showing strong potential for expanded engagement."
+            },
+            {
+                "client": "Jeanette Rooms, Ocorian",
+                "interview_date": "01.12.25",
+                "project": "Executive Search",
+                "score": 6,
+                "overview": "Jeanette, Chief People Officer at Ocorian, had a challenging experience with CompanyA for two concurrent searches (Chief Digital Officer and Group Capability Centers Head). The process took 5-6 months instead of the expected 2-3 months. Key issues included difficulty getting a mixed slate of candidates (especially women), all-male consultant team, significant problems with compensation information and negotiation, and inefficient communication. Despite eventually finding two good candidates, the experience left Jeanette and CEO Chantelle frustrated, particularly with the lack of pace, urgency, and assertiveness from CompanyA. The compensation issues nearly caused them to lose a preferred candidate.",
+                "what_went_well": [
+                    "Eventually found two very good candidates for both roles",
+                    "Consultants were personable and professional",
+                    "CompanyA did negotiate on behalf of candidates",
+                    "Stuart (CompanyA) reached out for follow-up meeting after feedback was provided",
+                    "The process started reasonably well initially"
+                ],
+                "challenges_pain_points": [
+                    "Diversity in candidate slate - had to repeatedly request women candidates; all consultants were male, making it harder to attract female candidates",
+                    "Compensation information was extremely difficult to obtain - couldn't get current compensation details until offer stage, requiring constant back-and-forth",
+                    "Compensation details were vague - didn't understand structure of bonuses, equity, fixed vs variable components, requiring multiple rounds of questions",
+                    "Process took 5-6 months instead of expected 2-3 months - way longer than anticipated",
+                    "Reports arrived too late - often landing 1-2 hours before calls with 7 new CVs, making preparation impossible",
+                    "Lack of pace and urgency - didn't match the CEO's high-energy, fast-moving style",
+                    "Lack of assertiveness - consultants were hesitant, didn't proactively recommend top candidates, required client to drive conversations",
+                    "Candidates didn't meet brief initially - took 2+ months before right candidates emerged, and CompanyA didn't proactively identify the mismatch",
+                    "Nearly lost preferred candidate due to compensation delays - candidate had another offer while CompanyA was still gathering compensation details",
+                    "Didn't end up with originally preferred candidate - offer wasn't competitive enough due to delays, though they got a better candidate in the end",
+                    "No benchmarking support - CompanyA provided vague expectations but no detailed compensation benchmarking or structure guidance",
+                    "Inefficient communication - constant back-and-forth on compensation, didn't proactively manage the process",
+                    "CEO had to take over negotiations - Chantelle ended up calling candidate directly to move things along"
+                ],
+                "gaps_identified": [
+                    "Diversity and inclusion - lack of female consultants impacts ability to attract and identify female candidates; need for more diverse consultant team",
+                    "Compensation expertise - lack of detailed understanding of compensation structures, inability to provide clear benchmarking, delays in gathering compensation information",
+                    "Project management and communication - reports arrive too late, inefficient communication, lack of proactive management",
+                    "Assertiveness and pace - consultants too hesitant, don't match high-energy client expectations, need to be more proactive in recommendations",
+                    "Brief alignment - didn't proactively identify when candidates weren't matching brief, required client to initiate course correction conversations",
+                    "Timeline management - unable to meet aggressive timelines (2-3 months), process extended to 5-6 months",
+                    "Stakeholder management - didn't effectively manage high-energy CEO who expects assertive, fast-moving partners"
+                ],
+                "key_themes": [
+                    "Diversity matters - all-male consultant team creates barriers to diverse candidate slates",
+                    "Compensation expertise is critical - detailed understanding of compensation structures is essential for senior roles",
+                    "Pace and urgency must match client expectations - high-energy clients need assertive, fast-moving partners",
+                    "Proactive communication and project management - clients expect consultants to drive the process, not the other way around",
+                    "Timeline management - ability to meet aggressive timelines is a key differentiator",
+                    "Assertiveness in recommendations - clients want consultants to recommend top candidates, not just present options",
+                    "Brief alignment - consultants should proactively identify and address misalignment with client requirements",
+                    "Compensation negotiation support - detailed compensation information must be gathered early and presented clearly"
+                ],
+                "actions_recommendations": [
+                    "Improve diversity in consultant teams - recruit and deploy more female consultants, especially for roles requiring diverse candidate slates",
+                    "Enhance compensation expertise - train consultants on compensation structures, develop better benchmarking capabilities, gather compensation information early in process",
+                    "Improve project management - send reports well in advance of calls (at least 2-3 business days), proactively manage timelines, provide clear recommendations",
+                    "Increase assertiveness and pace - match high-energy client expectations, proactively recommend top candidates, drive conversations rather than waiting for client direction",
+                    "Proactive brief alignment - regularly check in on brief alignment, proactively identify when candidates don't match requirements, initiate course correction conversations",
+                    "Better stakeholder management - understand client communication styles and energy levels, adapt approach accordingly",
+                    "Compensation process improvement - gather detailed compensation information early, provide clear structure breakdowns, support benchmarking and negotiation more effectively",
+                    "Timeline management - set realistic expectations, but also develop capability to meet aggressive timelines when required",
+                    "Follow-up and relationship repair - continue outreach efforts (like Stuart's), use feedback to improve future engagements"
+                ],
+                "additional_insight": "Jeanette noted that this experience was worse than her previous experiences with CompanyA (different team), but she didn't have concerns when Chantelle said they were using CompanyA based on reputation and past experience. The frustration built over time, with the worst issues occurring at the end during compensation negotiations. Jeanette is open to future engagements if improvements are made. The contrast with her experience of 'better headhunters' highlights the importance of pace, assertiveness, and compensation expertise. The fact that they eventually got good candidates shows the underlying capability exists, but the execution and process management need significant improvement."
+            }
+        ];
+
+        let filteredReports = [...reports];
+        let selectedReport = null;
+
+        function getScoreCategory(score) {
+            if (score >= 9) return 'promoter';
+            if (score >= 7) return 'passive';
+            return 'detractor';
+        }
+
+        function getScoreColor(score) {
+            if (score >= 9) return '#28a745';
+            if (score >= 7) return '#ffc107';
+            return '#dc3545';
+        }
+
+        function highlightText(text, searchTerm) {
+            if (!searchTerm) return text;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+
+        function updateStats() {
+            const avgScore = (reports.reduce((sum, r) => sum + r.score, 0) / reports.length).toFixed(1);
+            const promoters = reports.filter(r => r.score >= 9).length;
+            const detractors = reports.filter(r => r.score <= 6).length;
+
+            document.getElementById('avgScore').textContent = avgScore;
+            document.getElementById('totalReports').textContent = reports.length;
+            document.getElementById('promoterCount').textContent = promoters;
+            document.getElementById('detractorCount').textContent = detractors;
+        }
+
+        function renderReportList() {
+            const listElement = document.getElementById('reportList');
+            const searchTerm = document.getElementById('searchInput').value;
+
+            if (filteredReports.length === 0) {
+                listElement.innerHTML = '<div class="no-results">No reports found</div>';
+                return;
+            }
+
+            listElement.innerHTML = filteredReports.map(report => `
+                <div class="report-card ${selectedReport === report ? 'active' : ''}"
+                     onclick="selectReport(${reports.indexOf(report)})">
+                    <div class="report-header">
+                        <div>
+                            <div class="client-name">${highlightText(report.client, searchTerm)}</div>
+                            <div class="report-meta">
+                                <span class="score-indicator score-${getScoreCategory(report.score)}"></span>
+                                ${report.interview_date} • ${report.project}
+                            </div>
+                        </div>
+                        <div class="score-badge" style="background: ${getScoreColor(report.score)}">${report.score}</div>
+                    </div>
+                    <div class="report-preview">${highlightText(report.overview, searchTerm)}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderReportDetail(report) {
+            const detailElement = document.getElementById('reportDetail');
+            const searchTerm = document.getElementById('searchInput').value;
+
+            detailElement.innerHTML = `
+                <div class="detail-header">
+                    <div class="detail-title">${report.client}</div>
+                    <div class="detail-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Date:</span>
+                            <span>${report.interview_date}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Project:</span>
+                            <span>${report.project}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">NPS Score:</span>
+                            <span class="score-badge" style="background: ${getScoreColor(report.score)}">${report.score}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Overview</div>
+                    <div class="section-content">
+                        ${highlightText(report.overview, searchTerm)}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">What Went Well</div>
+                    <div class="section-content">
+                        ${report.what_went_well.map(item => `
+                            <div class="list-item positive">${highlightText(item, searchTerm)}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Challenges & Pain Points</div>
+                    <div class="section-content">
+                        ${report.challenges_pain_points.map(item => `
+                            <div class="list-item negative">${highlightText(item, searchTerm)}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Gaps Identified</div>
+                    <div class="section-content">
+                        ${report.gaps_identified.map(item => `
+                            <div class="list-item neutral">${highlightText(item, searchTerm)}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Key Themes</div>
+                    <div class="section-content">
+                        ${report.key_themes.map(item => `
+                            <div class="list-item">${highlightText(item, searchTerm)}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Actions & Recommendations</div>
+                    <div class="section-content">
+                        ${report.actions_recommendations.map(item => `
+                            <div class="list-item">${highlightText(item, searchTerm)}</div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Additional Insights</div>
+                    <div class="section-content">
+                        ${highlightText(report.additional_insight, searchTerm)}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectReport(index) {
+            selectedReport = reports[index];
+            renderReportList();
+            renderReportDetail(selectedReport);
+        }
+
+        function filterReports() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const scoreFilter = document.getElementById('scoreFilter').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            filteredReports = reports.filter(report => {
+                const matchesSearch = !searchTerm ||
+                    JSON.stringify(report).toLowerCase().includes(searchTerm);
+
+                const matchesScore = scoreFilter === 'all' ||
+                    getScoreCategory(report.score) === scoreFilter;
+
+                return matchesSearch && matchesScore;
+            });
+
+            // Sort
+            filteredReports.sort((a, b) => {
+                switch(sortOrder) {
+                    case 'date-desc':
+                        return new Date(b.interview_date) - new Date(a.interview_date);
+                    case 'date-asc':
+                        return new Date(a.interview_date) - new Date(b.interview_date);
+                    case 'score-desc':
+                        return b.score - a.score;
+                    case 'score-asc':
+                        return a.score - b.score;
+                    default:
+                        return 0;
+                }
+            });
+
+            renderReportList();
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterReports);
+        document.getElementById('scoreFilter').addEventListener('change', filterReports);
+        document.getElementById('sortOrder').addEventListener('change', filterReports);
+
+        // Initialize
+        updateStats();
+        filterReports();
+    </script>
+</body>
+</html>

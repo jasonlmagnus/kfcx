@@ -5,7 +5,9 @@ import {
   getNextInterviewId,
   writeTranscript,
   writeReport,
+  writeOriginalPdf,
 } from "@/lib/data/store";
+import { parsePdfBuffer } from "@/lib/data/pdf-parser";
 import { getNPSCategory } from "@/lib/utils/nps";
 import { getMonthYear } from "@/lib/utils/dates";
 import type {
@@ -16,6 +18,13 @@ import type {
   Solution,
   MetadataIndex,
 } from "@/types";
+
+function isPdfFile(file: File): boolean {
+  return (
+    file.name.toLowerCase().endsWith(".pdf") ||
+    file.type === "application/pdf"
+  );
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -121,36 +130,67 @@ export async function POST(request: NextRequest) {
     }
 
     // --- Process report file ---
+    let originalPdfFile: string | null = null;
     if (reportFile) {
-      const reportText = await reportFile.text();
-      const reportJSON = JSON.parse(reportText);
+      if (isPdfFile(reportFile)) {
+        // PDF report: parse structured content and save original
+        const arrayBuffer = await reportFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
 
-      const normalizedReport: NormalizedReport = {
-        id,
-        client: reportJSON.client || clientName,
-        interviewDate: reportJSON.interview_date || reportJSON.interviewDate || interviewDate,
-        project: reportJSON.project || "",
-        score: reportJSON.score ?? score,
-        overview: reportJSON.overview || "",
-        whatWentWell: reportJSON.what_went_well || reportJSON.whatWentWell || [],
-        challengesPainPoints:
-          reportJSON.challenges_pain_points ||
-          reportJSON.challengesPainPoints ||
-          [],
-        gapsIdentified:
-          reportJSON.gaps_identified || reportJSON.gapsIdentified || [],
-        keyThemes: reportJSON.key_themes || reportJSON.keyThemes || [],
-        actionsRecommendations:
-          reportJSON.actions_recommendations ||
-          reportJSON.actionsRecommendations ||
-          [],
-        additionalInsight:
-          reportJSON.additional_insight ||
-          reportJSON.additionalInsight ||
-          "",
-      };
+        // Save original PDF
+        const pdfFilename = reportFile.name;
+        await writeOriginalPdf(pdfFilename, buffer);
+        originalPdfFile = `originals/${pdfFilename}`;
 
-      await writeReport(id, normalizedReport);
+        // Parse PDF into structured report
+        const parsed = await parsePdfBuffer(buffer);
+        const normalizedReport: NormalizedReport = {
+          id,
+          client: parsed.client || clientName,
+          interviewDate: parsed.interviewDate || interviewDate,
+          project: parsed.engagement || solution,
+          score,
+          overview: parsed.overview,
+          whatWentWell: parsed.whatWentWell,
+          challengesPainPoints: parsed.challengesPainPoints,
+          gapsIdentified: parsed.gapsIdentified,
+          keyThemes: parsed.keyThemes,
+          actionsRecommendations: parsed.actionsRecommendations,
+          additionalInsight: parsed.additionalInsight,
+        };
+        await writeReport(id, normalizedReport);
+      } else {
+        // JSON report: existing behavior
+        const reportText = await reportFile.text();
+        const reportJSON = JSON.parse(reportText);
+
+        const normalizedReport: NormalizedReport = {
+          id,
+          client: reportJSON.client || clientName,
+          interviewDate: reportJSON.interview_date || reportJSON.interviewDate || interviewDate,
+          project: reportJSON.project || "",
+          score: reportJSON.score ?? score,
+          overview: reportJSON.overview || "",
+          whatWentWell: reportJSON.what_went_well || reportJSON.whatWentWell || [],
+          challengesPainPoints:
+            reportJSON.challenges_pain_points ||
+            reportJSON.challengesPainPoints ||
+            [],
+          gapsIdentified:
+            reportJSON.gaps_identified || reportJSON.gapsIdentified || [],
+          keyThemes: reportJSON.key_themes || reportJSON.keyThemes || [],
+          actionsRecommendations:
+            reportJSON.actions_recommendations ||
+            reportJSON.actionsRecommendations ||
+            [],
+          additionalInsight:
+            reportJSON.additional_insight ||
+            reportJSON.additionalInsight ||
+            "",
+        };
+
+        await writeReport(id, normalizedReport);
+      }
     }
 
     // --- Create metadata entry ---
@@ -173,7 +213,8 @@ export async function POST(request: NextRequest) {
       hasTranscript: !!transcriptFile,
       hasReport: !!reportFile,
       transcriptFile: transcriptSourceFile,
-      reportFile: reportFile ? reportFile.name : null,
+      reportFile: reportFile ? `reports/${id}.json` : null,
+      originalPdfFile,
       createdAt: now,
       updatedAt: now,
     };

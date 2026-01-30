@@ -125,6 +125,29 @@ export async function writeEmbeddingIndex(
   await writeJSON(filePath, data);
 }
 
+// --- Original PDFs ---
+
+export async function readOriginalPdf(
+  relativePath: string
+): Promise<Buffer | null> {
+  try {
+    const filePath = resolvePath(relativePath);
+    return await fs.readFile(filePath);
+  } catch {
+    return null;
+  }
+}
+
+export async function writeOriginalPdf(
+  filename: string,
+  data: Buffer
+): Promise<void> {
+  const dirPath = resolvePath("originals");
+  await ensureDir(dirPath);
+  const filePath = path.join(dirPath, filename);
+  await fs.writeFile(filePath, data);
+}
+
 // --- Utility ---
 
 export function getNextInterviewId(index: MetadataIndex): string {

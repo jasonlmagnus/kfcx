@@ -24,6 +24,7 @@ export interface InterviewMetadata {
   hasReport: boolean;
   transcriptFile: string;
   reportFile: string | null;
+  originalPdfFile?: string | null;
   createdAt: string;
   updatedAt: string;
 }

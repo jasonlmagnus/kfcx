@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readReport, readMetadataIndex } from "@/lib/data/store";
+import {
+  readReport,
+  readMetadataIndex,
+  readOriginalPdf,
+} from "@/lib/data/store";
 
 export async function GET(
   request: NextRequest,
@@ -13,6 +17,23 @@ export async function GET(
     return NextResponse.json({ error: "Report not found" }, { status: 404 });
   }
 
+  // Serve original PDF if available
+  if (metadata.originalPdfFile) {
+    const pdfData = await readOriginalPdf(metadata.originalPdfFile);
+    if (pdfData) {
+      const filename = metadata.originalPdfFile.split("/").pop() ||
+        `Report_${metadata.client}_${metadata.company}.pdf`;
+
+      return new NextResponse(new Uint8Array(pdfData), {
+        headers: {
+          "Content-Type": "application/pdf",
+          "Content-Disposition": `attachment; filename="${filename}"`,
+        },
+      });
+    }
+  }
+
+  // Fall back to JSON report
   const report = await readReport(id);
   if (!report) {
     return NextResponse.json({ error: "Report not found" }, { status: 404 });

@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { buildEmbeddingIndex } from "@/lib/ai/embeddings";
 import { generateThemeAnalysis, generateOpportunityAnalysis } from "@/lib/ai/analysis";
+import { syncVectorStore, getOrCreateAssistant } from "@/lib/ai/vector-store";
 
-// Reindex can take 1–2 minutes (embeddings + AI analysis)
+// Reindex can take 1–2 minutes (embeddings + vector store + AI analysis)
 export const maxDuration = 120;
 
 export async function POST() {
@@ -10,7 +11,7 @@ export async function POST() {
   let allOk = true;
 
   try {
-    // Build embeddings
+    // Build local embeddings (for search API if used elsewhere)
     try {
       const embeddingIndex = await buildEmbeddingIndex();
       results.push(
@@ -20,6 +21,19 @@ export async function POST() {
       allOk = false;
       const msg = error instanceof Error ? error.message : String(error);
       results.push(`Embeddings: Failed - ${msg}`);
+    }
+
+    // Sync OpenAI vector store (for Chat)
+    try {
+      const { vectorStoreId, fileCount } = await syncVectorStore();
+      const assistantId = await getOrCreateAssistant(vectorStoreId);
+      results.push(
+        `Vector store: synced (${fileCount} file(s)); assistant ready for Chat`
+      );
+    } catch (error) {
+      allOk = false;
+      const msg = error instanceof Error ? error.message : String(error);
+      results.push(`Vector store: Failed - ${msg}`);
     }
 
     // Generate theme analysis

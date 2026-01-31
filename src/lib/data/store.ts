@@ -148,6 +148,85 @@ export async function writeOriginalPdf(
   await fs.writeFile(filePath, data);
 }
 
+// --- Vector Store Config (OpenAI) ---
+
+export interface VectorStoreConfig {
+  vectorStoreId: string | null;
+  assistantId: string | null;
+  lastSyncedAt: string | null;
+}
+
+const DEFAULT_VECTOR_STORE_CONFIG: VectorStoreConfig = {
+  vectorStoreId: null,
+  assistantId: null,
+  lastSyncedAt: null,
+};
+
+const ENV_LOCAL_PATH = path.join(process.cwd(), ".env.local");
+const VECTOR_STORE_ID_KEY = "OPENAI_VECTOR_STORE_ID";
+const ASSISTANT_ID_KEY = "OPENAI_ASSISTANT_ID";
+
+export async function readVectorStoreConfig(): Promise<VectorStoreConfig> {
+  const fromEnv: VectorStoreConfig = {
+    vectorStoreId: process.env[VECTOR_STORE_ID_KEY] ?? null,
+    assistantId: process.env[ASSISTANT_ID_KEY] ?? null,
+    lastSyncedAt: null,
+  };
+  if (fromEnv.vectorStoreId || fromEnv.assistantId) {
+    const filePath = resolvePath("metadata", "vector_store.json");
+    const data = await readJSON<VectorStoreConfig>(filePath);
+    return {
+      vectorStoreId: fromEnv.vectorStoreId ?? data?.vectorStoreId ?? null,
+      assistantId: fromEnv.assistantId ?? data?.assistantId ?? null,
+      lastSyncedAt: data?.lastSyncedAt ?? null,
+    };
+  }
+  const filePath = resolvePath("metadata", "vector_store.json");
+  const data = await readJSON<VectorStoreConfig>(filePath);
+  return data ?? DEFAULT_VECTOR_STORE_CONFIG;
+}
+
+/** Update .env.local with OPENAI_VECTOR_STORE_ID and OPENAI_ASSISTANT_ID. */
+export async function updateEnvLocalWithVectorStoreIds(
+  vectorStoreId: string | null,
+  assistantId: string | null
+): Promise<void> {
+  let content = "";
+  try {
+    content = await fs.readFile(ENV_LOCAL_PATH, "utf-8");
+  } catch {
+    // File doesn't exist; create with just the two keys (caller may add OPENAI_API_KEY separately)
+  }
+  const lines = content ? content.split("\n") : [];
+  const out: string[] = [];
+  let hadVectorStore = false;
+  let hadAssistant = false;
+  for (const line of lines) {
+    const keyMatch = line.match(/^([A-Za-z_][A-Za-z0-9_]*)\s*=/);
+    const key = keyMatch?.[1];
+    if (key === VECTOR_STORE_ID_KEY) {
+      out.push(vectorStoreId != null ? `${VECTOR_STORE_ID_KEY}=${vectorStoreId}` : line);
+      hadVectorStore = true;
+    } else if (key === ASSISTANT_ID_KEY) {
+      out.push(assistantId != null ? `${ASSISTANT_ID_KEY}=${assistantId}` : line);
+      hadAssistant = true;
+    } else {
+      out.push(line);
+    }
+  }
+  if (vectorStoreId != null && !hadVectorStore) out.push(`${VECTOR_STORE_ID_KEY}=${vectorStoreId}`);
+  if (assistantId != null && !hadAssistant) out.push(`${ASSISTANT_ID_KEY}=${assistantId}`);
+  await fs.writeFile(ENV_LOCAL_PATH, out.join("\n").trimEnd() + "\n", "utf-8");
+}
+
+export async function writeVectorStoreConfig(
+  config: VectorStoreConfig
+): Promise<void> {
+  const filePath = resolvePath("metadata", "vector_store.json");
+  await writeJSON(filePath, config);
+  await updateEnvLocalWithVectorStoreIds(config.vectorStoreId, config.assistantId);
+}
+
 // --- Utility ---
 
 export function getNextInterviewId(index: MetadataIndex): string {

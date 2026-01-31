@@ -3,6 +3,80 @@ import { generateEmbedding, searchSimilar } from "./embeddings";
 import { readMetadataIndex } from "@/lib/data/store";
 import type { ChatMessage, EmbeddingChunk, InterviewMetadata } from "@/types";
 
+/** Stream chat using OpenAI Assistants API (vector store). Preferred when vector store is synced. */
+export async function streamChatResponseWithAssistant(
+  messages: ChatMessage[],
+  assistantId: string
+): Promise<ReadableStream> {
+  const openai = getOpenAIClient();
+  const encoder = new TextEncoder();
+
+  // Create thread and add the latest user message (assistant has full context in vector store)
+  const thread = await openai.beta.threads.create();
+  const latestUser = messages.filter((m) => m.role === "user").pop();
+  if (latestUser?.content) {
+    await openai.beta.threads.messages.create(thread.id, {
+      role: "user",
+      content: latestUser.content,
+    });
+  }
+
+  // Create run with stream and consume via async iterator
+  const runStream = openai.beta.threads.runs.stream(thread.id, {
+    assistant_id: assistantId,
+    stream: true,
+  });
+
+  return new ReadableStream({
+    async start(controller) {
+      try {
+        for await (const event of runStream) {
+          if (
+            event.event === "thread.message.delta" &&
+            "data" in event &&
+            event.data &&
+            "delta" in event.data &&
+            event.data.delta?.content
+          ) {
+            for (const part of event.data.delta.content) {
+              if (
+                part &&
+                typeof part === "object" &&
+                "type" in part &&
+                part.type === "text" &&
+                "text" in part &&
+                part.text &&
+                typeof part.text.value === "string"
+              ) {
+                controller.enqueue(
+                  encoder.encode(
+                    `data: ${JSON.stringify({ content: part.text.value })}\n\n`
+                  )
+                );
+              }
+            }
+          }
+        }
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`)
+        );
+      } catch (error) {
+        controller.enqueue(
+          encoder.encode(
+            `data: ${JSON.stringify({
+              error:
+                error instanceof Error
+                  ? error.message
+                  : "An error occurred while generating the response.",
+            })}\n\n`
+          )
+        );
+      }
+      controller.close();
+    },
+  });
+}
+
 const SYSTEM_PROMPT = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. You help users explore client feedback from NPS interviews conducted as part of Korn Ferry's Customer Centricity programme.
 
 Your role is to answer questions based on the interview transcripts and structured reports provided in the CONTEXT below.

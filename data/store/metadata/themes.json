@@ -1,5 +1,5 @@
 {
-  "lastGenerated": "2026-01-31T10:57:07.262Z",
+  "lastGenerated": "2026-01-31T12:10:20.940Z",
   "generatedFrom": [
     "t-001",
     "t-002",
@@ -57,7 +57,7 @@
       {
         "id": "theme-0",
         "label": "Trusted Relationships and Expertise",
-        "description": "Clients value long-standing relationships and trust in individual consultants, which drive repeat engagements and confidence in Korn Ferry's ability to deliver.",
+        "description": "Clients value long-standing relationships with Korn Ferry consultants, built on trust, expertise, and familiarity with their business needs.",
         "frequency": 15,
         "sentiment": "positive",
         "supportingQuotes": [
@@ -87,29 +87,18 @@
         "interviewIds": [
           "Paul Lester, Hudson Advisors UK Ltd.",
           "Keith VanOrden, The TCW Group",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim",
           "Francis Kint, Unknown",
-          "Lesley Dwyer, Norfolk and Norwich University Hospital"
+          "Dr. Jan Stefan Scheld, Boehringer Ingelheim",
+          "Karina Molina, ExxonMobil"
         ]
       },
       {
         "id": "theme-1",
         "label": "High-Quality Candidate Delivery",
-        "description": "Clients appreciate Korn Ferry's ability to deliver high-quality candidates that meet role requirements and align with organizational culture.",
+        "description": "Korn Ferry consistently delivers high-caliber candidates, meeting or exceeding client expectations in terms of quality and fit.",
         "frequency": 12,
         "sentiment": "positive",
         "supportingQuotes": [
-          {
-            "text": "They absolutely understood the brief, really fully targeted exactly the right people, put a great long list together, managed the candidates really, really well.",
-            "interviewId": "Tim Rolfe, Logistics UK",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
           {
             "text": "They were very successful in finding the right candidate to meet our needs.",
             "interviewId": "Alexander Borjigin, Unknown",
@@ -120,28 +109,39 @@
             "accountType": "",
             "npsCategory": "",
             "score": 0
+          },
+          {
+            "text": "The candidate quality repeatedly exceeded expectations.",
+            "interviewId": "Keith VanOrden, The TCW Group",
+            "client": "Keith VanOrden",
+            "company": "The TCW Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
           }
         ],
         "interviewIds": [
-          "Tim Rolfe, Logistics UK",
           "Alexander Borjigin, Unknown",
-          "Claire Van Coberen, ASML Netherlands BV",
+          "Keith VanOrden, The TCW Group",
+          "Tim Rolfe, Logistics UK",
           "Francis Kint, Unknown",
-          "Michael De Lucca, OneBlood, Inc."
+          "Michael Citro, University of Pennsylvania"
         ]
       },
       {
         "id": "theme-2",
         "label": "Responsive and Proactive Communication",
-        "description": "Clients value Korn Ferry's consistent, proactive communication and structured updates, which keep them informed and engaged throughout the process.",
+        "description": "Clients appreciate Korn Ferry's structured communication, regular updates, and responsiveness to feedback throughout the engagement.",
         "frequency": 10,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "We had one scheduled weekly call throughout the process... and they were always available for other queries, more ad hoc stuff.",
-            "interviewId": "Tim Rolfe, Logistics UK",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
+            "text": "Communication is always absolutely stand out... we are in regular communication with Hilary and the team on the project.",
+            "interviewId": "Fiona Motley, NatWest Group PLC",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -149,7 +149,7 @@
             "score": 0
           },
           {
-            "text": "Greg scheduled by monthly calls with the team... to give us updates, to share... additional context on the candidates... and help answer any questions.",
+            "text": "Greg scheduled by monthly calls with the team... to give us updates, to share... additional context on the candidates.",
             "interviewId": "Karina Molina, ExxonMobil",
             "client": "Karina Molina",
             "company": "ExxonMobil",
@@ -161,22 +161,22 @@
           }
         ],
         "interviewIds": [
-          "Tim Rolfe, Logistics UK",
+          "Fiona Motley, NatWest Group PLC",
           "Karina Molina, ExxonMobil",
-          "Lesley Dwyer, Norfolk and Norwich University Hospital",
+          "Tim Rolfe, Logistics UK",
           "Claire Van Coberen, ASML Netherlands BV",
-          "Greg Aarssen, TriSummit Utilities Inc."
+          "Lesley Dwyer, Norfolk and Norwich University Hospital"
         ]
       },
       {
         "id": "theme-3",
         "label": "Flexibility and Adaptability",
-        "description": "Korn Ferry's flexibility in adapting to client needs, including commercial terms and engagement models, is highly valued by clients.",
+        "description": "Korn Ferry demonstrates flexibility in adapting to client needs, whether in terms of engagement terms, process adjustments, or addressing specific challenges.",
         "frequency": 8,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "Korn Ferry has been very good about working with us on those...It's that fine balance... and Korn Ferry has been very good about providing the flexibility that we need.",
+            "text": "Korn Ferry has been very good about working with us on those... It's that fine balance... and Korn Ferry has been very good about providing the flexibility that we need.",
             "interviewId": "Alexander Borjigin, Unknown",
             "client": "Alexander Borjigin",
             "company": "Unknown",
@@ -187,9 +187,9 @@
             "score": 0
           },
           {
-            "text": "Korn Ferry have terms and conditions they absolutely have to meet, but I've really appreciated the flexibility, whether it's different aspects of the retainer versus the overall fee, or how we structure the overall fee.",
-            "interviewId": "Lisa Bolger, Unknown",
-            "client": "Lisa Bolger",
+            "text": "They were always slightly in between... in principle, they have been negotiating the package on the basis, of course, of what we told them.",
+            "interviewId": "Francis Kint, Unknown",
+            "client": "Francis Kint",
             "company": "Unknown",
             "region": "",
             "solution": "",
@@ -200,17 +200,17 @@
         ],
         "interviewIds": [
           "Alexander Borjigin, Unknown",
-          "Lisa Bolger, Unknown",
           "Francis Kint, Unknown",
-          "Lesley Dwyer, Norfolk and Norwich University Hospital",
-          "Greg Aarssen, TriSummit Utilities Inc."
+          "Lisa Bolger, Unknown",
+          "Vanessa, Heidelberg Materials",
+          "Michael Baker, Cargill"
         ]
       },
       {
         "id": "theme-4",
-        "label": "Deep Market and Cultural Understanding",
-        "description": "Clients choose Korn Ferry for their deep understanding of specific markets and organizational cultures, which enhances candidate alignment and process efficiency.",
-        "frequency": 9,
+        "label": "Deep Market and Sector Knowledge",
+        "description": "Clients choose Korn Ferry for their deep understanding of specific industries and markets, which enhances candidate sourcing and alignment.",
+        "frequency": 7,
         "sentiment": "positive",
         "supportingQuotes": [
           {
@@ -225,10 +225,10 @@
             "score": 0
           },
           {
-            "text": "They understood that we are a membership organisation that lobbies on behalf of our members... they had the right people in the room.",
-            "interviewId": "Tim Rolfe, Logistics UK",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
+            "text": "She understands the healthcare business extremely well and she's really buttoned up on this.",
+            "interviewId": "Michael De Lucca, OneBlood, Inc.",
+            "client": "Michael De Lucca",
+            "company": "OneBlood, Inc.",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -238,30 +238,30 @@
         ],
         "interviewIds": [
           "Greg Aarssen, TriSummit Utilities Inc.",
-          "Tim Rolfe, Logistics UK",
-          "Francis Kint, Unknown",
-          "Lesley Dwyer, Norfolk and Norwich University Hospital",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim"
+          "Michael De Lucca, OneBlood, Inc.",
+          "Alexander Borjigin, Unknown",
+          "Dr. Jan Stefan Scheld, Boehringer Ingelheim",
+          "Lesley Dwyer, Norfolk and Norwich University Hospital"
         ]
       }
     ]
   },
   "promoterExperience": {
     "name": "The Promoter Experience",
-    "description": "This theme category explores the key factors that contribute to exceptional experiences and strong satisfaction among promoters working with Korn Ferry, focusing on what they value most.",
+    "description": "This theme category explores the key factors that contribute to exceptional experiences and strong satisfaction among promoters working with Korn Ferry, focusing on what they value most in their engagements.",
     "themes": [
       {
         "id": "theme-5",
-        "label": "Trusted Relationships and Continuity",
-        "description": "Promoters value long-standing, trust-based relationships with individual consultants, which drive their continued engagement with Korn Ferry.",
-        "frequency": 15,
+        "label": "Tailored and Thoughtful Approach",
+        "description": "Promoters value Korn Ferry's ability to tailor their approach to meet specific client needs, demonstrating a deep understanding of the client's business and culture.",
+        "frequency": 8,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "I tend to go to Korn Ferry because I actually like the people... they know me, I haven't got to be on my best behaviour when I talk.",
-            "interviewId": "t-001",
-            "client": "Paul Lester",
-            "company": "Hudson Advisors UK Ltd.",
+            "text": "What really swung the success of Korn Ferry's pitches is that they really take the time to ask thoughtful questions.",
+            "interviewId": "Lisa Bolger, PartnerRe",
+            "client": "Lisa Bolger",
+            "company": "PartnerRe",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -269,10 +269,10 @@
             "score": 0
           },
           {
-            "text": "Anywhere Chris went, I would go.",
-            "interviewId": "t-002",
-            "client": "Keith VanOrden",
-            "company": "The TCW Group",
+            "text": "They had a better understanding of what we were looking for... they tailored the search to what we really wanted.",
+            "interviewId": "Duffield Ashmead IV, Wadsworth Atheneum Museum of Art",
+            "client": "Duffield Ashmead IV",
+            "company": "Wadsworth Atheneum Museum of Art",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -281,23 +281,55 @@
           }
         ],
         "interviewIds": [
-          "t-001",
-          "t-002",
-          "t-003",
-          "t-004",
-          "t-005"
+          "Lisa Bolger, PartnerRe",
+          "Duffield Ashmead IV, Wadsworth Atheneum Museum of Art"
         ]
       },
       {
         "id": "theme-6",
+        "label": "Strong Relationship Management",
+        "description": "Promoters appreciate the strong, trust-based relationships with Korn Ferry consultants, which are often built on long-term engagement and personal rapport.",
+        "frequency": 10,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "We just hit it off based on shared beliefs around talent and culture... I trust him with my business.",
+            "interviewId": "Keith VanOrden, The TCW Group",
+            "client": "Keith VanOrden",
+            "company": "The TCW Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "It's just so easy, really, like, they're just part of our own ASML talent organization.",
+            "interviewId": "Claire Van Coberen, ASML Netherlands BV",
+            "client": "Claire Van Coberen",
+            "company": "ASML Netherlands BV",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "Keith VanOrden, The TCW Group",
+          "Claire Van Coberen, ASML Netherlands BV"
+        ]
+      },
+      {
+        "id": "theme-7",
         "label": "High-Quality Candidate Delivery",
-        "description": "Promoters appreciate the consistent delivery of high-caliber candidates that align well with their organizational needs.",
-        "frequency": 12,
+        "description": "Promoters consistently highlight the quality and alignment of candidates presented by Korn Ferry, which often exceed expectations.",
+        "frequency": 9,
         "sentiment": "positive",
         "supportingQuotes": [
           {
             "text": "They were very successful in finding the right candidate to meet our needs.",
-            "interviewId": "t-006",
+            "interviewId": "Alexander Borjigin, Unknown",
             "client": "Alexander Borjigin",
             "company": "Unknown",
             "region": "",
@@ -308,7 +340,7 @@
           },
           {
             "text": "The candidate quality repeatedly exceeded expectations.",
-            "interviewId": "t-002",
+            "interviewId": "Keith VanOrden, The TCW Group",
             "client": "Keith VanOrden",
             "company": "The TCW Group",
             "region": "",
@@ -319,23 +351,20 @@
           }
         ],
         "interviewIds": [
-          "t-006",
-          "t-002",
-          "t-007",
-          "t-008",
-          "t-009"
+          "Alexander Borjigin, Unknown",
+          "Keith VanOrden, The TCW Group"
         ]
       },
       {
-        "id": "theme-7",
+        "id": "theme-8",
         "label": "Responsive and Proactive Communication",
-        "description": "Promoters value Korn Ferry's consistent, proactive communication and structured updates that keep them informed throughout the process.",
-        "frequency": 10,
+        "description": "Promoters value Korn Ferry's consistent and proactive communication, which keeps them informed and engaged throughout the process.",
+        "frequency": 7,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "Communication is always absolutely stand out... we are in regular communication with Hilary and the team on the project.",
-            "interviewId": "t-010",
+            "text": "Communication is always absolutely stand out... we are in regular communication.",
+            "interviewId": "Fiona Motley, NatWest Group PLC",
             "client": "Fiona Motley",
             "company": "NatWest Group PLC",
             "region": "",
@@ -346,7 +375,7 @@
           },
           {
             "text": "Greg scheduled by monthly calls with the team... to give us updates, to share... additional context on the candidates.",
-            "interviewId": "t-011",
+            "interviewId": "Karina Molina, ExxonMobil",
             "client": "Karina Molina",
             "company": "ExxonMobil",
             "region": "",
@@ -357,23 +386,20 @@
           }
         ],
         "interviewIds": [
-          "t-010",
-          "t-011",
-          "t-012",
-          "t-013",
-          "t-014"
+          "Fiona Motley, NatWest Group PLC",
+          "Karina Molina, ExxonMobil"
         ]
       },
       {
-        "id": "theme-8",
+        "id": "theme-9",
         "label": "Flexibility and Adaptability",
-        "description": "Promoters appreciate Korn Ferry's flexibility in adapting to their specific needs and constraints, whether in terms of engagement approach or commercial terms.",
-        "frequency": 8,
+        "description": "Promoters appreciate Korn Ferry's flexibility in adapting to client needs, whether in terms of engagement terms, process adjustments, or candidate presentation.",
+        "frequency": 6,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "Korn Ferry has been very good about working with us on those... It's that fine balance... and Korn Ferry has been very good about providing the flexibility that we need.",
-            "interviewId": "t-006",
+            "text": "Korn Ferry has been very good about working with us on those... It's that fine balance.",
+            "interviewId": "Alexander Borjigin, Unknown",
             "client": "Alexander Borjigin",
             "company": "Unknown",
             "region": "",
@@ -384,7 +410,7 @@
           },
           {
             "text": "Korn Ferry have terms and conditions they absolutely have to meet, but I've really appreciated the flexibility.",
-            "interviewId": "t-015",
+            "interviewId": "Lisa Bolger, PartnerRe",
             "client": "Lisa Bolger",
             "company": "PartnerRe",
             "region": "",
@@ -395,67 +421,26 @@
           }
         ],
         "interviewIds": [
-          "t-006",
-          "t-015",
-          "t-016",
-          "t-017",
-          "t-018"
-        ]
-      },
-      {
-        "id": "theme-9",
-        "label": "Deep Market and Subject Matter Expertise",
-        "description": "Promoters value Korn Ferry's deep understanding of their industry and the specific roles they are hiring for, which enhances the relevance and quality of candidate searches.",
-        "frequency": 9,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They knew our business, they knew the nuts and bolts of our business, and they also understood the culture that we had.",
-            "interviewId": "t-019",
-            "client": "Greg Aarssen",
-            "company": "TriSummit Utilities Inc.",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "She actually has an investment risk background. She understood the role, the needs, and was able to find someone with that type of background.",
-            "interviewId": "t-006",
-            "client": "Alexander Borjigin",
-            "company": "Unknown",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "t-019",
-          "t-006",
-          "t-020",
-          "t-021",
-          "t-022"
+          "Alexander Borjigin, Unknown",
+          "Lisa Bolger, PartnerRe"
         ]
       }
     ]
   },
   "whereFallsShort": {
     "name": "Where the Experience Falls Short",
-    "description": "This category identifies themes where Korn Ferry's experience falls short, focusing on challenges, pain points, gaps, and areas for improvement mentioned by detractors and passives.",
+    "description": "This category identifies areas where Korn Ferry's service delivery did not meet client expectations, highlighting challenges and opportunities for improvement.",
     "themes": [
       {
         "id": "theme-10",
         "label": "Diversity and Inclusion Gaps",
-        "description": "Challenges in presenting diverse candidate slates and ensuring gender diversity in consulting teams.",
+        "description": "Clients noted a lack of gender diversity in candidate slates and all-male consulting teams, impacting perception and satisfaction.",
         "frequency": 2,
         "sentiment": "negative",
         "supportingQuotes": [
           {
             "text": "We had to remind the guys a number of times that we want to see women as well as men.",
-            "interviewId": "t-001",
+            "interviewId": "Jeanette Rooms, Ocorian",
             "client": "Jeanette Rooms",
             "company": "Ocorian",
             "region": "",
@@ -466,7 +451,7 @@
           },
           {
             "text": "All the consultants from Korn Ferry were all men... it didn't really sit very well.",
-            "interviewId": "t-001",
+            "interviewId": "Jeanette Rooms, Ocorian",
             "client": "Jeanette Rooms",
             "company": "Ocorian",
             "region": "",
@@ -477,30 +462,19 @@
           }
         ],
         "interviewIds": [
-          "t-001"
+          "Jeanette Rooms, Ocorian"
         ]
       },
       {
         "id": "theme-11",
-        "label": "Compensation and Offer Management",
-        "description": "Difficulties in obtaining accurate compensation information and managing offer negotiations effectively.",
+        "label": "Compensation and Negotiation Challenges",
+        "description": "Clients experienced difficulties obtaining compensation information and felt Korn Ferry lacked assertiveness in negotiation support.",
         "frequency": 3,
         "sentiment": "negative",
         "supportingQuotes": [
           {
             "text": "Trying to get out of them what current comp was, was impossible.",
-            "interviewId": "t-001",
-            "client": "Jeanette Rooms",
-            "company": "Ocorian",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "They kept having to go back and forth... it took forever to put an offer together.",
-            "interviewId": "t-001",
+            "interviewId": "Jeanette Rooms, Ocorian",
             "client": "Jeanette Rooms",
             "company": "Ocorian",
             "region": "",
@@ -511,9 +485,20 @@
           },
           {
             "text": "I would have expected a little bit more of support... I would have appreciated a little bit more of challenging behaviour versus the candidate.",
-            "interviewId": "t-002",
-            "client": "Gerd Pircher",
+            "interviewId": "Gerd Pircher and Marco Trovo, HSBC Continental Europe, Italy",
+            "client": "Gerd Pircher and Marco Trovo",
             "company": "HSBC Continental Europe, Italy",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Being treated like that makes me not want to work with them again.",
+            "interviewId": "Julie Tschida Brown, Zayo Group",
+            "client": "Julie Tschida Brown",
+            "company": "Zayo Group",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -522,20 +507,21 @@
           }
         ],
         "interviewIds": [
-          "t-001",
-          "t-002"
+          "Jeanette Rooms, Ocorian",
+          "Gerd Pircher and Marco Trovo, HSBC Continental Europe, Italy",
+          "Julie Tschida Brown, Zayo Group"
         ]
       },
       {
         "id": "theme-12",
         "label": "Communication and Coordination Issues",
-        "description": "Instances of poor communication, late report delivery, and lack of coordination affecting client confidence.",
-        "frequency": 4,
+        "description": "Clients reported issues with late delivery of materials, unclear communication, and coordination lapses affecting confidence.",
+        "frequency": 3,
         "sentiment": "negative",
         "supportingQuotes": [
           {
             "text": "The reports would often land an hour or two before the call... you have no hope in hell of getting to it.",
-            "interviewId": "t-001",
+            "interviewId": "Jeanette Rooms, Ocorian",
             "client": "Jeanette Rooms",
             "company": "Ocorian",
             "region": "",
@@ -546,7 +532,7 @@
           },
           {
             "text": "Early on, it was a little confusing... several different people... reaching out... we couldn't search for [emails] easily.",
-            "interviewId": "t-003",
+            "interviewId": "Duffield Ashmead IV, Wadsworth Atheneum Museum of Art",
             "client": "Duffield Ashmead IV",
             "company": "Wadsworth Atheneum Museum of Art",
             "region": "",
@@ -556,21 +542,10 @@
             "score": 0
           },
           {
-            "text": "There was a bit of a feeling of lagging.",
-            "interviewId": "t-004",
-            "client": "Luke Dale",
-            "company": "Kone",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "It was obvious to see that there was a bit of frustration.",
-            "interviewId": "t-004",
-            "client": "Luke Dale",
-            "company": "Kone",
+            "text": "They rely on us very heavily for everything logistical...It feels like they kind of expect us to do their logistics.",
+            "interviewId": "Julie Tschida Brown, Zayo Group",
+            "client": "Julie Tschida Brown",
+            "company": "Zayo Group",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -579,21 +554,21 @@
           }
         ],
         "interviewIds": [
-          "t-001",
-          "t-003",
-          "t-004"
+          "Jeanette Rooms, Ocorian",
+          "Duffield Ashmead IV, Wadsworth Atheneum Museum of Art",
+          "Julie Tschida Brown, Zayo Group"
         ]
       },
       {
         "id": "theme-13",
-        "label": "Candidate Quality and Sourcing",
-        "description": "Concerns about the quality and breadth of candidate sourcing, particularly in high-profile or complex searches.",
+        "label": "Candidate Sourcing and Quality Concerns",
+        "description": "Clients expressed dissatisfaction with the breadth and originality of candidate sourcing, expecting more diverse and high-caliber options.",
         "frequency": 2,
         "sentiment": "negative",
         "supportingQuotes": [
           {
             "text": "They didn't really generate the level of the candidates that we thought they should have.",
-            "interviewId": "t-005",
+            "interviewId": "Gary Knell, San Diego Zoo Wildlife Alliance",
             "client": "Gary Knell",
             "company": "San Diego Zoo Wildlife Alliance",
             "region": "",
@@ -604,7 +579,7 @@
           },
           {
             "text": "There weren't really people who weren't on our radar that made you think, wow, that's amazing.",
-            "interviewId": "t-005",
+            "interviewId": "Gary Knell, San Diego Zoo Wildlife Alliance",
             "client": "Gary Knell",
             "company": "San Diego Zoo Wildlife Alliance",
             "region": "",
@@ -615,21 +590,21 @@
           }
         ],
         "interviewIds": [
-          "t-005"
+          "Gary Knell, San Diego Zoo Wildlife Alliance"
         ]
       },
       {
         "id": "theme-14",
-        "label": "Process and System Gaps",
-        "description": "Operational and systemic issues affecting the quality of delivery and client trust.",
+        "label": "Assertiveness and Leadership in Process",
+        "description": "Clients felt Korn Ferry lacked assertiveness and leadership in guiding the search process and making recommendations.",
         "frequency": 2,
         "sentiment": "negative",
         "supportingQuotes": [
           {
-            "text": "It was just always like 'Oh, we're so sorry that happened, but I was in the meeting.'",
-            "interviewId": "t-006",
-            "client": "Leslie Fall",
-            "company": "Aquifer, Inc",
+            "text": "We ended up running the calls.",
+            "interviewId": "Jeanette Rooms, Ocorian",
+            "client": "Jeanette Rooms",
+            "company": "Ocorian",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -637,10 +612,10 @@
             "score": 0
           },
           {
-            "text": "Then it makes you start to question everything else. Are they going to get the contract right?",
-            "interviewId": "t-006",
-            "client": "Leslie Fall",
-            "company": "Aquifer, Inc",
+            "text": "It just wasn't assertive enough.",
+            "interviewId": "Jeanette Rooms, Ocorian",
+            "client": "Jeanette Rooms",
+            "company": "Ocorian",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -649,7 +624,7 @@
           }
         ],
         "interviewIds": [
-          "t-006"
+          "Jeanette Rooms, Ocorian"
         ]
       }
     ]

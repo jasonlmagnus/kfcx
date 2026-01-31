@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import EmptyState from "@/components/shared/EmptyState";
+import ReindexButton from "@/components/shared/ReindexButton";
 
 // --- Types ---
 
@@ -227,10 +228,17 @@ export default function OpportunitiesPage() {
       {loading ? (
         <LoadingSpinner />
       ) : isEmpty || opportunities.length === 0 ? (
-        <EmptyState
-          title="No opportunities found"
-          description="Opportunity analysis has not been generated yet. Run the reindex process to generate insights."
-        />
+        <div className="section-card p-8 max-w-lg">
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            No opportunities found
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            Opportunity analysis has not been generated yet. Click below to run
+            reindex: this generates themes, opportunities, and search embeddings
+            (requires OpenAI API key; may take 1–2 minutes).
+          </p>
+          <ReindexButton onSuccess={() => window.location.reload()} />
+        </div>
       ) : (
         <>
           {/* Summary Stats */}

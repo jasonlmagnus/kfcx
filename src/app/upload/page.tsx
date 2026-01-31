@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, type DragEvent, type ChangeEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getNPSCategory, getNPSLabel } from "@/lib/utils/nps";
 import NPSBadge from "@/components/shared/NPSBadge";
@@ -116,6 +117,8 @@ export default function UploadPage() {
 
       setNewInterviewId(data.interviewId);
       setStep(3);
+      // Trigger reindex in background so themes and opportunities stay in sync
+      fetch("/api/reindex", { method: "POST" }).catch(() => {});
     } catch (err) {
       setError(err instanceof Error ? err.message : "An unexpected error occurred.");
     } finally {
@@ -567,9 +570,16 @@ export default function UploadPage() {
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
             Interview Uploaded Successfully
           </h2>
-          <p className="text-gray-500 mb-6">
+          <p className="text-gray-500 mb-2">
             The interview has been saved with ID{" "}
             <span className="font-mono font-semibold text-gray-800">{newInterviewId}</span>.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            Themes and opportunities are being updated in the background (1–2 min). Refresh{" "}
+            <Link href="/themes" className="text-kf-primary hover:underline">Themes</Link>
+            {" or "}
+            <Link href="/opportunities" className="text-kf-primary hover:underline">Opportunities</Link>
+            {" to see the latest."}
           </p>
           <div className="flex items-center justify-center gap-4">
             <button

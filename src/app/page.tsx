@@ -1,12 +1,18 @@
 import Link from "next/link";
-import { readMetadataIndex } from "@/lib/data/store";
+import {
+  readMetadataIndex,
+  readThemeAnalysis,
+  readOpportunities,
+} from "@/lib/data/store";
 import { calculateNPSScore } from "@/lib/utils/nps";
 import { formatDate } from "@/lib/utils/dates";
-import NPSBadge from "@/components/shared/NPSBadge";
-import MetadataLabel from "@/components/shared/MetadataLabel";
 
 export default async function DashboardPage() {
-  const index = await readMetadataIndex();
+  const [index, themeAnalysis, opportunitiesData] = await Promise.all([
+    readMetadataIndex(),
+    readThemeAnalysis(),
+    readOpportunities(),
+  ]);
   const interviews = index.interviews;
 
   // --- Stats ---
@@ -54,12 +60,29 @@ export default async function DashboardPage() {
       ? Math.round((detractors / totalInterviews) * 100)
       : 0;
 
-  // --- Recent interviews (sorted by date descending) ---
-  const sortedInterviews = [...interviews].sort(
-    (a, b) =>
-      new Date(b.interviewDate).getTime() -
-      new Date(a.interviewDate).getTime()
-  );
+  // --- Theme summary ---
+  const totalThemes = themeAnalysis
+    ? themeAnalysis.whyClientsChoose.themes.length +
+      themeAnalysis.promoterExperience.themes.length +
+      themeAnalysis.whereFallsShort.themes.length +
+      (themeAnalysis.additionalThemes?.reduce(
+        (sum, g) => sum + g.themes.length,
+        0
+      ) ?? 0)
+    : 0;
+  const sampleThemes = themeAnalysis
+    ? [
+        ...themeAnalysis.whyClientsChoose.themes,
+        ...themeAnalysis.promoterExperience.themes,
+        ...themeAnalysis.whereFallsShort.themes,
+      ]
+        .slice(0, 4)
+        .map((t) => t.label)
+    : [];
+
+  // --- Opportunities summary ---
+  const opportunitiesCount = opportunitiesData?.opportunities?.length ?? 0;
+  const sampleOpportunities = opportunitiesData?.opportunities?.slice(0, 3) ?? [];
 
   return (
     <div>
@@ -97,7 +120,6 @@ export default async function DashboardPage() {
         <div className="section-card p-6">
           <h2 className="section-title">NPS Category Distribution</h2>
           <div className="space-y-4">
-            {/* Promoters */}
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700">
@@ -115,7 +137,6 @@ export default async function DashboardPage() {
                 />
               </div>
             </div>
-            {/* Passives */}
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700">
@@ -133,7 +154,6 @@ export default async function DashboardPage() {
                 />
               </div>
             </div>
-            {/* Detractors */}
             <div>
               <div className="flex justify-between text-sm mb-1">
                 <span className="font-medium text-gray-700">
@@ -181,69 +201,106 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Recent Interviews */}
-      <div className="section-card">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="section-title mb-0">Recent Interviews</h2>
+      {/* Themes & Opportunities */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Themes */}
+        <div className="section-card">
+          <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+            <h2 className="section-title mb-0">Themes</h2>
+            <Link
+              href="/themes"
+              className="text-sm font-medium text-kf-primary hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
+          <div className="p-6">
+            {themeAnalysis ? (
+              <>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-2xl font-bold text-gray-900">
+                    {totalThemes}
+                  </span>
+                  <span className="text-gray-500 text-sm">themes</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-3">
+                  Last updated: {formatDate(themeAnalysis.lastGenerated)}
+                </p>
+                {sampleThemes.length > 0 && (
+                  <ul className="space-y-1.5 text-sm text-gray-700">
+                    {sampleThemes.map((label) => (
+                      <li key={label} className="truncate">
+                        {label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">
+                Theme analysis not generated yet. Go to{" "}
+                <Link href="/themes" className="text-kf-primary hover:underline">
+                  Themes
+                </Link>{" "}
+                and click &quot;Generate themes &amp; insights&quot;.
+              </p>
+            )}
+          </div>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <th className="px-6 py-3">Client</th>
-                <th className="px-6 py-3">Company</th>
-                <th className="px-6 py-3">Score</th>
-                <th className="px-6 py-3">Region</th>
-                <th className="px-6 py-3">Solution</th>
-                <th className="px-6 py-3">Date</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-              {sortedInterviews.map((interview) => (
-                <tr
-                  key={interview.id}
-                  className="hover:bg-gray-50 transition-colors"
+
+        {/* Opportunities */}
+        <div className="section-card">
+          <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+            <h2 className="section-title mb-0">Opportunities</h2>
+            <Link
+              href="/opportunities"
+              className="text-sm font-medium text-kf-primary hover:underline"
+            >
+              View all →
+            </Link>
+          </div>
+          <div className="p-6">
+            {opportunitiesData && opportunitiesData.opportunities.length > 0 ? (
+              <>
+                <div className="flex items-baseline gap-2 mb-4">
+                  <span className="text-2xl font-bold text-gray-900">
+                    {opportunitiesCount}
+                  </span>
+                  <span className="text-gray-500 text-sm">opportunities</span>
+                </div>
+                <p className="text-xs text-gray-400 mb-3">
+                  Last updated:{" "}
+                  {formatDate(opportunitiesData.lastGenerated)}
+                </p>
+                <ul className="space-y-2 text-sm text-gray-700">
+                  {sampleOpportunities.map((opp) => (
+                    <li key={opp.id}>
+                      <Link
+                        href="/opportunities"
+                        className="text-kf-primary hover:underline font-medium"
+                      >
+                        {opp.title}
+                      </Link>
+                      <span className="text-gray-400 text-xs ml-1">
+                        {opp.client}, {opp.company}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <p className="text-sm text-gray-500">
+                Opportunity analysis not generated yet. Go to{" "}
+                <Link
+                  href="/opportunities"
+                  className="text-kf-primary hover:underline"
                 >
-                  <td className="px-6 py-4">
-                    <Link
-                      href={`/interviews/${interview.id}`}
-                      className="text-sm font-medium text-kf-primary hover:underline"
-                    >
-                      {interview.client}
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-700">
-                    {interview.company}
-                  </td>
-                  <td className="px-6 py-4">
-                    <NPSBadge score={interview.score} size="sm" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <MetadataLabel type="region" value={interview.region} />
-                  </td>
-                  <td className="px-6 py-4">
-                    <MetadataLabel
-                      type="solution"
-                      value={interview.solution}
-                    />
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {formatDate(interview.interviewDate)}
-                  </td>
-                </tr>
-              ))}
-              {sortedInterviews.length === 0 && (
-                <tr>
-                  <td
-                    colSpan={6}
-                    className="px-6 py-12 text-center text-gray-400 text-sm"
-                  >
-                    No interviews found. Upload transcripts to get started.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                  Opportunities
+                </Link>{" "}
+                and click &quot;Generate themes &amp; insights&quot;.
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import EmptyState from "@/components/shared/EmptyState";
+import ReindexButton from "@/components/shared/ReindexButton";
 import { formatDate } from "@/lib/utils/dates";
 import type { ThemeAnalysis, ThemeGroup, Theme } from "@/types";
 
@@ -162,10 +163,18 @@ export default function ThemesPage() {
       {loading ? (
         <LoadingSpinner />
       ) : isEmpty || !data ? (
-        <EmptyState
-          title="No themes available"
-          description="Theme analysis has not been generated yet. Use the reindex feature to generate themes."
-        />
+        <div className="section-card p-8 max-w-lg">
+          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+            No themes available
+          </h2>
+          <p className="text-sm text-gray-600 mb-6">
+            Theme analysis has not been generated yet. Click below to run
+            reindex: this generates themes, opportunities, and search embeddings
+            from your interview data (requires OpenAI API key; may take 1–2
+            minutes).
+          </p>
+          <ReindexButton onSuccess={() => window.location.reload()} />
+        </div>
       ) : (
         <>
           {/* Tabs */}

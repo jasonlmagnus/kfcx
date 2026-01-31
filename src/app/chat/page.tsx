@@ -132,7 +132,7 @@ export default function ChatPage() {
         if (response.status === 503) {
           setMessages(updatedMessages);
           setError(
-            "Embeddings not generated. Please run reindex first."
+            "Embeddings not generated. Go to Themes or Opportunities and click \"Generate themes & insights\" to run reindex first."
           );
           setIsLoading(false);
           return;

@@ -2,10 +2,14 @@ import { NextResponse } from "next/server";
 import { buildEmbeddingIndex } from "@/lib/ai/embeddings";
 import { generateThemeAnalysis, generateOpportunityAnalysis } from "@/lib/ai/analysis";
 
-export async function POST() {
-  try {
-    const results: string[] = [];
+// Reindex can take 1–2 minutes (embeddings + AI analysis)
+export const maxDuration = 120;
 
+export async function POST() {
+  const results: string[] = [];
+  let allOk = true;
+
+  try {
     // Build embeddings
     try {
       const embeddingIndex = await buildEmbeddingIndex();
@@ -13,7 +17,9 @@ export async function POST() {
         `Embeddings: ${embeddingIndex.chunks.length} chunks indexed`
       );
     } catch (error) {
-      results.push(`Embeddings: Failed - ${error}`);
+      allOk = false;
+      const msg = error instanceof Error ? error.message : String(error);
+      results.push(`Embeddings: Failed - ${msg}`);
     }
 
     // Generate theme analysis
@@ -25,7 +31,9 @@ export async function POST() {
         themes.whereFallsShort.themes.length;
       results.push(`Themes: ${totalThemes} themes identified`);
     } catch (error) {
-      results.push(`Themes: Failed - ${error}`);
+      allOk = false;
+      const msg = error instanceof Error ? error.message : String(error);
+      results.push(`Themes: Failed - ${msg}`);
     }
 
     // Generate opportunity analysis
@@ -35,7 +43,20 @@ export async function POST() {
         `Opportunities: ${opps.opportunities.length} opportunities identified`
       );
     } catch (error) {
-      results.push(`Opportunities: Failed - ${error}`);
+      allOk = false;
+      const msg = error instanceof Error ? error.message : String(error);
+      results.push(`Opportunities: Failed - ${msg}`);
+    }
+
+    if (!allOk) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "One or more steps failed. See details below.",
+          results,
+        },
+        { status: 422 }
+      );
     }
 
     return NextResponse.json({
@@ -43,8 +64,9 @@ export async function POST() {
       results,
     });
   } catch (error) {
+    const msg = error instanceof Error ? error.message : String(error);
     return NextResponse.json(
-      { error: "Reindex failed", details: String(error) },
+      { success: false, error: "Reindex failed", details: msg, results },
       { status: 500 }
     );
   }

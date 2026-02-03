@@ -4,48 +4,67 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import EmptyState from "@/components/shared/EmptyState";
-import ReindexButton from "@/components/shared/ReindexButton";
 import MetadataLabel from "@/components/shared/MetadataLabel";
 import NPSBadge from "@/components/shared/NPSBadge";
 import { formatDate } from "@/lib/utils/dates";
-import type { ThemeAnalysis, ThemeGroup, Theme, InterviewMetadata, QuoteReference } from "@/types";
-
-type TabKey = "whyClientsChoose" | "promoterExperience" | "whereFallsShort";
-
-interface TabDefinition {
-  key: TabKey;
-  label: string;
-}
-
-const TABS: TabDefinition[] = [
-  { key: "whyClientsChoose", label: "Why Clients Choose KF" },
-  { key: "promoterExperience", label: "Promoter Experience" },
-  { key: "whereFallsShort", label: "Where Falls Short" },
-];
+import type { ThemeAnalysis, Theme, InterviewMetadata, QuoteReference } from "@/types";
 
 const REGION_OPTIONS = ["All", "NA", "EMEA", "APAC", "LATAM"] as const;
 const NPS_OPTIONS = ["All", "Promoters", "Passives", "Detractors"] as const;
 
-function SentimentDot({ sentiment }: { sentiment: Theme["sentiment"] }) {
-  const colorClass =
-    sentiment === "positive"
-      ? "bg-green-500"
-      : sentiment === "negative"
-        ? "bg-red-500"
-        : "bg-gray-400";
+// Keywords that indicate engagement preferences
+const ENGAGEMENT_KEYWORDS = [
+  "communication",
+  "engage",
+  "contact",
+  "meeting",
+  "relationship",
+  "partnership",
+  "collaborate",
+  "respond",
+  "responsive",
+  "proactive",
+  "regular",
+  "frequency",
+  "update",
+  "check-in",
+  "touchpoint",
+  "interaction",
+  "accessibility",
+  "available",
+  "reach",
+  "support",
+  "service",
+];
 
-  const label =
-    sentiment === "positive"
-      ? "Positive"
-      : sentiment === "negative"
-        ? "Negative"
-        : "Neutral";
-
+function QuoteCard({ quote }: { quote: QuoteReference }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-xs text-gray-500">
-      <span className={`inline-block w-2.5 h-2.5 rounded-full ${colorClass}`} />
-      {label}
-    </span>
+    <div className="section-card p-5">
+      <p className="text-sm italic text-gray-600 mb-3">
+        &ldquo;{quote.text}&rdquo;
+      </p>
+      <div className="flex flex-wrap items-center gap-2 mb-2">
+        <span className="text-xs font-medium text-gray-700">
+          {quote.client}, {quote.company}
+        </span>
+        <NPSBadge score={quote.score} size="sm" />
+        <MetadataLabel type="region" value={quote.region} />
+        {quote.accountType && (
+          <MetadataLabel type="account" value={quote.accountType} />
+        )}
+        {quote.solution && (
+          <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-600 rounded">
+            {quote.solution}
+          </span>
+        )}
+      </div>
+      <Link
+        href={`/interviews/${quote.interviewId}`}
+        className="text-xs font-medium text-kf-primary hover:underline"
+      >
+        View Interview →
+      </Link>
+    </div>
   );
 }
 
@@ -54,23 +73,14 @@ function ThemeCard({ theme }: { theme: Theme }) {
 
   return (
     <div className="section-card p-5">
-      {/* Header */}
       <div className="flex items-start justify-between gap-4 mb-2">
         <h3 className="font-bold text-gray-900">{theme.label}</h3>
-        <SentimentDot sentiment={theme.sentiment} />
-      </div>
-
-      {/* Description */}
-      <p className="text-sm text-gray-600 mb-3">{theme.description}</p>
-
-      {/* Frequency badge */}
-      <div className="mb-4">
         <span className="inline-flex items-center rounded-full bg-kf-primary/10 px-3 py-1 text-xs font-medium text-kf-primary">
-          Mentioned in {theme.frequency} interview{theme.frequency !== 1 ? "s" : ""}
+          {theme.frequency} mention{theme.frequency !== 1 ? "s" : ""}
         </span>
       </div>
+      <p className="text-sm text-gray-600 mb-3">{theme.description}</p>
 
-      {/* Supporting Quotes toggle */}
       {theme.supportingQuotes.length > 0 && (
         <div>
           <button
@@ -94,36 +104,9 @@ function ThemeCard({ theme }: { theme: Theme }) {
           </button>
 
           {quotesOpen && (
-            <div className="mt-3 space-y-4 pl-5 border-l-2 border-gray-200">
+            <div className="mt-3 space-y-3">
               {theme.supportingQuotes.map((quote, idx) => (
-                <div key={idx} className="pb-3 border-b border-gray-100 last:border-0">
-                  <p className="text-sm italic text-gray-600">
-                    &ldquo;{quote.text}&rdquo;
-                  </p>
-                  <div className="mt-2 flex flex-wrap items-center gap-2">
-                    <span className="text-xs font-medium text-gray-700">
-                      {quote.client}, {quote.company}
-                    </span>
-                    <NPSBadge score={quote.score} size="sm" />
-                    <MetadataLabel type="region" value={quote.region} />
-                    {quote.accountType && (
-                      <MetadataLabel type="account" value={quote.accountType} />
-                    )}
-                    {quote.solution && (
-                      <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-600 rounded">
-                        {quote.solution}
-                      </span>
-                    )}
-                  </div>
-                  <div className="mt-2">
-                    <Link
-                      href={`/interviews/${quote.interviewId}`}
-                      className="text-xs font-medium text-kf-primary hover:underline"
-                    >
-                      View Interview →
-                    </Link>
-                  </div>
-                </div>
+                <QuoteCard key={idx} quote={quote} />
               ))}
             </div>
           )}
@@ -133,12 +116,11 @@ function ThemeCard({ theme }: { theme: Theme }) {
   );
 }
 
-export default function ThemesPage() {
+export default function EngagementPage() {
   const [data, setData] = useState<ThemeAnalysis | null>(null);
   const [interviews, setInterviews] = useState<InterviewMetadata[]>([]);
   const [isEmpty, setIsEmpty] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<TabKey>("whyClientsChoose");
 
   // Filter state
   const [region, setRegion] = useState("All");
@@ -187,11 +169,9 @@ export default function ThemesPage() {
 
   // Filter function for quotes
   const quoteMatchesFilters = (quote: QuoteReference): boolean => {
-    // Region filter
     if (region !== "All" && quote.region !== region) {
       return false;
     }
-    // NPS category filter
     if (npsCategory !== "All") {
       const categoryMap: Record<string, string> = {
         Promoters: "promoter",
@@ -202,7 +182,6 @@ export default function ThemesPage() {
         return false;
       }
     }
-    // Date filter
     const interviewDate = interviewDateMap[quote.interviewId];
     if (interviewDate) {
       if (dateFrom && interviewDate < dateFrom) {
@@ -215,69 +194,99 @@ export default function ThemesPage() {
     return true;
   };
 
-  // Filter themes - keep theme if any quote matches
-  const filterThemes = (themes: Theme[]): Theme[] => {
-    if (region === "All" && npsCategory === "All" && !dateFrom && !dateTo) {
-      return themes;
-    }
-    return themes
+  // Check if theme is related to engagement
+  const isEngagementRelated = (theme: Theme): boolean => {
+    const textToCheck = `${theme.label} ${theme.description}`.toLowerCase();
+    return ENGAGEMENT_KEYWORDS.some((keyword) => textToCheck.includes(keyword));
+  };
+
+  // Get all themes and filter for engagement-related ones
+  const engagementThemes = useMemo(() => {
+    if (!data) return [];
+
+    const allThemes = [
+      ...data.whyClientsChoose.themes,
+      ...data.promoterExperience.themes,
+      ...data.whereFallsShort.themes,
+      ...(data.additionalThemes?.flatMap((g) => g.themes) || []),
+    ];
+
+    // Filter for engagement-related themes
+    const filtered = allThemes
+      .filter(isEngagementRelated)
       .map((theme) => ({
         ...theme,
         supportingQuotes: theme.supportingQuotes.filter(quoteMatchesFilters),
       }))
-      .filter((theme) => theme.supportingQuotes.length > 0);
-  };
+      .filter((theme) => {
+        // Only show if quotes match filters (or no filters applied)
+        if (region === "All" && npsCategory === "All" && !dateFrom && !dateTo) {
+          return true;
+        }
+        return theme.supportingQuotes.length > 0;
+      });
 
-  const activeGroup: ThemeGroup | null = data ? data[activeTab] : null;
-  const filteredThemes = activeGroup ? filterThemes(activeGroup.themes) : [];
+    return filtered;
+  }, [data, region, npsCategory, dateFrom, dateTo, interviewDateMap]);
+
+  // Get all quotes related to engagement from non-theme sources
+  const engagementQuotes = useMemo(() => {
+    if (!data) return [];
+
+    const allThemes = [
+      ...data.whyClientsChoose.themes,
+      ...data.promoterExperience.themes,
+      ...data.whereFallsShort.themes,
+    ];
+
+    const quotes: QuoteReference[] = [];
+    for (const theme of allThemes) {
+      for (const quote of theme.supportingQuotes) {
+        const quoteText = quote.text.toLowerCase();
+        if (ENGAGEMENT_KEYWORDS.some((keyword) => quoteText.includes(keyword))) {
+          if (quoteMatchesFilters(quote)) {
+            quotes.push(quote);
+          }
+        }
+      }
+    }
+
+    // Deduplicate by text
+    const seen = new Set<string>();
+    return quotes.filter((q) => {
+      if (seen.has(q.text)) return false;
+      seen.add(q.text);
+      return true;
+    });
+  }, [data, region, npsCategory, dateFrom, dateTo, interviewDateMap]);
 
   return (
     <div>
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="page-title">Themes</h1>
+        <h1 className="page-title">How Clients Want to Be Engaged</h1>
         <p className="text-gray-500 mt-2">
-          Explore insights and patterns from NPS interviews
+          Insights on client engagement preferences and communication expectations
         </p>
       </div>
 
-      {/* Content */}
       {loading ? (
         <LoadingSpinner />
       ) : isEmpty || !data ? (
         <div className="section-card p-8 max-w-lg">
           <h2 className="text-lg font-semibold text-gray-900 mb-2">
-            No themes available
+            No data available
           </h2>
           <p className="text-sm text-gray-600 mb-6">
-            Theme analysis has not been generated yet. Click below to run
-            reindex: this generates themes, opportunities, and search embeddings
-            from your interview data (requires OpenAI API key; may take 1–2
-            minutes).
+            Theme analysis has not been generated yet. Go to{" "}
+            <Link href="/themes" className="text-kf-primary hover:underline">
+              Themes
+            </Link>{" "}
+            and generate insights first.
           </p>
-          <ReindexButton onSuccess={() => window.location.reload()} />
         </div>
       ) : (
         <>
-          {/* Tabs */}
-          <div className="border-b border-gray-200 mb-6">
-            <nav className="flex gap-6 -mb-px">
-              {TABS.map((tab) => (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`pb-3 text-sm font-medium transition-colors ${
-                    activeTab === tab.key
-                      ? "border-b-2 border-kf-primary text-kf-primary"
-                      : "text-gray-500 hover:text-gray-700"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </nav>
-          </div>
-
           {/* Filter Bar */}
           <div className="flex flex-wrap gap-3 mb-6">
             <select
@@ -339,38 +348,50 @@ export default function ThemesPage() {
             )}
           </div>
 
-          {/* Theme Group Header */}
-          {activeGroup && (
-            <div className="mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">
-                {activeGroup.name}
+          {/* Engagement Themes */}
+          {engagementThemes.length > 0 && (
+            <div className="mb-8">
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Engagement Themes ({engagementThemes.length})
               </h2>
-              <p className="text-sm text-gray-500 mt-1">
-                {activeGroup.description}
-              </p>
-              <p className="text-sm text-gray-400 mt-1">
-                {filteredThemes.length} theme{filteredThemes.length !== 1 ? "s" : ""} found
-              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {engagementThemes.map((theme) => (
+                  <ThemeCard key={theme.id} theme={theme} />
+                ))}
+              </div>
             </div>
           )}
 
-          {/* Theme Cards */}
-          {filteredThemes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredThemes.map((theme) => (
-                <ThemeCard key={theme.id} theme={theme} />
-              ))}
+          {/* Direct Quotes */}
+          {engagementQuotes.length > 0 && (
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                Client Quotes on Engagement ({engagementQuotes.length})
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {engagementQuotes.slice(0, 20).map((quote, idx) => (
+                  <QuoteCard key={idx} quote={quote} />
+                ))}
+              </div>
+              {engagementQuotes.length > 20 && (
+                <p className="text-sm text-gray-400 mt-4 text-center">
+                  Showing 20 of {engagementQuotes.length} quotes
+                </p>
+              )}
             </div>
-          ) : (
-            <p className="text-sm text-gray-400 py-8 text-center">
-              No themes found matching your filters.
-            </p>
+          )}
+
+          {engagementThemes.length === 0 && engagementQuotes.length === 0 && (
+            <EmptyState
+              title="No engagement insights found"
+              description="No themes or quotes matching engagement criteria were found. Try adjusting your filters."
+            />
           )}
 
           {/* Last Generated Timestamp */}
           {data.lastGenerated && (
             <p className="text-xs text-gray-400 mt-8 text-right">
-              Last generated: {formatDate(data.lastGenerated)}
+              Data generated: {formatDate(data.lastGenerated)}
             </p>
           )}
         </>

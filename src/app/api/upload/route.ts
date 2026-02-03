@@ -8,6 +8,11 @@ import {
   writeOriginalPdf,
 } from "@/lib/data/store";
 import { parsePdfBuffer } from "@/lib/data/pdf-parser";
+import {
+  parseTranscriptPdfBuffer,
+  parseTranscriptFilename,
+  getTranscriptNumber,
+} from "@/lib/data/transcript-parser";
 import { getNPSCategory } from "@/lib/utils/nps";
 import { getMonthYear } from "@/lib/utils/dates";
 import type {
@@ -24,6 +29,22 @@ function isPdfFile(file: File): boolean {
     file.name.toLowerCase().endsWith(".pdf") ||
     file.type === "application/pdf"
   );
+}
+
+/**
+ * Detect if a PDF is a transcript based on filename pattern.
+ * Transcripts use the pattern: T{N}_NPS{Score}_{Region}_{Solution}_{AccountType}_{Month}.pdf
+ */
+function isTranscriptPdf(filename: string): boolean {
+  return /^T\d+_NPS\d+_/.test(filename);
+}
+
+/**
+ * Detect if a PDF is a report based on filename pattern.
+ * Reports use the pattern: R{N}_NPS{Score}_{Region}_{Solution}_{AccountType}_{Month}.pdf
+ */
+function isReportPdf(filename: string): boolean {
+  return /^R\d+_NPS\d+_/.test(filename);
 }
 
 export async function POST(request: NextRequest) {
@@ -103,34 +124,73 @@ export async function POST(request: NextRequest) {
 
     // --- Process transcript file ---
     let transcriptSourceFile = "";
+    let originalTranscriptFile: string | null = null;
+    let transcriptCode: string | undefined;
+
     if (transcriptFile) {
-      const transcriptText = await transcriptFile.text();
-      const transcriptJSON = JSON.parse(transcriptText);
+      if (isPdfFile(transcriptFile) && isTranscriptPdf(transcriptFile.name)) {
+        // PDF transcript: parse structured content and save original
+        const arrayBuffer = await transcriptFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
 
-      let rawText = "";
-      if (Array.isArray(transcriptJSON.paragraphs)) {
-        rawText = transcriptJSON.paragraphs.join("\n\n");
-      } else if (typeof transcriptJSON.text === "string") {
-        rawText = transcriptJSON.text;
+        // Save original PDF
+        const pdfFilename = transcriptFile.name;
+        await writeOriginalPdf(pdfFilename, buffer);
+        originalTranscriptFile = `originals/${pdfFilename}`;
+
+        // Parse filename metadata
+        const filenameMeta = parseTranscriptFilename(pdfFilename);
+        transcriptCode = filenameMeta.transcriptCode;
+
+        // Parse PDF into structured transcript
+        const parsed = await parseTranscriptPdfBuffer(buffer);
+        const normalizedTranscript: NormalizedTranscript = {
+          id,
+          sourceFile: transcriptFile.name,
+          client: parsed.clientName,
+          interviewDate: parsed.interviewDate,
+          project: parsed.project,
+          score: parsed.score,
+          overview: "",
+          sections: [],
+          fullTranscript: parsed.fullTranscript,
+          rawText: parsed.rawText,
+        };
+
+        await writeTranscript(id, normalizedTranscript);
+        transcriptSourceFile = `transcripts/${id}.json`;
       } else {
-        rawText = transcriptText;
+        // JSON transcript: existing behavior
+        const transcriptText = await transcriptFile.text();
+        const transcriptJSON = JSON.parse(transcriptText);
+
+        let rawText = "";
+        if (Array.isArray(transcriptJSON.paragraphs)) {
+          rawText = transcriptJSON.paragraphs.join("\n\n");
+        } else if (typeof transcriptJSON.text === "string") {
+          rawText = transcriptJSON.text;
+        } else {
+          rawText = transcriptText;
+        }
+
+        const normalizedTranscript: NormalizedTranscript = {
+          id,
+          sourceFile: transcriptFile.name,
+          overview: "",
+          sections: [],
+          fullTranscript: [],
+          rawText,
+        };
+
+        await writeTranscript(id, normalizedTranscript);
+        transcriptSourceFile = `transcripts/${id}.json`;
       }
-
-      const normalizedTranscript: NormalizedTranscript = {
-        id,
-        sourceFile: transcriptFile.name,
-        overview: "",
-        sections: [],
-        fullTranscript: [],
-        rawText,
-      };
-
-      await writeTranscript(id, normalizedTranscript);
-      transcriptSourceFile = transcriptFile.name;
     }
 
     // --- Process report file ---
     let originalPdfFile: string | null = null;
+    let reportCode: string | undefined;
+
     if (reportFile) {
       if (isPdfFile(reportFile)) {
         // PDF report: parse structured content and save original
@@ -141,6 +201,14 @@ export async function POST(request: NextRequest) {
         const pdfFilename = reportFile.name;
         await writeOriginalPdf(pdfFilename, buffer);
         originalPdfFile = `originals/${pdfFilename}`;
+
+        // Extract report code from filename if it's a coded report
+        if (isReportPdf(pdfFilename)) {
+          const match = pdfFilename.match(/^(R\d+)_/);
+          if (match) {
+            reportCode = match[1];
+          }
+        }
 
         // Parse PDF into structured report
         const parsed = await parsePdfBuffer(buffer);
@@ -198,6 +266,18 @@ export async function POST(request: NextRequest) {
     const npsCategory = getNPSCategory(score);
     const monthYear = getMonthYear(interviewDate);
 
+    // Determine data status based on what was uploaded
+    const hasTranscript = !!transcriptFile;
+    const hasReport = !!reportFile;
+    let dataStatus: "complete" | "transcript_only" | "report_only";
+    if (hasTranscript && hasReport) {
+      dataStatus = "complete";
+    } else if (hasTranscript) {
+      dataStatus = "transcript_only";
+    } else {
+      dataStatus = "report_only";
+    }
+
     const metadata: InterviewMetadata = {
       id,
       interviewId: interviewIdNum,
@@ -210,11 +290,17 @@ export async function POST(request: NextRequest) {
       solution,
       accountType,
       monthYear,
-      hasTranscript: !!transcriptFile,
-      hasReport: !!reportFile,
+      hasTranscript,
+      hasReport,
       transcriptFile: transcriptSourceFile,
       reportFile: reportFile ? `reports/${id}.json` : null,
       originalPdfFile,
+      // New correlation fields
+      transcriptCode,
+      reportCode,
+      originalTranscriptFile,
+      originalReportFile: originalPdfFile,
+      dataStatus,
       createdAt: now,
       updatedAt: now,
     };

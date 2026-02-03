@@ -1,10 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import EmptyState from "@/components/shared/EmptyState";
 import ReindexButton from "@/components/shared/ReindexButton";
+import MetadataLabel from "@/components/shared/MetadataLabel";
+import NPSBadge from "@/components/shared/NPSBadge";
+import type { InterviewMetadata } from "@/types";
 
 // --- Types ---
 
@@ -36,6 +39,9 @@ interface OpportunitiesResponse {
   opportunities: Opportunity[];
   empty?: boolean;
 }
+
+const REGION_OPTIONS = ["All", "NA", "EMEA", "APAC", "LATAM"] as const;
+const NPS_OPTIONS = ["All", "Promoters", "Passives", "Detractors"] as const;
 
 // --- Constants ---
 
@@ -99,6 +105,7 @@ const TYPE_ORDER: OpportunityType[] = [
 
 export default function OpportunitiesPage() {
   const [opportunities, setOpportunities] = useState<Opportunity[]>([]);
+  const [interviews, setInterviews] = useState<InterviewMetadata[]>([]);
   const [lastGenerated, setLastGenerated] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEmpty, setIsEmpty] = useState(false);
@@ -107,6 +114,10 @@ export default function OpportunitiesPage() {
   const [filterType, setFilterType] = useState<string>("all");
   const [filterUrgency, setFilterUrgency] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterRegion, setFilterRegion] = useState<string>("All");
+  const [filterNpsCategory, setFilterNpsCategory] = useState<string>("All");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
 
   // Collapsible sections
   const [collapsedSections, setCollapsedSections] = useState<
@@ -117,36 +128,78 @@ export default function OpportunitiesPage() {
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchOpportunities = async () => {
+    const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await fetch("/api/opportunities");
-        const data: OpportunitiesResponse = await res.json();
+        const [oppRes, interviewsRes] = await Promise.all([
+          fetch("/api/opportunities"),
+          fetch("/api/interviews"),
+        ]);
+        const oppData: OpportunitiesResponse = await oppRes.json();
+        const interviewsData = await interviewsRes.json();
 
-        if (data.empty) {
+        if (oppData.empty) {
           setIsEmpty(true);
           setOpportunities([]);
         } else {
           setIsEmpty(false);
-          setOpportunities(data.opportunities || []);
-          setLastGenerated(data.lastGenerated || null);
+          setOpportunities(oppData.opportunities || []);
+          setLastGenerated(oppData.lastGenerated || null);
         }
+        setInterviews(interviewsData.interviews || []);
       } catch (error) {
-        console.error("Failed to fetch opportunities:", error);
+        console.error("Failed to fetch data:", error);
         setOpportunities([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchOpportunities();
+    fetchData();
   }, []);
+
+  // Build lookup for interview metadata
+  const interviewMap = useMemo(() => {
+    const map: Record<string, InterviewMetadata> = {};
+    for (const interview of interviews) {
+      map[interview.id] = interview;
+    }
+    return map;
+  }, [interviews]);
 
   // --- Filtered opportunities ---
   const filtered = opportunities.filter((opp) => {
     if (filterType !== "all" && opp.type !== filterType) return false;
     if (filterUrgency !== "all" && opp.urgency !== filterUrgency) return false;
     if (filterStatus !== "all" && opp.status !== filterStatus) return false;
+
+    // Get interview metadata for region/NPS/date filtering
+    const interview = interviewMap[opp.sourceInterviewId];
+    if (interview) {
+      // Region filter
+      if (filterRegion !== "All" && interview.region !== filterRegion) {
+        return false;
+      }
+      // NPS category filter
+      if (filterNpsCategory !== "All") {
+        const categoryMap: Record<string, string> = {
+          Promoters: "promoter",
+          Passives: "passive",
+          Detractors: "detractor",
+        };
+        if (interview.npsCategory !== categoryMap[filterNpsCategory]) {
+          return false;
+        }
+      }
+      // Date filter
+      if (dateFrom && interview.interviewDate < dateFrom) {
+        return false;
+      }
+      if (dateTo && interview.interviewDate > dateTo) {
+        return false;
+      }
+    }
+
     return true;
   });
 
@@ -313,6 +366,68 @@ export default function OpportunitiesPage() {
               <option value="in_progress">In Progress</option>
               <option value="actioned">Actioned</option>
             </select>
+
+            <select
+              value={filterRegion}
+              onChange={(e) => setFilterRegion(e.target.value)}
+              className="filter-select"
+            >
+              {REGION_OPTIONS.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt === "All" ? "All Regions" : opt}
+                </option>
+              ))}
+            </select>
+
+            <select
+              value={filterNpsCategory}
+              onChange={(e) => setFilterNpsCategory(e.target.value)}
+              className="filter-select"
+            >
+              {NPS_OPTIONS.map((opt) => (
+                <option key={opt} value={opt}>
+                  {opt === "All" ? "All NPS Categories" : opt}
+                </option>
+              ))}
+            </select>
+
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-gray-500">From:</label>
+              <input
+                type="date"
+                value={dateFrom}
+                onChange={(e) => setDateFrom(e.target.value)}
+                className="filter-select"
+              />
+            </div>
+
+            <div className="flex items-center gap-2">
+              <label className="text-sm text-gray-500">To:</label>
+              <input
+                type="date"
+                value={dateTo}
+                onChange={(e) => setDateTo(e.target.value)}
+                className="filter-select"
+              />
+            </div>
+
+            {(filterType !== "all" || filterUrgency !== "all" || filterStatus !== "all" ||
+              filterRegion !== "All" || filterNpsCategory !== "All" || dateFrom || dateTo) && (
+              <button
+                onClick={() => {
+                  setFilterType("all");
+                  setFilterUrgency("all");
+                  setFilterStatus("all");
+                  setFilterRegion("All");
+                  setFilterNpsCategory("All");
+                  setDateFrom("");
+                  setDateTo("");
+                }}
+                className="text-sm text-kf-primary hover:underline"
+              >
+                Clear filters
+              </button>
+            )}
           </div>
 
           {/* Results Count */}
@@ -390,6 +505,7 @@ export default function OpportunitiesPage() {
                           <OpportunityCard
                             key={opp.id}
                             opportunity={opp}
+                            interview={interviewMap[opp.sourceInterviewId]}
                             updatingId={updatingId}
                             onStatusChange={handleStatusChange}
                           />
@@ -418,10 +534,12 @@ export default function OpportunitiesPage() {
 
 function OpportunityCard({
   opportunity,
+  interview,
   updatingId,
   onStatusChange,
 }: {
   opportunity: Opportunity;
+  interview?: InterviewMetadata;
   updatingId: string | null;
   onStatusChange: (id: string, status: Status) => void;
 }) {
@@ -462,15 +580,29 @@ function OpportunityCard({
         </div>
       )}
 
-      {/* Source */}
-      <div className="text-sm text-gray-500 mb-3">
-        <span className="font-medium text-gray-600">Source: </span>
-        <Link
-          href={`/interviews/${opportunity.sourceInterviewId}`}
-          className="text-kf-primary hover:underline"
-        >
-          {opportunity.client}, {opportunity.company}
-        </Link>
+      {/* Source with full metadata */}
+      <div className="mb-3">
+        <div className="text-sm mb-2">
+          <span className="font-medium text-gray-600">Source: </span>
+          <Link
+            href={`/interviews/${opportunity.sourceInterviewId}`}
+            className="text-kf-primary hover:underline"
+          >
+            {opportunity.client}, {opportunity.company}
+          </Link>
+        </div>
+        {interview && (
+          <div className="flex flex-wrap items-center gap-2">
+            <NPSBadge score={interview.score} size="sm" />
+            <MetadataLabel type="region" value={interview.region} />
+            {interview.accountType && (
+              <MetadataLabel type="account" value={interview.accountType} />
+            )}
+            <span className="inline-flex items-center px-2 py-0.5 text-xs font-medium bg-gray-100 text-gray-600 rounded">
+              {interview.solution}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Suggested Action */}

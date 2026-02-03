@@ -107,65 +107,23 @@ export default async function DashboardPage() {
         </p>
       </div>
 
-      {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+      {/* Stats Grid - 3 Key Metrics */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
         <div className="stat-card">
           <div className="stat-value">{totalInterviews}</div>
           <div className="stat-label">Total Interviews</div>
         </div>
-        <div className="stat-card">
-          <div className="stat-label mb-2">By Region</div>
-          <div className="space-y-1 text-sm">
-            {regionEntries.map(([region, count]) => (
-              <div key={region} className="flex justify-between">
-                <span className="text-gray-600">{region}</span>
-                <span className="font-medium text-gray-900">{count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label mb-2">By Solution</div>
-          <div className="space-y-1 text-sm">
-            {solutionEntries.map(([solution, count]) => (
-              <div key={solution} className="flex justify-between">
-                <span className="text-gray-600 truncate mr-2">{solution}</span>
-                <span className="font-medium text-gray-900">{count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label mb-2">By NPS Category</div>
-          <div className="space-y-1 text-sm">
-            <div className="flex justify-between">
-              <span className="text-green-600">Promoters</span>
-              <span className="font-medium text-gray-900">{promoters}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-yellow-600">Passives</span>
-              <span className="font-medium text-gray-900">{passives}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-red-600">Detractors</span>
-              <span className="font-medium text-gray-900">{detractors}</span>
-            </div>
-          </div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-label mb-2">By Account Type</div>
-          <div className="space-y-1 text-sm">
-            {accountEntries.map(([account, count]) => (
-              <div key={account} className="flex justify-between">
-                <span className="text-gray-600 truncate mr-2">{account}</span>
-                <span className="font-medium text-gray-900">{count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Link href="/themes" className="stat-card hover:shadow-md transition-shadow">
+          <div className="stat-value">{totalThemes}</div>
+          <div className="stat-label">Themes Identified</div>
+        </Link>
+        <Link href="/opportunities" className="stat-card hover:shadow-md transition-shadow">
+          <div className="stat-value">{opportunitiesCount}</div>
+          <div className="stat-label">Opportunities</div>
+        </Link>
       </div>
 
-      {/* Distribution Section */}
+      {/* Distribution Section - 2x2 Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         {/* NPS Category Breakdown */}
         <div className="section-card p-6">
@@ -246,6 +204,66 @@ export default async function DashboardPage() {
               </div>
             ))}
             {regionEntries.length === 0 && (
+              <p className="text-sm text-gray-400">No data available</p>
+            )}
+          </div>
+        </div>
+
+        {/* Solution Breakdown */}
+        <div className="section-card p-6">
+          <h2 className="section-title">By Solution</h2>
+          <div className="space-y-4">
+            {solutionEntries.map(([solution, count]) => {
+              const maxSolutionCount = solutionEntries.length > 0 ? solutionEntries[0][1] : 1;
+              return (
+                <div key={solution}>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="font-medium text-gray-700">{solution}</span>
+                    <span className="text-gray-500">{count}</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-4">
+                    <div
+                      className="h-4 rounded-full"
+                      style={{
+                        width: `${Math.round((count / maxSolutionCount) * 100)}%`,
+                        backgroundColor: "#007B5E",
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            {solutionEntries.length === 0 && (
+              <p className="text-sm text-gray-400">No data available</p>
+            )}
+          </div>
+        </div>
+
+        {/* Account Type Breakdown */}
+        <div className="section-card p-6">
+          <h2 className="section-title">By Account Type</h2>
+          <div className="space-y-4">
+            {accountEntries.map(([account, count]) => {
+              const maxAccountCount = accountEntries.length > 0 ? accountEntries[0][1] : 1;
+              return (
+                <div key={account}>
+                  <div className="flex justify-between text-sm mb-1">
+                    <span className="font-medium text-gray-700">{account}</span>
+                    <span className="text-gray-500">{count}</span>
+                  </div>
+                  <div className="w-full bg-gray-100 rounded-full h-4">
+                    <div
+                      className="h-4 rounded-full"
+                      style={{
+                        width: `${Math.round((count / maxAccountCount) * 100)}%`,
+                        backgroundColor: "#C4A35A",
+                      }}
+                    />
+                  </div>
+                </div>
+              );
+            })}
+            {accountEntries.length === 0 && (
               <p className="text-sm text-gray-400">No data available</p>
             )}
           </div>

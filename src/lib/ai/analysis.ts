@@ -278,22 +278,19 @@ Return ONLY valid JSON, no markdown code fences or other formatting.`;
   return analysis;
 }
 
-export async function generateOpportunityAnalysis(): Promise<OpportunitiesAnalysis> {
-  const openai = getOpenAIClient();
-  const interviews = await loadAllInterviewData();
+const OPPORTUNITY_CONCURRENCY = 10;
 
-  const allOpportunities: Opportunity[] = [];
-  let oppIdx = 0;
-
-  for (const data of interviews) {
-    const summary = buildInterviewSummary(data);
-
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: `Analyse this NPS interview for opportunity- and action-oriented insights.
+async function analyzeOneInterview(
+  openai: Awaited<ReturnType<typeof getOpenAIClient>>,
+  data: InterviewData
+): Promise<Omit<Opportunity, "id">[]> {
+  const summary = buildInterviewSummary(data);
+  const response = await openai.chat.completions.create({
+    model: "gpt-4o",
+    messages: [
+      {
+        role: "user",
+        content: `Analyse this NPS interview for opportunity- and action-oriented insights.
 
 Identify any mentions of:
 1. future_need - Services or support the client may need in future
@@ -318,36 +315,51 @@ Interview ID: ${data.metadata.id}
 
 Return a JSON object: { "opportunities": [...] }
 Return ONLY valid JSON.`,
-        },
-      ],
-      temperature: 0.2,
-      response_format: { type: "json_object" },
-    });
+      },
+    ],
+    temperature: 0.2,
+    response_format: { type: "json_object" },
+  });
 
-    try {
-      const parsed = JSON.parse(
-        response.choices[0].message.content || '{"opportunities":[]}'
-      );
-      const opps = parsed.opportunities || [];
-      for (const opp of opps) {
-        allOpportunities.push({
-          id: `opp-${oppIdx++}`,
-          type: opp.type || "improvement",
-          title: opp.title || "",
-          description: opp.description || "",
-          urgency: opp.urgency || "medium",
-          sourceInterviewId: data.metadata.id,
-          client: data.metadata.client,
-          company: data.metadata.company,
-          supportingQuote: opp.supportingQuote || "",
-          suggestedAction: opp.suggestedAction || "",
-          status: "identified",
-        });
+  const content = response.choices[0].message.content || '{"opportunities":[]}';
+  try {
+    const parsed = JSON.parse(content);
+    const opps = parsed.opportunities || [];
+    return opps.map((opp: Record<string, unknown>) => ({
+      type: (opp.type as Opportunity["type"]) || "improvement",
+      title: (opp.title as string) || "",
+      description: (opp.description as string) || "",
+      urgency: (opp.urgency as Opportunity["urgency"]) || "medium",
+      sourceInterviewId: data.metadata.id,
+      client: data.metadata.client,
+      company: data.metadata.company,
+      supportingQuote: (opp.supportingQuote as string) || "",
+      suggestedAction: (opp.suggestedAction as string) || "",
+      status: "identified" as const,
+    }));
+  } catch {
+    console.error(`Failed to parse opportunities for ${data.metadata.client}`);
+    return [];
+  }
+}
+
+export async function generateOpportunityAnalysis(): Promise<OpportunitiesAnalysis> {
+  const openai = getOpenAIClient();
+  const interviews = await loadAllInterviewData();
+
+  const allOpportunities: Opportunity[] = [];
+  let oppIdx = 0;
+
+  // Process in parallel batches to respect rate limits but speed up (e.g. ~10 at a time)
+  for (let i = 0; i < interviews.length; i += OPPORTUNITY_CONCURRENCY) {
+    const chunk = interviews.slice(i, i + OPPORTUNITY_CONCURRENCY);
+    const results = await Promise.all(
+      chunk.map((data) => analyzeOneInterview(openai, data))
+    );
+    for (const opportunities of results) {
+      for (const opp of opportunities) {
+        allOpportunities.push({ ...opp, id: `opp-${oppIdx++}` });
       }
-    } catch {
-      console.error(
-        `Failed to parse opportunities for ${data.metadata.client}`
-      );
     }
   }
 

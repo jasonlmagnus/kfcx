@@ -4,21 +4,29 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-white text-gray-900 antialiased;
+  }
+
+  h1, h2, h3 {
+    @apply font-serif;
   }
 }
 
 @layer components {
   .stat-card {
+    @apply rounded-lg bg-white border border-gray-200 p-5 text-center shadow-sm;
+  }
+
+  .stat-card-accent {
     @apply rounded-lg bg-kf-gradient p-5 text-white text-center;
   }
 
   .stat-value {
-    @apply text-3xl font-bold mb-1;
+    @apply text-3xl font-bold mb-1 text-kf-primary;
   }
 
   .stat-label {
-    @apply text-sm opacity-90;
+    @apply text-sm text-gray-600;
   }
 
   .section-card {
@@ -26,7 +34,11 @@
   }
 
   .section-title {
-    @apply text-lg font-semibold text-kf-primary mb-3;
+    @apply text-lg font-semibold text-kf-primary mb-3 font-serif;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-kf-primary font-serif italic;
   }
 
   .list-item {
@@ -60,11 +72,15 @@
   .btn-secondary {
     @apply px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors;
   }
+
+  .kf-accent-line {
+    @apply h-0.5 bg-kf-accent w-full;
+  }
 }
 
 @layer utilities {
   .bg-kf-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #007B5E 0%, #005A45 100%);
   }
 
   .border-l-3 {

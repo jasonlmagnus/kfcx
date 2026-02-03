@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" fill="none">
+  <!-- Logo mark - KF in green box -->
+  <rect x="0" y="0" width="40" height="40" rx="4" fill="#007B5E"/>
+  <text x="6" y="28" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="white">K</text>
+  <text x="20" y="28" font-family="Georgia, serif" font-size="22" font-weight="bold" fill="white">F</text>
+
+  <!-- Text - KORN FERRY -->
+  <text x="50" y="18" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#007B5E" letter-spacing="2">KORN</text>
+  <text x="50" y="34" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#007B5E" letter-spacing="2">FERRY</text>
+</svg>

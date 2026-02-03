@@ -1,0 +1,65 @@
+/**
+ * Regenerate only themes and opportunities from current interview data.
+ * Run from project root: npx tsx scripts/themes-opportunities.ts
+ * Requires OPENAI_API_KEY in .env.local (or env).
+ */
+import { promises as fs } from "fs";
+import path from "path";
+
+const PROJECT_ROOT = process.cwd();
+const ENV_LOCAL = path.join(PROJECT_ROOT, ".env.local");
+
+async function loadEnvLocal(): Promise<void> {
+  try {
+    const content = await fs.readFile(ENV_LOCAL, "utf-8");
+    for (const line of content.split("\n")) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith("#")) continue;
+      const eq = trimmed.indexOf("=");
+      if (eq <= 0) continue;
+      const key = trimmed.slice(0, eq).trim();
+      const value = trimmed.slice(eq + 1).trim();
+      if (value.startsWith('"') && value.endsWith('"')) {
+        process.env[key] = value.slice(1, -1).replace(/\\n/g, "\n");
+      } else {
+        process.env[key] = value;
+      }
+    }
+    console.log("Loaded .env.local");
+  } catch {
+    console.warn(".env.local not found; using existing env.");
+  }
+}
+
+async function main(): Promise<void> {
+  await loadEnvLocal();
+
+  if (!process.env.OPENAI_API_KEY) {
+    console.error("OPENAI_API_KEY is not set. Add it to .env.local and run again.");
+    process.exit(1);
+  }
+
+  const { generateThemeAnalysis, generateOpportunityAnalysis } = await import(
+    "../src/lib/ai/analysis"
+  );
+
+  console.log("Generating theme analysis...");
+  const themes = await generateThemeAnalysis();
+  const totalThemes =
+    themes.whyClientsChoose.themes.length +
+    themes.promoterExperience.themes.length +
+    themes.whereFallsShort.themes.length +
+    (themes.additionalThemes?.reduce((s, g) => s + g.themes.length, 0) ?? 0);
+  console.log(`  Themes: ${totalThemes} identified`);
+
+  console.log("Generating opportunity analysis...");
+  const opps = await generateOpportunityAnalysis();
+  console.log(`  Opportunities: ${opps.opportunities.length} identified`);
+
+  console.log("Done.");
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

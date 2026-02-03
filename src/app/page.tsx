@@ -6,6 +6,8 @@ import {
 } from "@/lib/data/store";
 import { formatDate } from "@/lib/utils/dates";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
   const [index, themeAnalysis, opportunitiesData] = await Promise.all([
     readMetadataIndex(),

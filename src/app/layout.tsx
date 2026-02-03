@@ -5,6 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "KFCX - NPS Insight Platform",
   description: "Korn Ferry Customer Centricity - NPS Interview Insight Platform",
+  icons: { icon: "/kf-icon.svg" },
 };
 
 export default function RootLayout({

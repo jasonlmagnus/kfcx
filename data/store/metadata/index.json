@@ -195,11 +195,7 @@
       "reportFile": "reports/t-009.json",
       "originalPdfFile": "originals/R4_NPS7_NA_PS_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.951Z",
-<<<<<<< HEAD
       "updatedAt": "2026-02-03T14:30:41.132Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.212Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
       "reportCode": "R4",
       "dataStatus": "complete",
       "transcriptCode": "T4",
@@ -224,11 +220,7 @@
       "reportFile": "reports/t-010.json",
       "originalPdfFile": "originals/R5_NPS6_NA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.968Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.160Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.241Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.160Z",
       "reportCode": "R5",
       "dataStatus": "complete",
       "transcriptCode": "T5",
@@ -253,11 +245,7 @@
       "reportFile": "reports/t-011.json",
       "originalPdfFile": "originals/R6_NPS9_NA_ES_MARQUEE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.988Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.182Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.264Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.182Z",
       "reportCode": "R6",
       "dataStatus": "complete",
       "transcriptCode": "T6",
@@ -282,11 +270,7 @@
       "reportFile": "reports/t-012.json",
       "originalPdfFile": "originals/R7_NPS8_EMEA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:08.005Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.204Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.285Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.204Z",
       "reportCode": "R7",
       "dataStatus": "complete",
       "transcriptCode": "T7",
@@ -311,11 +295,7 @@
       "reportFile": "reports/t-013.json",
       "originalPdfFile": "originals/R8_NPS10_NA_CONSULTING_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:08.021Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.220Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.303Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.220Z",
       "reportCode": "R8",
       "dataStatus": "complete",
       "transcriptCode": "T8",
@@ -340,11 +320,7 @@
       "reportFile": "reports/t-014.json",
       "originalPdfFile": "originals/R9_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.037Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.235Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.322Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.235Z",
       "reportCode": "R9",
       "dataStatus": "complete",
       "transcriptCode": "T9",
@@ -1044,11 +1020,7 @@
       "reportFile": "reports/t-042.json",
       "originalPdfFile": "originals/R37_NPS7_NA_ES_MARQUEE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.443Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.255Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.344Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.255Z",
       "reportCode": "R37",
       "dataStatus": "complete",
       "transcriptCode": "T37",
@@ -1073,11 +1045,7 @@
       "reportFile": "reports/t-043.json",
       "originalPdfFile": "originals/R38_NPS10_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.453Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.270Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.363Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.270Z",
       "reportCode": "R38",
       "dataStatus": "complete",
       "transcriptCode": "T38",
@@ -1102,11 +1070,7 @@
       "reportFile": "reports/t-044.json",
       "originalPdfFile": "originals/R39_NPS10_EMEA_CONSULTING_MARQUEE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.463Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.286Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.378Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.286Z",
       "reportCode": "R39",
       "dataStatus": "complete",
       "transcriptCode": "T39",
@@ -1131,11 +1095,7 @@
       "reportFile": "reports/t-045.json",
       "originalPdfFile": "originals/R40_NPS10_NA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.475Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.303Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.395Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.303Z",
       "reportCode": "R40",
       "dataStatus": "complete",
       "transcriptCode": "T40",
@@ -1160,11 +1120,7 @@
       "reportFile": "reports/t-046.json",
       "originalPdfFile": "originals/R41_NPS7_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.490Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.320Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.411Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.320Z",
       "reportCode": "R41",
       "dataStatus": "complete",
       "transcriptCode": "T41",
@@ -1189,11 +1145,7 @@
       "reportFile": "reports/t-047.json",
       "originalPdfFile": "originals/R42_NPS9_EMEA_CONSULTING_HOUSE_JAN26.pdf",
       "createdAt": "2026-01-30T09:45:08.504Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.336Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.425Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.336Z",
       "reportCode": "R42",
       "dataStatus": "complete",
       "transcriptCode": "T42",
@@ -1218,11 +1170,7 @@
       "reportFile": "reports/t-048.json",
       "originalPdfFile": "originals/R43_NPS10_NA_PS_MARQUEE_JAN26.pdf",
       "createdAt": "2026-01-30T09:45:08.515Z",
-<<<<<<< HEAD
-      "updatedAt": "2026-02-03T14:30:41.355Z",
-=======
-      "updatedAt": "2026-02-03T14:28:13.439Z",
->>>>>>> 02efd2f339e4685c18be4650e3a9d8fe86ee5449
+"updatedAt": "2026-02-03T14:30:41.355Z",
       "reportCode": "R43",
       "dataStatus": "complete",
       "transcriptCode": "T43",

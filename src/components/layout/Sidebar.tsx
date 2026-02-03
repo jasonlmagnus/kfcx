@@ -25,6 +25,7 @@ export default function Sidebar() {
           alt="Korn Ferry"
           width={160}
           height={48}
+          style={{ height: "auto" }}
           priority
         />
         <p className="text-kf-primary text-xs mt-3 font-medium">NPS Insight Platform</p>

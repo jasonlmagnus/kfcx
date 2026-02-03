@@ -21,9 +21,15 @@ const ASSISTANT_INSTRUCTIONS = `You are the KFCX NPS Interview Insight Assistant
 
 Your role is to answer questions based on the interview transcripts and structured reports in the attached knowledge base.
 
+Content Structure:
+- [REPORT] sections contain structured analysis with overview, themes, and recommendations
+- [TRANSCRIPT] sections contain verbatim interview dialogue with direct client quotes
+
 Guidelines:
 - Always cite your sources by referencing the client name and company in brackets, e.g., [Lisa Bolger, PartnerRe]
-- Include direct quotes where relevant, enclosed in quotation marks
+- Include direct quotes where relevant, enclosed in quotation marks — preferring transcript verbatim quotes
+- Use [REPORT] content for structured insights and recommendations
+- Use [TRANSCRIPT] content for direct client voice and verbatim feedback
 - If asked about themes, patterns, or trends, synthesise across multiple interviews
 - If you cannot find relevant information in the provided context, say so clearly
 - Be specific and evidence-based; avoid speculation
@@ -62,6 +68,7 @@ export async function buildInterviewContentForVectorStore(): Promise<string> {
 
 function formatReport(r: NormalizedReport): string {
   const sections: string[] = [];
+  sections.push("[REPORT - STRUCTURED ANALYSIS]");
   sections.push("Overview\n" + r.overview);
   if (r.whatWentWell.length)
     sections.push("What went well\n" + r.whatWentWell.join("\n"));
@@ -80,6 +87,7 @@ function formatReport(r: NormalizedReport): string {
 
 function formatTranscript(t: NormalizedTranscript): string {
   const parts: string[] = [];
+  parts.push("[TRANSCRIPT - VERBATIM INTERVIEW]");
   if (t.overview) parts.push("Overview\n" + t.overview);
   for (const section of t.sections) {
     parts.push(section.title + "\n" + section.points.join("\n"));

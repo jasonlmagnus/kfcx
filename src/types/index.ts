@@ -6,6 +6,7 @@
 export type NPSCategory = "promoter" | "passive" | "detractor";
 export type Region = "NA" | "EMEA" | "APAC" | "LATAM";
 export type Solution = "Executive Search" | "Professional Search" | "Consulting";
+export type DataStatus = "complete" | "transcript_only" | "report_only";
 
 // --- Master Metadata Index ---
 export interface InterviewMetadata {
@@ -25,6 +26,12 @@ export interface InterviewMetadata {
   transcriptFile: string;
   reportFile: string | null;
   originalPdfFile?: string | null;
+  // Transcript/Report correlation fields
+  transcriptCode?: string; // "T1", "T10", etc.
+  reportCode?: string; // "R1", "R10", etc.
+  originalTranscriptFile?: string | null;
+  originalReportFile?: string | null;
+  dataStatus?: DataStatus;
   createdAt: string;
   updatedAt: string;
 }
@@ -49,6 +56,10 @@ export interface TranscriptTurn {
 export interface NormalizedTranscript {
   id: string;
   sourceFile: string;
+  client?: string;
+  interviewDate?: string;
+  project?: string;
+  score?: number;
   overview: string;
   sections: TranscriptSection[];
   fullTranscript: TranscriptTurn[];

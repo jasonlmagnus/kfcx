@@ -254,6 +254,7 @@ export async function searchSimilar(
     solution?: string;
     npsCategory?: string;
     interviewIds?: string[];
+    source?: "transcript" | "report" | "both";
   }
 ): Promise<(EmbeddingChunk & { score: number })[]> {
   const embeddingIndex = await readEmbeddingIndex();
@@ -279,6 +280,10 @@ export async function searchSimilar(
         !filters.interviewIds.includes(chunk.interviewId)
       )
         return false;
+      // Source filter: "both" or undefined means include all, otherwise filter by specific source
+      if (filters.source && filters.source !== "both") {
+        if (chunk.source !== filters.source) return false;
+      }
       return true;
     });
   }

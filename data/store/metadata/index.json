@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastUpdated": "2026-01-30T09:45:08.515Z",
+  "lastUpdated": "2026-02-03T11:32:21.363Z",
   "interviews": [
     {
       "id": "t-001",
@@ -19,7 +19,8 @@
       "transcriptFile": "transcripts/t-001.json",
       "reportFile": "reports/t-001.json",
       "createdAt": "2026-01-27T17:03:27.356Z",
-      "updatedAt": "2026-01-27T17:03:27.356Z"
+      "updatedAt": "2026-01-27T17:03:27.356Z",
+      "dataStatus": "complete"
     },
     {
       "id": "t-002",
@@ -38,7 +39,8 @@
       "transcriptFile": "transcripts/t-002.json",
       "reportFile": "reports/t-002.json",
       "createdAt": "2026-01-27T17:03:27.358Z",
-      "updatedAt": "2026-01-27T17:03:27.358Z"
+      "updatedAt": "2026-01-27T17:03:27.358Z",
+      "dataStatus": "complete"
     },
     {
       "id": "t-003",
@@ -57,7 +59,8 @@
       "transcriptFile": "transcripts/t-003.json",
       "reportFile": "reports/t-003.json",
       "createdAt": "2026-01-27T17:03:27.359Z",
-      "updatedAt": "2026-01-27T17:03:27.359Z"
+      "updatedAt": "2026-01-27T17:03:27.359Z",
+      "dataStatus": "complete"
     },
     {
       "id": "t-004",
@@ -76,7 +79,8 @@
       "transcriptFile": "transcripts/t-004.json",
       "reportFile": "reports/t-004.json",
       "createdAt": "2026-01-27T17:03:27.360Z",
-      "updatedAt": "2026-01-27T17:03:27.360Z"
+      "updatedAt": "2026-01-27T17:03:27.360Z",
+      "dataStatus": "complete"
     },
     {
       "id": "t-005",
@@ -95,7 +99,8 @@
       "transcriptFile": "transcripts/t-005.json",
       "reportFile": null,
       "createdAt": "2026-01-27T17:03:27.360Z",
-      "updatedAt": "2026-01-27T17:03:27.360Z"
+      "updatedAt": "2026-01-27T17:03:27.360Z",
+      "dataStatus": "transcript_only"
     },
     {
       "id": "t-006",
@@ -109,13 +114,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-09",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-006.json",
       "reportFile": "reports/t-006.json",
       "originalPdfFile": "originals/R1_NPS6_EMEA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.891Z",
-      "updatedAt": "2026-01-30T09:45:07.891Z"
+      "updatedAt": "2026-02-03T11:32:20.933Z",
+      "reportCode": "R1",
+      "dataStatus": "complete",
+      "transcriptCode": "T1",
+      "originalTranscriptFile": "originals/T1_NPS6_EMEA_ES_HOUSE_SEP25.pdf",
+      "originalReportFile": "originals/R1_NPS6_EMEA_ES_HOUSE_SEP25.pdf"
     },
     {
       "id": "t-007",
@@ -129,13 +139,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-09",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-007.json",
       "reportFile": "reports/t-007.json",
       "originalPdfFile": "originals/R2_NPS9_NA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.914Z",
-      "updatedAt": "2026-01-30T09:45:07.914Z"
+      "updatedAt": "2026-02-03T11:32:20.955Z",
+      "reportCode": "R2",
+      "dataStatus": "complete",
+      "transcriptCode": "T2",
+      "originalTranscriptFile": "originals/T2_NPS9_NA_ES_HOUSE_SEP25.pdf",
+      "originalReportFile": "originals/R2_NPS9_NA_ES_HOUSE_SEP25.pdf"
     },
     {
       "id": "t-008",
@@ -149,13 +164,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-09",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-008.json",
       "reportFile": "reports/t-008.json",
       "originalPdfFile": "originals/R3_NPS10_NA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.934Z",
-      "updatedAt": "2026-01-30T09:45:07.934Z"
+      "updatedAt": "2026-02-03T11:32:20.975Z",
+      "reportCode": "R3",
+      "dataStatus": "complete",
+      "transcriptCode": "T3",
+      "originalTranscriptFile": "originals/T3_NPS10_NA_ES_HOUSE_SEP25.pdf",
+      "originalReportFile": "originals/R3_NPS10_NA_ES_HOUSE_SEP25.pdf"
     },
     {
       "id": "t-009",
@@ -175,7 +195,9 @@
       "reportFile": "reports/t-009.json",
       "originalPdfFile": "originals/R4_NPS7_NA_PS_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.951Z",
-      "updatedAt": "2026-01-30T09:45:07.951Z"
+      "updatedAt": "2026-01-30T09:45:07.951Z",
+      "reportCode": "R4",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-010",
@@ -195,7 +217,9 @@
       "reportFile": "reports/t-010.json",
       "originalPdfFile": "originals/R5_NPS6_NA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.968Z",
-      "updatedAt": "2026-01-30T09:45:07.968Z"
+      "updatedAt": "2026-01-30T09:45:07.968Z",
+      "reportCode": "R5",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-011",
@@ -215,7 +239,9 @@
       "reportFile": "reports/t-011.json",
       "originalPdfFile": "originals/R6_NPS9_NA_ES_MARQUEE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:07.988Z",
-      "updatedAt": "2026-01-30T09:45:07.988Z"
+      "updatedAt": "2026-01-30T09:45:07.988Z",
+      "reportCode": "R6",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-012",
@@ -235,7 +261,9 @@
       "reportFile": "reports/t-012.json",
       "originalPdfFile": "originals/R7_NPS8_EMEA_ES_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:08.005Z",
-      "updatedAt": "2026-01-30T09:45:08.005Z"
+      "updatedAt": "2026-01-30T09:45:08.005Z",
+      "reportCode": "R7",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-013",
@@ -255,7 +283,9 @@
       "reportFile": "reports/t-013.json",
       "originalPdfFile": "originals/R8_NPS10_NA_CONSULTING_HOUSE_SEP25.pdf",
       "createdAt": "2026-01-30T09:45:08.021Z",
-      "updatedAt": "2026-01-30T09:45:08.021Z"
+      "updatedAt": "2026-01-30T09:45:08.021Z",
+      "reportCode": "R8",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-014",
@@ -275,7 +305,9 @@
       "reportFile": "reports/t-014.json",
       "originalPdfFile": "originals/R9_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.037Z",
-      "updatedAt": "2026-01-30T09:45:08.037Z"
+      "updatedAt": "2026-01-30T09:45:08.037Z",
+      "reportCode": "R9",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-015",
@@ -289,13 +321,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-015.json",
       "reportFile": "reports/t-015.json",
       "originalPdfFile": "originals/R10_NPS9_EMEA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.053Z",
-      "updatedAt": "2026-01-30T09:45:08.053Z"
+      "updatedAt": "2026-02-03T11:32:20.999Z",
+      "reportCode": "R10",
+      "dataStatus": "complete",
+      "transcriptCode": "T10",
+      "originalTranscriptFile": "originals/T10_NPS9_EMEA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R10_NPS9_EMEA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-016",
@@ -309,13 +346,18 @@
       "solution": "Executive Search",
       "accountType": "Diamond",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-016.json",
       "reportFile": "reports/t-016.json",
       "originalPdfFile": "originals/R11_NPS10_NA_ES_DIAMOND_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.069Z",
-      "updatedAt": "2026-01-30T09:45:08.069Z"
+      "updatedAt": "2026-02-03T11:32:21.014Z",
+      "reportCode": "R11",
+      "dataStatus": "complete",
+      "transcriptCode": "T11",
+      "originalTranscriptFile": "originals/T11_NPS10_NA_ES_DIAMOND_OCT25.pdf",
+      "originalReportFile": "originals/R11_NPS10_NA_ES_DIAMOND_OCT25.pdf"
     },
     {
       "id": "t-017",
@@ -329,13 +371,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-017.json",
       "reportFile": "reports/t-017.json",
       "originalPdfFile": "originals/R12_NPS10_EMEA_PS_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.087Z",
-      "updatedAt": "2026-01-30T09:45:08.087Z"
+      "updatedAt": "2026-02-03T11:32:21.031Z",
+      "reportCode": "R12",
+      "dataStatus": "complete",
+      "transcriptCode": "T12",
+      "originalTranscriptFile": "originals/T12_NPS10_EMEA_PS_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R12_NPS10_EMEA_PS_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-018",
@@ -349,13 +396,18 @@
       "solution": "Executive Search",
       "accountType": "Marquee",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-018.json",
       "reportFile": "reports/t-018.json",
       "originalPdfFile": "originals/R13_NPS9_EMEA_ES_MARQUEE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.101Z",
-      "updatedAt": "2026-01-30T09:45:08.101Z"
+      "updatedAt": "2026-02-03T11:32:21.051Z",
+      "reportCode": "R13",
+      "dataStatus": "complete",
+      "transcriptCode": "T13",
+      "originalTranscriptFile": "originals/T13_NPS9_EMEA_ES_MARQUEE_OCT25.pdf",
+      "originalReportFile": "originals/R13_NPS9_EMEA_ES_MARQUEE_OCT25.pdf"
     },
     {
       "id": "t-019",
@@ -369,13 +421,18 @@
       "solution": "Executive Search",
       "accountType": "Marquee",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-019.json",
       "reportFile": "reports/t-019.json",
       "originalPdfFile": "originals/R14_NPS10_NA_ES_MARQUEE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.119Z",
-      "updatedAt": "2026-01-30T09:45:08.119Z"
+      "updatedAt": "2026-02-03T11:32:21.065Z",
+      "reportCode": "R14",
+      "dataStatus": "complete",
+      "transcriptCode": "T14",
+      "originalTranscriptFile": "originals/T14_NPS10_NA_ES_MARQUEE_OCT25.pdf",
+      "originalReportFile": "originals/R14_NPS10_NA_ES_MARQUEE_OCT25.pdf"
     },
     {
       "id": "t-020",
@@ -389,13 +446,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-020.json",
       "reportFile": "reports/t-020.json",
       "originalPdfFile": "originals/R15_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.132Z",
-      "updatedAt": "2026-01-30T09:45:08.132Z"
+      "updatedAt": "2026-02-03T11:32:21.077Z",
+      "reportCode": "R15",
+      "dataStatus": "complete",
+      "transcriptCode": "T15",
+      "originalTranscriptFile": "originals/T15_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R15_NPS10_EMEA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-021",
@@ -409,13 +471,18 @@
       "solution": "Executive Search",
       "accountType": "Marquee",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-021.json",
       "reportFile": "reports/t-021.json",
       "originalPdfFile": "originals/R16_NPS9_EMEA_ES_MARQUEE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.146Z",
-      "updatedAt": "2026-01-30T09:45:08.146Z"
+      "updatedAt": "2026-02-03T11:32:21.090Z",
+      "reportCode": "R16",
+      "dataStatus": "complete",
+      "transcriptCode": "T16",
+      "originalTranscriptFile": "originals/T16_NPS9_EMEA_ES_MARQUEE_OCT25.pdf",
+      "originalReportFile": "originals/R16_NPS9_EMEA_ES_MARQUEE_OCT25.pdf"
     },
     {
       "id": "t-022",
@@ -429,13 +496,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-022.json",
       "reportFile": "reports/t-022.json",
       "originalPdfFile": "originals/R17_NPS8_NA_PS_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.162Z",
-      "updatedAt": "2026-01-30T09:45:08.162Z"
+      "updatedAt": "2026-02-03T11:32:21.103Z",
+      "reportCode": "R17",
+      "dataStatus": "complete",
+      "transcriptCode": "T17",
+      "originalTranscriptFile": "originals/T17_NPS8_NA_PS_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R17_NPS8_NA_PS_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-023",
@@ -449,13 +521,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-023.json",
       "reportFile": "reports/t-023.json",
       "originalPdfFile": "originals/R18_NPS10_NA_PS_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.178Z",
-      "updatedAt": "2026-01-30T09:45:08.178Z"
+      "updatedAt": "2026-02-03T11:32:21.114Z",
+      "reportCode": "R18",
+      "dataStatus": "complete",
+      "transcriptCode": "T18",
+      "originalTranscriptFile": "originals/T18_NPS10_NA_PS_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R18_NPS10_NA_PS_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-024",
@@ -469,13 +546,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-024.json",
       "reportFile": "reports/t-024.json",
       "originalPdfFile": "originals/R19_NPS9_NA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.196Z",
-      "updatedAt": "2026-01-30T09:45:08.196Z"
+      "updatedAt": "2026-02-03T11:32:21.129Z",
+      "reportCode": "R19",
+      "dataStatus": "complete",
+      "transcriptCode": "T19",
+      "originalTranscriptFile": "originals/T19_NPS9_NA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R19_NPS9_NA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-025",
@@ -489,13 +571,18 @@
       "solution": "Consulting",
       "accountType": "Regional",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-025.json",
       "reportFile": "reports/t-025.json",
       "originalPdfFile": "originals/R20_NPS10_EMEA_CONSULTING_REGIONAL_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.212Z",
-      "updatedAt": "2026-01-30T09:45:08.212Z"
+      "updatedAt": "2026-02-03T11:32:21.141Z",
+      "reportCode": "R20",
+      "dataStatus": "complete",
+      "transcriptCode": "T20",
+      "originalTranscriptFile": "originals/T20_NPS10_EMEA_CONSULTING_REGIONAL_OCT25.pdf",
+      "originalReportFile": "originals/R20_NPS10_EMEA_CONSULTING_REGIONAL_OCT25.pdf"
     },
     {
       "id": "t-026",
@@ -509,13 +596,18 @@
       "solution": "Executive Search",
       "accountType": "Marquee",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-026.json",
       "reportFile": "reports/t-026.json",
       "originalPdfFile": "originals/R21_NPS10_EMEA_ES_MARQUEE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.227Z",
-      "updatedAt": "2026-01-30T09:45:08.227Z"
+      "updatedAt": "2026-02-03T11:32:21.156Z",
+      "reportCode": "R21",
+      "dataStatus": "complete",
+      "transcriptCode": "T21",
+      "originalTranscriptFile": "originals/T21_NPS10_EMEA_ES_MARQUEE_OCT25.pdf",
+      "originalReportFile": "originals/R21_NPS10_EMEA_ES_MARQUEE_OCT25.pdf"
     },
     {
       "id": "t-027",
@@ -529,13 +621,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-027.json",
       "reportFile": "reports/t-027.json",
       "originalPdfFile": "originals/R22_NPS9_NA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.242Z",
-      "updatedAt": "2026-01-30T09:45:08.242Z"
+      "updatedAt": "2026-02-03T11:32:21.168Z",
+      "reportCode": "R22",
+      "dataStatus": "complete",
+      "transcriptCode": "T22",
+      "originalTranscriptFile": "originals/T22_NPS9_NA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R22_NPS9_NA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-028",
@@ -549,13 +646,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-028.json",
       "reportFile": "reports/t-028.json",
       "originalPdfFile": "originals/R23_NPS7_NA_PS_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.259Z",
-      "updatedAt": "2026-01-30T09:45:08.259Z"
+      "updatedAt": "2026-02-03T11:32:21.186Z",
+      "reportCode": "R23",
+      "dataStatus": "complete",
+      "transcriptCode": "T23",
+      "originalTranscriptFile": "originals/T23_NPS7_NA_PS_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R23_NPS7_NA_PS_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-029",
@@ -569,13 +671,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-029.json",
       "reportFile": "reports/t-029.json",
       "originalPdfFile": "originals/R24_NPS10_NA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.271Z",
-      "updatedAt": "2026-01-30T09:45:08.271Z"
+      "updatedAt": "2026-02-03T11:32:21.197Z",
+      "reportCode": "R24",
+      "dataStatus": "complete",
+      "transcriptCode": "T24",
+      "originalTranscriptFile": "originals/T24_NPS10_NA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R24_NPS10_NA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-030",
@@ -589,13 +696,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-030.json",
       "reportFile": "reports/t-030.json",
       "originalPdfFile": "originals/R25_NPS10_EMEA_PS_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.283Z",
-      "updatedAt": "2026-01-30T09:45:08.283Z"
+      "updatedAt": "2026-02-03T11:32:21.208Z",
+      "reportCode": "R25",
+      "dataStatus": "complete",
+      "transcriptCode": "T25",
+      "originalTranscriptFile": "originals/T25_NPS10_EMEA_PS_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R25_NPS10_EMEA_PS_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-031",
@@ -609,13 +721,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-10",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-031.json",
       "reportFile": "reports/t-031.json",
       "originalPdfFile": "originals/R26_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
       "createdAt": "2026-01-30T09:45:08.298Z",
-      "updatedAt": "2026-01-30T09:45:08.298Z"
+      "updatedAt": "2026-02-03T11:32:21.228Z",
+      "reportCode": "R26",
+      "dataStatus": "complete",
+      "transcriptCode": "T26",
+      "originalTranscriptFile": "originals/T26_NPS10_EMEA_ES_HOUSE_OCT25.pdf",
+      "originalReportFile": "originals/R26_NPS10_EMEA_ES_HOUSE_OCT25.pdf"
     },
     {
       "id": "t-032",
@@ -629,13 +746,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-11",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-032.json",
       "reportFile": "reports/t-032.json",
       "originalPdfFile": "originals/R27_NPS10_NA_ES_HOUSE_NOV25.pdf",
       "createdAt": "2026-01-30T09:45:08.310Z",
-      "updatedAt": "2026-01-30T09:45:08.310Z"
+      "updatedAt": "2026-02-03T11:32:21.241Z",
+      "reportCode": "R27",
+      "dataStatus": "complete",
+      "transcriptCode": "T27",
+      "originalTranscriptFile": "originals/T27_NPS10_NA_ES_HOUSE_NOV25.pdf",
+      "originalReportFile": "originals/R27_NPS10_NA_ES_HOUSE_NOV25.pdf"
     },
     {
       "id": "t-033",
@@ -649,13 +771,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-11",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-033.json",
       "reportFile": "reports/t-033.json",
       "originalPdfFile": "originals/R28_NPS9_EMEA_ES_HOUSE_NOV25.pdf",
       "createdAt": "2026-01-30T09:45:08.322Z",
-      "updatedAt": "2026-01-30T09:45:08.322Z"
+      "updatedAt": "2026-02-03T11:32:21.255Z",
+      "reportCode": "R28",
+      "dataStatus": "complete",
+      "transcriptCode": "T28",
+      "originalTranscriptFile": "originals/T28_NPS9_EMEA_ES_HOUSE_NOV25.pdf",
+      "originalReportFile": "originals/R28_NPS9_EMEA_ES_HOUSE_NOV25.pdf"
     },
     {
       "id": "t-034",
@@ -669,13 +796,18 @@
       "solution": "Consulting",
       "accountType": "House",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-034.json",
       "reportFile": "reports/t-034.json",
       "originalPdfFile": "originals/R29_NPS10_NA_CONSULTING_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.336Z",
-      "updatedAt": "2026-01-30T09:45:08.336Z"
+      "updatedAt": "2026-02-03T11:32:21.270Z",
+      "reportCode": "R29",
+      "dataStatus": "complete",
+      "transcriptCode": "T29",
+      "originalTranscriptFile": "originals/T29_NPS10_NA_CONSULTING_HOUSE_DEC25.pdf",
+      "originalReportFile": "originals/R29_NPS10_NA_CONSULTING_HOUSE_DEC25.pdf"
     },
     {
       "id": "t-035",
@@ -689,13 +821,18 @@
       "solution": "Consulting",
       "accountType": "House",
       "monthYear": "2025-11",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-035.json",
       "reportFile": "reports/t-035.json",
       "originalPdfFile": "originals/R30_NPS7_EMEA_CONSULTING_HOUSE_NOV25.pdf",
       "createdAt": "2026-01-30T09:45:08.347Z",
-      "updatedAt": "2026-01-30T09:45:08.347Z"
+      "updatedAt": "2026-02-03T11:32:21.278Z",
+      "reportCode": "R30",
+      "dataStatus": "complete",
+      "transcriptCode": "T30",
+      "originalTranscriptFile": "originals/T30_NPS7_EMEA_CONSULTING_HOUSE_NOV25.pdf",
+      "originalReportFile": "originals/R30_NPS7_EMEA_CONSULTING_HOUSE_NOV25.pdf"
     },
     {
       "id": "t-036",
@@ -709,13 +846,18 @@
       "solution": "Professional Search",
       "accountType": "House",
       "monthYear": "2025-11",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-036.json",
       "reportFile": "reports/t-036.json",
       "originalPdfFile": "originals/R31_NPS10_NA_PS_HOUSE_NOV25.pdf",
       "createdAt": "2026-01-30T09:45:08.360Z",
-      "updatedAt": "2026-01-30T09:45:08.360Z"
+      "updatedAt": "2026-02-03T11:32:21.288Z",
+      "reportCode": "R31",
+      "dataStatus": "complete",
+      "transcriptCode": "T31",
+      "originalTranscriptFile": "originals/T31_NPS10_NA_PS_HOUSE_NOV25.pdf",
+      "originalReportFile": "originals/R31_NPS10_NA_PS_HOUSE_NOV25.pdf"
     },
     {
       "id": "t-037",
@@ -729,13 +871,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-037.json",
       "reportFile": "reports/t-037.json",
       "originalPdfFile": "originals/R32_NPS6_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.374Z",
-      "updatedAt": "2026-01-30T09:45:08.374Z"
+      "updatedAt": "2026-02-03T11:32:21.303Z",
+      "reportCode": "R32",
+      "dataStatus": "complete",
+      "transcriptCode": "T32",
+      "originalTranscriptFile": "originals/T32_NPS6_EMEA_ES_HOUSE_DEC25.pdf",
+      "originalReportFile": "originals/R32_NPS6_EMEA_ES_HOUSE_DEC25.pdf"
     },
     {
       "id": "t-038",
@@ -749,13 +896,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-038.json",
       "reportFile": "reports/t-038.json",
       "originalPdfFile": "originals/R33_NPS10_NA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.386Z",
-      "updatedAt": "2026-01-30T09:45:08.386Z"
+      "updatedAt": "2026-02-03T11:32:21.319Z",
+      "reportCode": "R33",
+      "dataStatus": "complete",
+      "transcriptCode": "T33",
+      "originalTranscriptFile": "originals/T33_NPS10_NA_ES_HOUSE_DEC25.pdf",
+      "originalReportFile": "originals/R33_NPS10_NA_ES_HOUSE_DEC25.pdf"
     },
     {
       "id": "t-039",
@@ -769,13 +921,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-039.json",
       "reportFile": "reports/t-039.json",
       "originalPdfFile": "originals/R34_NPS10_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.401Z",
-      "updatedAt": "2026-01-30T09:45:08.401Z"
+      "updatedAt": "2026-02-03T11:32:21.338Z",
+      "reportCode": "R34",
+      "dataStatus": "complete",
+      "transcriptCode": "T34",
+      "originalTranscriptFile": "originals/T34_NPS10_EMEA_ES_HOUSE_DEC25.pdf",
+      "originalReportFile": "originals/R34_NPS10_EMEA_ES_HOUSE_DEC25.pdf"
     },
     {
       "id": "t-040",
@@ -789,13 +946,18 @@
       "solution": "Executive Search",
       "accountType": "Regional",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-040.json",
       "reportFile": "reports/t-040.json",
       "originalPdfFile": "originals/R35_NPS9_NA_ES_REGIONAL_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.415Z",
-      "updatedAt": "2026-01-30T09:45:08.415Z"
+      "updatedAt": "2026-02-03T11:32:21.346Z",
+      "reportCode": "R35",
+      "dataStatus": "complete",
+      "transcriptCode": "T35",
+      "originalTranscriptFile": "originals/T35_NPS9_NA_ES_REGIONAL_DEC25.pdf",
+      "originalReportFile": "originals/R35_NPS9_NA_ES_REGIONAL_DEC25.pdf"
     },
     {
       "id": "t-041",
@@ -809,13 +971,18 @@
       "solution": "Executive Search",
       "accountType": "House",
       "monthYear": "2025-12",
-      "hasTranscript": false,
+      "hasTranscript": true,
       "hasReport": true,
-      "transcriptFile": "",
+      "transcriptFile": "transcripts/t-041.json",
       "reportFile": "reports/t-041.json",
       "originalPdfFile": "originals/R36_NPS7_NA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.428Z",
-      "updatedAt": "2026-01-30T09:45:08.428Z"
+      "updatedAt": "2026-02-03T11:32:21.363Z",
+      "reportCode": "R36",
+      "dataStatus": "complete",
+      "transcriptCode": "T36",
+      "originalTranscriptFile": "originals/T36_NPS7_NA_ES_HOUSE_DEC25.pdf",
+      "originalReportFile": "originals/R36_NPS7_NA_ES_HOUSE_DEC25.pdf"
     },
     {
       "id": "t-042",
@@ -835,7 +1002,9 @@
       "reportFile": "reports/t-042.json",
       "originalPdfFile": "originals/R37_NPS7_NA_ES_MARQUEE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.443Z",
-      "updatedAt": "2026-01-30T09:45:08.443Z"
+      "updatedAt": "2026-01-30T09:45:08.443Z",
+      "reportCode": "R37",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-043",
@@ -855,7 +1024,9 @@
       "reportFile": "reports/t-043.json",
       "originalPdfFile": "originals/R38_NPS10_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.453Z",
-      "updatedAt": "2026-01-30T09:45:08.453Z"
+      "updatedAt": "2026-01-30T09:45:08.453Z",
+      "reportCode": "R38",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-044",
@@ -875,7 +1046,9 @@
       "reportFile": "reports/t-044.json",
       "originalPdfFile": "originals/R39_NPS10_EMEA_CONSULTING_MARQUEE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.463Z",
-      "updatedAt": "2026-01-30T09:45:08.463Z"
+      "updatedAt": "2026-01-30T09:45:08.463Z",
+      "reportCode": "R39",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-045",
@@ -895,7 +1068,9 @@
       "reportFile": "reports/t-045.json",
       "originalPdfFile": "originals/R40_NPS10_NA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.475Z",
-      "updatedAt": "2026-01-30T09:45:08.475Z"
+      "updatedAt": "2026-01-30T09:45:08.475Z",
+      "reportCode": "R40",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-046",
@@ -915,7 +1090,9 @@
       "reportFile": "reports/t-046.json",
       "originalPdfFile": "originals/R41_NPS7_EMEA_ES_HOUSE_DEC25.pdf",
       "createdAt": "2026-01-30T09:45:08.490Z",
-      "updatedAt": "2026-01-30T09:45:08.490Z"
+      "updatedAt": "2026-01-30T09:45:08.490Z",
+      "reportCode": "R41",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-047",
@@ -935,7 +1112,9 @@
       "reportFile": "reports/t-047.json",
       "originalPdfFile": "originals/R42_NPS9_EMEA_CONSULTING_HOUSE_JAN26.pdf",
       "createdAt": "2026-01-30T09:45:08.504Z",
-      "updatedAt": "2026-01-30T09:45:08.504Z"
+      "updatedAt": "2026-01-30T09:45:08.504Z",
+      "reportCode": "R42",
+      "dataStatus": "report_only"
     },
     {
       "id": "t-048",
@@ -955,7 +1134,9 @@
       "reportFile": "reports/t-048.json",
       "originalPdfFile": "originals/R43_NPS10_NA_PS_MARQUEE_JAN26.pdf",
       "createdAt": "2026-01-30T09:45:08.515Z",
-      "updatedAt": "2026-01-30T09:45:08.515Z"
+      "updatedAt": "2026-01-30T09:45:08.515Z",
+      "reportCode": "R43",
+      "dataStatus": "report_only"
     }
   ]
 }

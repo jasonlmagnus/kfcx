@@ -9,10 +9,13 @@ import {
   EmbeddingIndex,
 } from "@/types";
 
-const DATA_ROOT = path.join(process.cwd(), "data", "store");
+function getDataRoot(): string {
+  const root = process.env.KFCX_DATA_ROOT?.trim();
+  return root || path.join(process.cwd(), "data", "store");
+}
 
 function resolvePath(...segments: string[]): string {
-  return path.join(DATA_ROOT, ...segments);
+  return path.join(getDataRoot(), ...segments);
 }
 
 async function ensureDir(dirPath: string): Promise<void> {

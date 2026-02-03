@@ -21,10 +21,10 @@ export default function Sidebar() {
       {/* Logo Section */}
       <div className="p-5">
         <Image
-          src="/kf-logo.svg"
+          src="/kflogo.png"
           alt="Korn Ferry"
-          width={140}
-          height={32}
+          width={160}
+          height={48}
           priority
         />
         <p className="text-kf-primary text-xs mt-3 font-medium">NPS Insight Platform</p>

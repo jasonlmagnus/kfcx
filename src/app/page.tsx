@@ -4,7 +4,6 @@ import {
   readThemeAnalysis,
   readOpportunities,
 } from "@/lib/data/store";
-import { calculateNPSScore } from "@/lib/utils/nps";
 import { formatDate } from "@/lib/utils/dates";
 
 export default async function DashboardPage() {
@@ -17,14 +16,6 @@ export default async function DashboardPage() {
 
   // --- Stats ---
   const totalInterviews = interviews.length;
-  const scores = interviews.map((i) => i.score);
-  const averageNPS =
-    scores.length > 0
-      ? parseFloat(
-          (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1)
-        )
-      : 0;
-  const npsScore = calculateNPSScore(scores);
 
   const promoters = interviews.filter(
     (i) => i.npsCategory === "promoter"
@@ -45,6 +36,25 @@ export default async function DashboardPage() {
     (a, b) => b[1] - a[1]
   );
   const maxRegionCount = regionEntries.length > 0 ? regionEntries[0][1] : 1;
+
+  // --- Solution breakdown ---
+  const solutionCounts: Record<string, number> = {};
+  for (const i of interviews) {
+    solutionCounts[i.solution] = (solutionCounts[i.solution] || 0) + 1;
+  }
+  const solutionEntries = Object.entries(solutionCounts).sort(
+    (a, b) => b[1] - a[1]
+  );
+
+  // --- Account type breakdown ---
+  const accountCounts: Record<string, number> = {};
+  for (const i of interviews) {
+    const acct = i.accountType || "Unknown";
+    accountCounts[acct] = (accountCounts[acct] || 0) + 1;
+  }
+  const accountEntries = Object.entries(accountCounts).sort(
+    (a, b) => b[1] - a[1]
+  );
 
   // --- Category percentages ---
   const promoterPct =
@@ -90,27 +100,66 @@ export default async function DashboardPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         <p className="text-gray-500 mt-1">NPS Interview Insight Overview</p>
+        <p className="text-sm text-gray-400 mt-2">
+          NPS interviews have been running since August 2025
+        </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <div className="stat-card">
           <div className="stat-value">{totalInterviews}</div>
           <div className="stat-label">Total Interviews</div>
         </div>
         <div className="stat-card">
-          <div className="stat-value">{averageNPS}</div>
-          <div className="stat-label">Average NPS Score</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">{npsScore}</div>
-          <div className="stat-label">NPS Score</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-value">
-            {promoters} / {passives} / {detractors}
+          <div className="stat-label mb-2">By Region</div>
+          <div className="space-y-1 text-sm">
+            {regionEntries.map(([region, count]) => (
+              <div key={region} className="flex justify-between">
+                <span className="text-gray-600">{region}</span>
+                <span className="font-medium text-gray-900">{count}</span>
+              </div>
+            ))}
           </div>
-          <div className="stat-label">Promoters / Passives / Detractors</div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label mb-2">By Solution</div>
+          <div className="space-y-1 text-sm">
+            {solutionEntries.map(([solution, count]) => (
+              <div key={solution} className="flex justify-between">
+                <span className="text-gray-600 truncate mr-2">{solution}</span>
+                <span className="font-medium text-gray-900">{count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label mb-2">By NPS Category</div>
+          <div className="space-y-1 text-sm">
+            <div className="flex justify-between">
+              <span className="text-green-600">Promoters</span>
+              <span className="font-medium text-gray-900">{promoters}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-yellow-600">Passives</span>
+              <span className="font-medium text-gray-900">{passives}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-red-600">Detractors</span>
+              <span className="font-medium text-gray-900">{detractors}</span>
+            </div>
+          </div>
+        </div>
+        <div className="stat-card">
+          <div className="stat-label mb-2">By Account Type</div>
+          <div className="space-y-1 text-sm">
+            {accountEntries.map(([account, count]) => (
+              <div key={account} className="flex justify-between">
+                <span className="text-gray-600 truncate mr-2">{account}</span>
+                <span className="font-medium text-gray-900">{count}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

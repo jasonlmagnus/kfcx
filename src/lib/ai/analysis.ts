@@ -153,6 +153,44 @@ Return ONLY valid JSON, no markdown code fences or other formatting.`;
     }),
   ]);
 
+  // Build lookup maps to resolve interview IDs from client/company names
+  const idByClientCompany = new Map<string, string>();
+  const idByClient = new Map<string, string>();
+  const validIds = new Set<string>();
+  for (const interview of interviews) {
+    const m = interview.metadata;
+    validIds.add(m.id);
+    // Key by "client, company" (lowercase)
+    idByClientCompany.set(`${m.client}, ${m.company}`.toLowerCase(), m.id);
+    // Key by client name only (lowercase) - may overwrite if duplicates, but serves as fallback
+    idByClient.set(m.client.toLowerCase(), m.id);
+  }
+
+  const resolveInterviewId = (
+    rawId: string,
+    client: string,
+    company: string
+  ): string => {
+    // If already a valid ID, return it
+    if (validIds.has(rawId)) {
+      return rawId;
+    }
+    // Try client + company lookup
+    const key = `${client}, ${company}`.toLowerCase();
+    if (idByClientCompany.has(key)) {
+      return idByClientCompany.get(key)!;
+    }
+    // Try client-only lookup (the rawId might be a client name)
+    if (idByClient.has(rawId.toLowerCase())) {
+      return idByClient.get(rawId.toLowerCase())!;
+    }
+    if (idByClient.has(client.toLowerCase())) {
+      return idByClient.get(client.toLowerCase())!;
+    }
+    // Fallback: return original (will produce broken link, but data issue is visible)
+    return rawId;
+  };
+
   const parseThemeGroup = (content: string): ThemeGroup => {
     try {
       const parsed = JSON.parse(content);
@@ -168,20 +206,29 @@ Return ONLY valid JSON, no markdown code fences or other formatting.`;
             sentiment: t.sentiment || "neutral",
             supportingQuotes: Array.isArray(t.supportingQuotes)
               ? (t.supportingQuotes as Record<string, unknown>[]).map(
-                  (q) => ({
-                    text: q.text || "",
-                    interviewId: q.interviewId || "",
-                    client: q.client || "",
-                    company: q.company || "",
-                    region: "",
-                    solution: "",
-                    accountType: "",
-                    npsCategory: "",
-                    score: 0,
-                  })
+                  (q) => {
+                    const rawId = String(q.interviewId || "");
+                    const client = String(q.client || "");
+                    const company = String(q.company || "");
+                    return {
+                      text: q.text || "",
+                      interviewId: resolveInterviewId(rawId, client, company),
+                      client,
+                      company,
+                      region: "",
+                      solution: "",
+                      accountType: "",
+                      npsCategory: "",
+                      score: 0,
+                    };
+                  }
                 )
               : [],
-            interviewIds: Array.isArray(t.interviewIds) ? t.interviewIds : [],
+            interviewIds: Array.isArray(t.interviewIds)
+              ? (t.interviewIds as string[]).map((id) =>
+                  validIds.has(id) ? id : idByClient.get(id.toLowerCase()) || id
+                )
+              : [],
           })
         ),
       };

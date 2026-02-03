@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const NAV_ITEMS = [
@@ -16,13 +17,23 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-60 bg-kf-dark min-h-screen flex flex-col fixed left-0 top-0 z-30">
-      <div className="p-5 border-b border-white/10">
-        <h1 className="text-white font-bold text-xl tracking-tight">KFCX</h1>
-        <p className="text-white/50 text-xs mt-1">NPS Insight Platform</p>
+    <aside className="w-60 bg-white min-h-screen flex flex-col fixed left-0 top-0 z-30 border-r border-gray-200">
+      {/* Logo Section */}
+      <div className="p-5">
+        <Image
+          src="/kf-logo.svg"
+          alt="Korn Ferry"
+          width={140}
+          height={32}
+          priority
+        />
+        <p className="text-kf-primary text-xs mt-3 font-medium">NPS Insight Platform</p>
       </div>
 
-      <nav className="flex-1 py-4">
+      {/* Accent Line */}
+      <div className="h-0.5 bg-[#C4A35A] mx-5" />
+
+      <nav className="flex-1 py-6">
         {NAV_ITEMS.map((item) => {
           const isActive =
             item.href === "/"
@@ -35,8 +46,8 @@ export default function Sidebar() {
               href={item.href}
               className={`flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors ${
                 isActive
-                  ? "bg-white/10 text-white border-r-2 border-kf-primary"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-kf-primary/5 text-kf-primary border-r-2 border-kf-primary"
+                  : "text-gray-600 hover:text-kf-primary hover:bg-gray-50"
               }`}
             >
               <svg
@@ -58,9 +69,9 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-5 border-t border-white/10">
-        <p className="text-white/30 text-xs">Korn Ferry</p>
-        <p className="text-white/20 text-xs">Customer Centricity</p>
+      <div className="p-5 border-t border-gray-100">
+        <p className="text-gray-400 text-xs">Customer Centricity</p>
+        <p className="text-gray-300 text-xs mt-2">&copy; Magnus Consulting Ltd. 2026</p>
       </div>
     </aside>
   );

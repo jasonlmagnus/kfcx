@@ -124,7 +124,7 @@ export default function InterviewDetailPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6 mt-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-bold text-kf-primary font-serif">
             {metadata.client}
           </h1>
           <p className="text-gray-500 mt-1">{metadata.company}</p>

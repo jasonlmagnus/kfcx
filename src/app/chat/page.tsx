@@ -278,8 +278,8 @@ export default function ChatPage() {
     <div className="flex flex-col h-[calc(100vh-4rem)]">
       {/* Page Header */}
       <div className="mb-6 flex-shrink-0">
-        <h1 className="text-3xl font-bold text-gray-900">Chat</h1>
-        <p className="text-gray-500 mt-1">
+        <h1 className="page-title">Chat</h1>
+        <p className="text-gray-500 mt-2">
           Ask questions about NPS interview data
         </p>
       </div>

@@ -141,7 +141,7 @@ export default function UploadPage() {
 
   return (
     <div className="max-w-2xl mx-auto py-10 px-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Upload Interview</h1>
+      <h1 className="page-title mb-2">Upload Interview</h1>
       <p className="text-gray-500 mb-8">
         Add a new NPS interview transcript and/or report to the platform.
       </p>
@@ -153,7 +153,7 @@ export default function UploadPage() {
             <div
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                 step >= s
-                  ? "bg-blue-600 text-white"
+                  ? "bg-kf-primary text-white"
                   : "bg-gray-200 text-gray-500"
               }`}
             >
@@ -162,7 +162,7 @@ export default function UploadPage() {
             {s < 3 && (
               <div
                 className={`w-12 h-0.5 ${
-                  step > s ? "bg-blue-600" : "bg-gray-200"
+                  step > s ? "bg-kf-primary" : "bg-gray-200"
                 }`}
               />
             )}

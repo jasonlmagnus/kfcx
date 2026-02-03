@@ -98,9 +98,9 @@ export default async function DashboardPage() {
     <div>
       {/* Page Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-500 mt-1">NPS Interview Insight Overview</p>
-        <p className="text-sm text-gray-400 mt-2">
+        <h1 className="page-title">Our Insights</h1>
+        <p className="text-gray-500 mt-2">NPS Interview Insight Overview</p>
+        <p className="text-sm text-gray-400 mt-1">
           NPS interviews have been running since August 2025
         </p>
       </div>

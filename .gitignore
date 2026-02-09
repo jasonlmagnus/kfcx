@@ -38,3 +38,6 @@ next-env.d.ts
 
 # embeddings (large files)
 data/store/embeddings/
+
+# vector store upload temp
+data/store/vs_upload/

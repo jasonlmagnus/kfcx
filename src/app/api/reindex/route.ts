@@ -36,26 +36,48 @@ export async function POST() {
       results.push(`Vector store: Failed - ${msg}`);
     }
 
-    // Generate theme analysis
+    // Generate theme and opportunity analysis in parallel (independent steps)
+    const [themesResult, oppsResult] = await Promise.allSettled([
+      generateThemeAnalysis(),
+      generateOpportunityAnalysis(),
+    ]);
+
     try {
-      const themes = await generateThemeAnalysis();
-      const totalThemes =
-        themes.whyClientsChoose.themes.length +
-        themes.promoterExperience.themes.length +
-        themes.whereFallsShort.themes.length;
-      results.push(`Themes: ${totalThemes} themes identified`);
+      if (themesResult.status === "fulfilled") {
+        const themes = themesResult.value;
+        const totalThemes =
+          themes.whyClientsChoose.themes.length +
+          themes.promoterExperience.themes.length +
+          themes.whereFallsShort.themes.length;
+        results.push(`Themes: ${totalThemes} themes identified`);
+      } else {
+        allOk = false;
+        const msg =
+          themesResult.reason instanceof Error
+            ? themesResult.reason.message
+            : String(themesResult.reason);
+        results.push(`Themes: Failed - ${msg}`);
+      }
     } catch (error) {
       allOk = false;
       const msg = error instanceof Error ? error.message : String(error);
       results.push(`Themes: Failed - ${msg}`);
     }
 
-    // Generate opportunity analysis
     try {
-      const opps = await generateOpportunityAnalysis();
-      results.push(
-        `Opportunities: ${opps.opportunities.length} opportunities identified`
-      );
+      if (oppsResult.status === "fulfilled") {
+        const opps = oppsResult.value;
+        results.push(
+          `Opportunities: ${opps.opportunities.length} opportunities identified`
+        );
+      } else {
+        allOk = false;
+        const msg =
+          oppsResult.reason instanceof Error
+            ? oppsResult.reason.message
+            : String(oppsResult.reason);
+        results.push(`Opportunities: Failed - ${msg}`);
+      }
     } catch (error) {
       allOk = false;
       const msg = error instanceof Error ? error.message : String(error);

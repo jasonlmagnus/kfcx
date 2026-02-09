@@ -55,17 +55,17 @@ async function main(): Promise<void> {
   console.log(`  Vector store: ${vectorStoreId} (${fileCount} file(s)); assistant: ${assistantId}`);
   console.log("  IDs written to .env.local (OPENAI_VECTOR_STORE_ID, OPENAI_ASSISTANT_ID)");
 
-  console.log("Generating theme analysis...");
-  const themes = await generateThemeAnalysis();
+  console.log("Generating theme and opportunity analysis (in parallel)...");
+  const [themes, opps] = await Promise.all([
+    generateThemeAnalysis(),
+    generateOpportunityAnalysis(),
+  ]);
   const totalThemes =
     themes.whyClientsChoose.themes.length +
     themes.promoterExperience.themes.length +
     themes.whereFallsShort.themes.length +
     (themes.additionalThemes?.reduce((s, g) => s + g.themes.length, 0) ?? 0);
   console.log(`  Themes: ${totalThemes} identified`);
-
-  console.log("Generating opportunity analysis...");
-  const opps = await generateOpportunityAnalysis();
   console.log(`  Opportunities: ${opps.opportunities.length} identified`);
 
   console.log("Reindex complete.");

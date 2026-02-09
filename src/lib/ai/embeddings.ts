@@ -24,21 +24,37 @@ export async function generateEmbedding(text: string): Promise<number[]> {
   return response.data[0].embedding;
 }
 
+const EMBEDDING_BATCH_SIZE = 20;
+/** Number of embedding API calls to run in parallel (stays within typical rate limits). */
+const EMBEDDING_PARALLEL_BATCHES = 4;
+
 export async function generateEmbeddings(
   texts: string[]
 ): Promise<number[][]> {
   const openai = getOpenAIClient();
-  // Process in batches of 20
-  const batchSize = 20;
   const allEmbeddings: number[][] = [];
+  const step = EMBEDDING_BATCH_SIZE * EMBEDDING_PARALLEL_BATCHES;
 
-  for (let i = 0; i < texts.length; i += batchSize) {
-    const batch = texts.slice(i, i + batchSize).map((t) => t.substring(0, 8000));
-    const response = await openai.embeddings.create({
-      model: EMBEDDING_MODEL,
-      input: batch,
-    });
-    allEmbeddings.push(...response.data.map((d) => d.embedding));
+  for (let i = 0; i < texts.length; i += step) {
+    const batchPromises: Promise<number[][]>[] = [];
+    for (
+      let j = 0;
+      j < EMBEDDING_PARALLEL_BATCHES && i + j * EMBEDDING_BATCH_SIZE < texts.length;
+      j++
+    ) {
+      const start = i + j * EMBEDDING_BATCH_SIZE;
+      const batch = texts
+        .slice(start, start + EMBEDDING_BATCH_SIZE)
+        .map((t) => t.substring(0, 8000));
+      if (batch.length === 0) continue;
+      batchPromises.push(
+        openai.embeddings
+          .create({ model: EMBEDDING_MODEL, input: batch })
+          .then((r) => r.data.map((d) => d.embedding))
+      );
+    }
+    const results = await Promise.all(batchPromises);
+    for (const emb of results) allEmbeddings.push(...emb);
   }
 
   return allEmbeddings;

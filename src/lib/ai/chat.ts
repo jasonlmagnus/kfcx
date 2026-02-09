@@ -1,4 +1,4 @@
-import { getOpenAIClient } from "./openai";
+import { getOpenAIClient, CHAT_MODEL } from "./openai";
 import { generateEmbedding, searchSimilar } from "./embeddings";
 import { readMetadataIndex } from "@/lib/data/store";
 import type { ChatMessage, EmbeddingChunk, InterviewMetadata } from "@/types";
@@ -11,20 +11,22 @@ export async function streamChatResponseWithAssistant(
   const openai = getOpenAIClient();
   const encoder = new TextEncoder();
 
-  // Create thread and add the latest user message (assistant has full context in vector store)
+  // Create thread and add full conversation history so follow-ups and context work
   const thread = await openai.beta.threads.create();
-  const latestUser = messages.filter((m) => m.role === "user").pop();
-  if (latestUser?.content) {
+  for (const msg of messages) {
+    if (!msg.content?.trim()) continue;
+    const role = msg.role === "assistant" ? "assistant" : "user";
     await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: latestUser.content,
+      role,
+      content: msg.content,
     });
   }
 
-  // Create run with stream and consume via async iterator
+  // Create run with stream; keep last 50 messages in context for long threads
   const runStream = openai.beta.threads.runs.stream(thread.id, {
     assistant_id: assistantId,
     stream: true,
+    truncation_strategy: { type: "last_messages" as const, last_messages: 50 },
   });
 
   return new ReadableStream({
@@ -77,18 +79,9 @@ export async function streamChatResponseWithAssistant(
   });
 }
 
-const SYSTEM_PROMPT = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. You help users explore client feedback from NPS interviews conducted as part of Korn Ferry's Customer Centricity programme.
+const SYSTEM_PROMPT = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. Answer only using the CONTEXT below from Korn Ferry's Customer Centricity NPS interviews.
 
-Your role is to answer questions based on the interview transcripts and structured reports provided in the CONTEXT below.
-
-Guidelines:
-- Always cite your sources by referencing the client name and company in brackets, e.g., [Lisa Bolger, PartnerRe]
-- Include direct quotes where relevant, enclosed in quotation marks
-- If asked about themes, patterns, or trends, synthesise across multiple interviews
-- If you cannot find relevant information in the provided context, say so clearly
-- Be specific and evidence-based; avoid speculation
-- When discussing NPS scores, note whether the client is a Promoter (9-10), Passive (7-8), or Detractor (0-6)
-- Focus on actionable insights that could help improve client experience`;
+RULES: (1) Base answers only on CONTEXT; if information is missing, say so. (2) Cite sources as [Client Name, Company]. (3) Use direct quotes in quotation marks where relevant. (4) For NPS, state Promoter (9-10), Passive (7-8), or Detractor (0-6). (5) Synthesise across interviews when asked about themes or trends. (6) Be specific and actionable.`;
 
 function buildContext(
   chunks: (EmbeddingChunk & { score: number })[],
@@ -124,8 +117,8 @@ export async function streamChatResponse(
   const latestMessage = messages[messages.length - 1].content;
   const queryEmbedding = await generateEmbedding(latestMessage);
 
-  // Search for relevant chunks
-  const relevantChunks = await searchSimilar(queryEmbedding, 15, filters);
+  // Search for relevant chunks (more = better context for synthesis)
+  const relevantChunks = await searchSimilar(queryEmbedding, 25, filters);
 
   // Build context
   const metadata = await readMetadataIndex();
@@ -151,7 +144,7 @@ export async function streamChatResponse(
       role: "system" as const,
       content: `${SYSTEM_PROMPT}\n\nCONTEXT:\n${context}`,
     },
-    ...messages.slice(-10).map((m) => ({
+    ...messages.slice(-16).map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     })),
@@ -159,7 +152,7 @@ export async function streamChatResponse(
 
   // Stream response
   const stream = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: CHAT_MODEL,
     messages: aiMessages,
     stream: true,
     temperature: 0.3,

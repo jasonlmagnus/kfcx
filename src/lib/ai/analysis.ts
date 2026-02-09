@@ -1,4 +1,4 @@
-import { getOpenAIClient } from "./openai";
+import { getOpenAIClient, CHAT_MODEL } from "./openai";
 import {
   readMetadataIndex,
   readReport,
@@ -107,49 +107,34 @@ Return your response as a JSON object with:
 
 Return ONLY valid JSON, no markdown code fences or other formatting.`;
 
-  // Generate three theme categories in parallel
+  // Generate three theme categories in parallel (Responses API + gpt-5.2)
   const [whyChooseRes, promoterRes, fallsShortRes] = await Promise.all([
-    openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: themePrompt(
-            "Why Clients Choose Korn Ferry",
-            "Identify 4-6 themes that explain WHY clients choose Korn Ferry and what differentiates them from competitors. Focus on positive factors, competitive advantages, and selection criteria mentioned across interviews."
-          ),
-        },
-      ],
+    openai.responses.create({
+      model: CHAT_MODEL,
+      input: themePrompt(
+        "Why Clients Choose Korn Ferry",
+        "Identify 4-6 themes that explain WHY clients choose Korn Ferry and what differentiates them from competitors. Focus on positive factors, competitive advantages, and selection criteria mentioned across interviews."
+      ),
       temperature: 0.2,
-      response_format: { type: "json_object" },
+      text: { format: { type: "json_object" } },
     }),
-    openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: themePrompt(
-            "The Promoter Experience",
-            "Identify 4-6 themes that characterise what PROMOTERS (score 9-10) value most about working with Korn Ferry. Focus on what creates exceptional experiences and strong satisfaction."
-          ),
-        },
-      ],
+    openai.responses.create({
+      model: CHAT_MODEL,
+      input: themePrompt(
+        "The Promoter Experience",
+        "Identify 4-6 themes that characterise what PROMOTERS (score 9-10) value most about working with Korn Ferry. Focus on what creates exceptional experiences and strong satisfaction."
+      ),
       temperature: 0.2,
-      response_format: { type: "json_object" },
+      text: { format: { type: "json_object" } },
     }),
-    openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: [
-        {
-          role: "user",
-          content: themePrompt(
-            "Where the Experience Falls Short",
-            "Identify 4-6 themes about where Korn Ferry's experience FALLS SHORT. Focus on challenges, pain points, gaps, and areas for improvement mentioned across interviews, particularly by detractors and passives."
-          ),
-        },
-      ],
+    openai.responses.create({
+      model: CHAT_MODEL,
+      input: themePrompt(
+        "Where the Experience Falls Short",
+        "Identify 4-6 themes about where Korn Ferry's experience FALLS SHORT. Focus on challenges, pain points, gaps, and areas for improvement mentioned across interviews, particularly by detractors and passives."
+      ),
       temperature: 0.2,
-      response_format: { type: "json_object" },
+      text: { format: { type: "json_object" } },
     }),
   ]);
 
@@ -191,13 +176,13 @@ Return ONLY valid JSON, no markdown code fences or other formatting.`;
   };
 
   const whyClientsChoose = parseThemeGroup(
-    whyChooseRes.choices[0].message.content || "{}"
+    (whyChooseRes as { output_text?: string }).output_text || "{}"
   );
   const promoterExperience = parseThemeGroup(
-    promoterRes.choices[0].message.content || "{}"
+    (promoterRes as { output_text?: string }).output_text || "{}"
   );
   const whereFallsShort = parseThemeGroup(
-    fallsShortRes.choices[0].message.content || "{}"
+    (fallsShortRes as { output_text?: string }).output_text || "{}"
   );
 
   // Assign unique IDs
@@ -238,12 +223,9 @@ async function analyzeOneInterview(
   data: InterviewData
 ): Promise<Omit<Opportunity, "id">[]> {
   const summary = buildInterviewSummary(data);
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages: [
-      {
-        role: "user",
-        content: `Analyse this NPS interview for opportunity- and action-oriented insights.
+  const response = await openai.responses.create({
+    model: CHAT_MODEL,
+    input: `Analyse this NPS interview for opportunity- and action-oriented insights.
 
 Identify any mentions of:
 1. future_need - Services or support the client may need in future
@@ -268,13 +250,11 @@ Interview ID: ${data.metadata.id}
 
 Return a JSON object: { "opportunities": [...] }
 Return ONLY valid JSON.`,
-      },
-    ],
     temperature: 0.2,
-    response_format: { type: "json_object" },
+    text: { format: { type: "json_object" } },
   });
 
-  const content = response.choices[0].message.content || '{"opportunities":[]}';
+  const content = (response as { output_text?: string }).output_text || '{"opportunities":[]}';
   try {
     const parsed = JSON.parse(content);
     const opps = parsed.opportunities || [];

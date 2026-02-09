@@ -1,12 +1,11 @@
 /**
- * OpenAI Vector Store + Assistant for Chat.
- * Syncs interview content as one file per interview for better retrieval,
- * and provides an assistant that uses file_search for retrieval.
+ * OpenAI Vector Store for Chat (Responses API file_search).
+ * Syncs interview content as one file per interview for better retrieval.
  */
 
 import fs from "fs";
 import path from "path";
-import { getOpenAIClient, ASSISTANT_MODEL } from "./openai";
+import { getOpenAIClient } from "./openai";
 import {
   readMetadataIndex,
   readTranscript,
@@ -21,15 +20,23 @@ import type {
 } from "@/types";
 
 const VECTOR_STORE_NAME = "KFCX NPS Interview Content";
-const ASSISTANT_INSTRUCTIONS = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. You answer questions using only the attached interview knowledge base from Korn Ferry's Customer Centricity NPS programme.
+
+/** Instructions for chat when using Responses API file_search (exported for chat.ts). */
+export const FILE_SEARCH_INSTRUCTIONS = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. You answer questions using only the attached interview knowledge base from Korn Ferry's Customer Centricity NPS programme.
 
 RULES:
 1. Base every answer on the retrieved files. If the files do not contain enough information, say so — do not guess or generalise.
-2. Always cite the source: use the client name and company in brackets, e.g. [Lisa Bolger, PartnerRe]. If multiple clients support a point, list them.
+2. Always cite the source: use the client name and company in brackets, e.g. [Lisa Bolger, PartnerRe]. Use the SOURCE line (Client, Company | NPS score (category)) when it appears in the retrieved text. Do not cite as "not shown in snippet" if a SOURCE line appears in the same retrieved passage as the quote.
 3. Prefer direct quotes from the interviews; put them in quotation marks. Use transcript content for verbatim client voice and report content for themes and recommendations.
 4. When mentioning NPS, state the category: Promoter (9–10), Passive (7–8), or Detractor (0–6).
 5. For themes, patterns, or trends: synthesise across the retrieved interviews and name which clients said what.
-6. Keep answers specific and actionable. End with clear takeaways or next steps when relevant.`;
+6. Keep answers specific and actionable. End with clear takeaways or next steps when relevant.
+7. Format responses in Markdown: use **bold** for key terms, bullet or numbered lists for multiple points, and > blockquotes for direct citations. Use headings (## or ###) to structure longer answers.`;
+
+/** One-line source so any retrieved chunk can attribute the quote (file_search chunks may not include the top header). */
+function sourceLine(interview: InterviewMetadata): string {
+  return `SOURCE: ${interview.client}, ${interview.company} | NPS ${interview.score} (${interview.npsCategory})`;
+}
 
 /** Build text content for a single interview (one file per interview = better retrieval). */
 export async function buildContentForInterview(
@@ -44,15 +51,22 @@ export async function buildContentForInterview(
   ].join("\n");
 
   const parts: string[] = [header];
+  const so = sourceLine(interview);
 
   if (interview.hasReport) {
     const report = await readReport(interview.id);
-    if (report) parts.push(formatReport(report));
+    if (report) {
+      parts.push(so);
+      parts.push(formatReport(report));
+    }
   }
 
   if (interview.hasTranscript) {
     const transcript = await readTranscript(interview.id);
-    if (transcript) parts.push(formatTranscript(transcript));
+    if (transcript) {
+      parts.push(so);
+      parts.push(formatTranscript(transcript));
+    }
   }
 
   return parts.join("\n\n");
@@ -195,59 +209,13 @@ export async function syncVectorStore(): Promise<{
   return { vectorStoreId, fileCount };
 }
 
-/** Get existing assistant ID or create one that uses the vector store. */
-export async function getOrCreateAssistant(vectorStoreId: string): Promise<string> {
-  const openai = getOpenAIClient();
+/** Return vector store ID if synced (for Responses API file_search). */
+export async function getVectorStoreIdIfReady(): Promise<string | null> {
   const config = await readVectorStoreConfig();
-
-  if (config.assistantId) {
-    try {
-      const assistant = await openai.beta.assistants.retrieve(config.assistantId);
-      const updates: Parameters<typeof openai.beta.assistants.update>[1] = {};
-      const vsIds = assistant.tool_resources?.file_search?.vector_store_ids ?? [];
-      if (vsIds[0] !== vectorStoreId) {
-        updates.tool_resources = {
-          file_search: { vector_store_ids: [vectorStoreId] },
-        };
-      }
-      if (assistant.model !== ASSISTANT_MODEL) {
-        updates.model = ASSISTANT_MODEL;
-      }
-      if (Object.keys(updates).length > 0) {
-        await openai.beta.assistants.update(config.assistantId, updates);
-      }
-      return config.assistantId;
-    } catch {
-      // Assistant was deleted; create new one
-    }
-  }
-
-  const assistant = await openai.beta.assistants.create({
-    model: ASSISTANT_MODEL,
-    name: "KFCX NPS Insight Assistant",
-    instructions: ASSISTANT_INSTRUCTIONS,
-    tools: [{ type: "file_search" }],
-    tool_resources: {
-      file_search: { vector_store_ids: [vectorStoreId] },
-    },
-  });
-
-  await writeVectorStoreConfig({
-    ...config,
-    assistantId: assistant.id,
-    vectorStoreId,
-  });
-
-  return assistant.id;
-}
-
-/** Return assistant ID if vector store and assistant are set up. */
-export async function getAssistantIdIfReady(): Promise<string | null> {
-  const config = await readVectorStoreConfig();
-  if (!config.assistantId || !config.vectorStoreId) return null;
+  if (!config.vectorStoreId) return null;
   try {
-    await getOpenAIClient().beta.assistants.retrieve(config.assistantId);
-    return config.assistantId;
+    await getOpenAIClient().vectorStores.retrieve(config.vectorStoreId);
+    return config.vectorStoreId;
   } catch {
     return null;
   }

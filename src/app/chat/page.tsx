@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, type KeyboardEvent } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface ChatMessage {
   role: "user" | "assistant";
@@ -16,67 +18,39 @@ const SUGGESTED_QUERIES = [
   "How does the promoter experience differ from detractors?",
 ];
 
-/**
- * Renders assistant message content with basic formatting:
- * - Preserves line breaks via whitespace-pre-wrap
- * - Bold text wrapped in **double asterisks**
- * - Lines starting with "- " rendered as list items
- */
+/** Renders assistant message content as Markdown (headings, lists, bold, blockquotes, etc.). */
 function FormattedContent({ text }: { text: string }) {
-  const lines = text.split("\n");
-
   return (
-    <div className="space-y-1">
-      {lines.map((line, i) => {
-        const trimmed = line.trimStart();
-        const isBullet = trimmed.startsWith("- ");
-
-        // Process inline bold markers (**text**)
-        const parts = line.split(/(\*\*[^*]+\*\*)/g);
-        const rendered = parts.map((part, j) => {
-          if (part.startsWith("**") && part.endsWith("**")) {
-            return (
-              <strong key={j} className="font-semibold">
-                {part.slice(2, -2)}
-              </strong>
-            );
-          }
-          return <span key={j}>{part}</span>;
-        });
-
-        if (isBullet) {
-          return (
-            <div key={i} className="flex gap-2 pl-2">
-              <span className="text-gray-400 select-none">&bull;</span>
-              <span>{rendered.map((r, idx) => {
-                // Strip the leading "- " from the first text span
-                if (idx === 0 && typeof parts[0] === "string" && parts[0].trimStart().startsWith("- ")) {
-                  const stripped = parts[0].trimStart().slice(2);
-                  const subParts = stripped.split(/(\*\*[^*]+\*\*)/g);
-                  return subParts.map((sp, si) => {
-                    if (sp.startsWith("**") && sp.endsWith("**")) {
-                      return (
-                        <strong key={`${idx}-${si}`} className="font-semibold">
-                          {sp.slice(2, -2)}
-                        </strong>
-                      );
-                    }
-                    return <span key={`${idx}-${si}`}>{sp}</span>;
-                  });
-                }
-                return r;
-              })}</span>
-            </div>
-          );
-        }
-
-        return (
-          <div key={i} style={{ whiteSpace: "pre-wrap" }}>
-            {rendered}
-          </div>
-        );
-      })}
-    </div>
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        p: ({ children }) => <p className="mb-2 last:mb-0 leading-relaxed">{children}</p>,
+        ul: ({ children }) => <ul className="list-disc pl-5 mb-2 space-y-1">{children}</ul>,
+        ol: ({ children }) => <ol className="list-decimal pl-5 mb-2 space-y-1">{children}</ol>,
+        li: ({ children }) => <li className="leading-relaxed">{children}</li>,
+        strong: ({ children }) => <strong className="font-semibold text-gray-900">{children}</strong>,
+        blockquote: ({ children }) => (
+          <blockquote className="border-l-4 border-kf-primary/40 pl-3 py-1 my-2 text-gray-700 italic">
+            {children}
+          </blockquote>
+        ),
+        h2: ({ children }) => <h2 className="text-sm font-semibold text-gray-900 mt-3 mb-1">{children}</h2>,
+        h3: ({ children }) => <h3 className="text-sm font-medium text-gray-800 mt-2 mb-1">{children}</h3>,
+        code: ({ className, children, ...props }) =>
+          className ? (
+            <code className={className} {...props}>{children}</code>
+          ) : (
+            <code className="bg-gray-100 px-1 rounded text-sm" {...props}>{children}</code>
+          ),
+        a: ({ href, children }) => (
+          <a href={href} target="_blank" rel="noopener noreferrer" className="text-kf-primary underline hover:no-underline">
+            {children}
+          </a>
+        ),
+      }}
+    >
+      {text}
+    </ReactMarkdown>
   );
 }
 

@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import {
   streamChatResponse,
-  streamChatResponseWithAssistant,
+  streamChatResponseWithVectorStore,
 } from "@/lib/ai/chat";
-import { getAssistantIdIfReady } from "@/lib/ai/vector-store";
+import { getVectorStoreIdIfReady } from "@/lib/ai/vector-store";
 import { readEmbeddingIndex } from "@/lib/data/store";
 
 export async function POST(request: NextRequest) {
@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Prefer OpenAI vector store (Assistants API) when available
-    const assistantId = await getAssistantIdIfReady();
-    if (assistantId) {
-      const stream = await streamChatResponseWithAssistant(messages, assistantId);
+    // Prefer Responses API with file_search (vector store) when available
+    const vectorStoreId = await getVectorStoreIdIfReady();
+    if (vectorStoreId) {
+      const stream = await streamChatResponseWithVectorStore(messages, vectorStoreId);
       return new Response(stream, {
         headers: {
           "Content-Type": "text/event-stream",

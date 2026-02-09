@@ -1,62 +1,41 @@
 import { getOpenAIClient, CHAT_MODEL } from "./openai";
+import { FILE_SEARCH_INSTRUCTIONS } from "./vector-store";
 import { generateEmbedding, searchSimilar } from "./embeddings";
 import { readMetadataIndex } from "@/lib/data/store";
 import type { ChatMessage, EmbeddingChunk, InterviewMetadata } from "@/types";
 
-/** Stream chat using OpenAI Assistants API (vector store). Preferred when vector store is synced. */
-export async function streamChatResponseWithAssistant(
+/** Stream chat using Responses API with file_search (vector store). Preferred when vector store is synced. */
+export async function streamChatResponseWithVectorStore(
   messages: ChatMessage[],
-  assistantId: string
+  vectorStoreId: string
 ): Promise<ReadableStream> {
   const openai = getOpenAIClient();
   const encoder = new TextEncoder();
 
-  // Create thread and add full conversation history so follow-ups and context work
-  const thread = await openai.beta.threads.create();
-  for (const msg of messages) {
-    if (!msg.content?.trim()) continue;
-    const role = msg.role === "assistant" ? "assistant" : "user";
-    await openai.beta.threads.messages.create(thread.id, {
-      role,
-      content: msg.content,
-    });
-  }
+  const inputItems = messages
+    .filter((m) => m.content?.trim())
+    .map((m) => ({
+      role: (m.role === "assistant" ? "assistant" : "user") as "user" | "assistant",
+      content: m.content!,
+    }));
 
-  // Create run with stream; keep last 50 messages in context for long threads
-  const runStream = openai.beta.threads.runs.stream(thread.id, {
-    assistant_id: assistantId,
+  const stream = await openai.responses.create({
+    model: CHAT_MODEL,
+    instructions: FILE_SEARCH_INSTRUCTIONS,
+    input: inputItems,
+    tools: [{ type: "file_search", vector_store_ids: [vectorStoreId] }],
     stream: true,
-    truncation_strategy: { type: "last_messages" as const, last_messages: 50 },
+    temperature: 0.3,
   });
 
   return new ReadableStream({
     async start(controller) {
       try {
-        for await (const event of runStream) {
-          if (
-            event.event === "thread.message.delta" &&
-            "data" in event &&
-            event.data &&
-            "delta" in event.data &&
-            event.data.delta?.content
-          ) {
-            for (const part of event.data.delta.content) {
-              if (
-                part &&
-                typeof part === "object" &&
-                "type" in part &&
-                part.type === "text" &&
-                "text" in part &&
-                part.text &&
-                typeof part.text.value === "string"
-              ) {
-                controller.enqueue(
-                  encoder.encode(
-                    `data: ${JSON.stringify({ content: part.text.value })}\n\n`
-                  )
-                );
-              }
-            }
+        for await (const event of stream as AsyncIterable<{ type: string; delta?: string }>) {
+          if (event.type === "response.output_text.delta" && event.delta) {
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ content: event.delta })}\n\n`)
+            );
           }
         }
         controller.enqueue(
@@ -81,7 +60,7 @@ export async function streamChatResponseWithAssistant(
 
 const SYSTEM_PROMPT = `You are the KFCX NPS Interview Insight Assistant for Korn Ferry. Answer only using the CONTEXT below from Korn Ferry's Customer Centricity NPS interviews.
 
-RULES: (1) Base answers only on CONTEXT; if information is missing, say so. (2) Cite sources as [Client Name, Company]. (3) Use direct quotes in quotation marks where relevant. (4) For NPS, state Promoter (9-10), Passive (7-8), or Detractor (0-6). (5) Synthesise across interviews when asked about themes or trends. (6) Be specific and actionable.`;
+RULES: (1) Base answers only on CONTEXT; if information is missing, say so. (2) Cite sources as [Client Name, Company]. (3) Use direct quotes in quotation marks where relevant. (4) For NPS, state Promoter (9-10), Passive (7-8), or Detractor (0-6). (5) Synthesise across interviews when asked about themes or trends. (6) Be specific and actionable. (7) Format in Markdown: **bold** for key terms, bullet or numbered lists for multiple points, > blockquotes for citations, and ##/### headings to structure longer answers.`;
 
 function buildContext(
   chunks: (EmbeddingChunk & { score: number })[],
@@ -103,6 +82,7 @@ function buildContext(
   return contextParts.join("\n\n");
 }
 
+/** Stream chat using Responses API with in-context RAG (legacy path when no vector store). */
 export async function streamChatResponse(
   messages: ChatMessage[],
   filters?: {
@@ -113,19 +93,14 @@ export async function streamChatResponse(
 ): Promise<ReadableStream> {
   const openai = getOpenAIClient();
 
-  // Generate embedding for the latest user message
   const latestMessage = messages[messages.length - 1].content;
   const queryEmbedding = await generateEmbedding(latestMessage);
-
-  // Search for relevant chunks (more = better context for synthesis)
   const relevantChunks = await searchSimilar(queryEmbedding, 25, filters);
 
-  // Build context
   const metadata = await readMetadataIndex();
   const interviewMap = new Map(metadata.interviews.map((i) => [i.id, i]));
   const context = buildContext(relevantChunks, interviewMap);
 
-  // Build source references for appending
   const sourceInterviews = new Set(
     relevantChunks.map((c) => c.interviewId)
   );
@@ -138,44 +113,34 @@ export async function streamChatResponse(
     })
     .filter(Boolean);
 
-  // Build the messages array
-  const aiMessages = [
-    {
-      role: "system" as const,
-      content: `${SYSTEM_PROMPT}\n\nCONTEXT:\n${context}`,
-    },
+  const inputItems = [
+    { role: "user" as const, content: `${SYSTEM_PROMPT}\n\nCONTEXT:\n${context}` },
     ...messages.slice(-16).map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     })),
   ];
 
-  // Stream response
-  const stream = await openai.chat.completions.create({
+  const stream = await openai.responses.create({
     model: CHAT_MODEL,
-    messages: aiMessages,
+    input: inputItems,
     stream: true,
     temperature: 0.3,
   });
 
-  // Convert to ReadableStream
   const encoder = new TextEncoder();
-  let streamedContent = "";
 
   return new ReadableStream({
     async start(controller) {
       try {
-        for await (const chunk of stream) {
-          const content = chunk.choices[0]?.delta?.content;
-          if (content) {
-            streamedContent += content;
+        for await (const event of stream as AsyncIterable<{ type: string; delta?: string }>) {
+          if (event.type === "response.output_text.delta" && event.delta) {
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ content })}\n\n`)
+              encoder.encode(`data: ${JSON.stringify({ content: event.delta })}\n\n`)
             );
           }
         }
 
-        // Send source references at the end
         if (sourceRefs.length > 0) {
           controller.enqueue(
             encoder.encode(

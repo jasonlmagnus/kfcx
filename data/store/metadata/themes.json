@@ -1,5 +1,5 @@
 {
-  "lastGenerated": "2026-02-09T09:34:05.155Z",
+  "lastGenerated": "2026-02-09T10:55:39.794Z",
   "generatedFrom": [
     "t-006",
     "t-007",
@@ -47,20 +47,20 @@
   ],
   "whyClientsChoose": {
     "name": "Why Clients Choose Korn Ferry",
-    "description": "This analysis identifies key themes explaining why clients choose Korn Ferry, focusing on positive factors, competitive advantages, and selection criteria.",
+    "description": "Themes explaining the positive selection criteria and differentiators clients cite for choosing Korn Ferry over competitors across NPS interviews (primarily executive/professional search, with some consulting references).",
     "themes": [
       {
         "id": "theme-0",
-        "label": "Trusted Relationships and Continuity",
-        "description": "Clients value long-standing relationships with Korn Ferry consultants, which build trust and ensure continuity across engagements.",
-        "frequency": 15,
+        "label": "Trusted relationships and continuity",
+        "description": "Clients choose Korn Ferry because long-standing personal relationships and continuity with specific consultants create trust, confidence, and ease of working—often outweighing competitive pitches.",
+        "frequency": 14,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "I tend to go to Korn Ferry because I actually like the people... they know me.",
-            "interviewId": "Paul Lester, Hudson Advisors UK Ltd.",
-            "client": "Paul Lester",
-            "company": "Hudson Advisors UK Ltd.",
+            "text": "“I've been dealing with Korn Ferry... they've now placed me... so I've known them for probably two... maybe even three decades.”",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -68,8 +68,52 @@
             "score": 0
           },
           {
-            "text": "Anywhere Chris went, I would go.",
-            "interviewId": "Keith VanOrden, The TCW Group",
+            "text": "“They know me, and they know Carilion Clinic exceptionally well... that creates efficiency, alignment, and so far, a lot of success.”",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Part of it is indeed the trust I have in Olivier Top as a consultant.”",
+            "interviewId": "t-010",
+            "client": "Vanessa Didden",
+            "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“For me, Korn Ferry is the go-to for executive search... Jerry's very good at relationship management... Always informed, always acts quickly.”",
+            "interviewId": "t-012",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It's definitely a personal relationship with the people... I've had good results.”",
+            "interviewId": "t-016",
+            "client": "Lew Little",
+            "company": "Giving Home Health Care",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We just hit it off... I trust him with my business... Anywhere Chris went, I would go.”",
+            "interviewId": "t-022",
             "client": "Keith VanOrden",
             "company": "The TCW Group",
             "region": "",
@@ -80,183 +124,34 @@
           }
         ],
         "interviewIds": [
-          "Paul Lester, Hudson Advisors UK Ltd.",
-          "Keith VanOrden, The TCW Group",
-          "Greg Aarssen, TriSummit Utilities Inc.",
-          "Francis Kint, Unknown",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim"
+          "t-002",
+          "t-003",
+          "t-006",
+          "t-010",
+          "t-011",
+          "t-012",
+          "t-014",
+          "t-016",
+          "t-017",
+          "t-020",
+          "t-021",
+          "t-022",
+          "t-024",
+          "t-029"
         ]
       },
       {
         "id": "theme-1",
-        "label": "High-Quality Candidate Pool",
-        "description": "Clients appreciate the quality and fit of candidates provided by Korn Ferry, often exceeding expectations.",
-        "frequency": 12,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They did a very good job of expanding and including some interesting people.",
-            "interviewId": "Greg Aarssen, TriSummit Utilities Inc.",
-            "client": "Greg Aarssen",
-            "company": "TriSummit Utilities Inc.",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "The candidate quality repeatedly exceeded expectations.",
-            "interviewId": "Keith VanOrden, The TCW Group",
-            "client": "Keith VanOrden",
-            "company": "The TCW Group",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "Greg Aarssen, TriSummit Utilities Inc.",
-          "Keith VanOrden, The TCW Group",
-          "Tim Rolfe, Logistics UK",
-          "Francis Kint, Unknown",
-          "Michael De Lucca, OneBlood, Inc."
-        ]
-      },
-      {
-        "id": "theme-2",
-        "label": "Strong Market and Industry Knowledge",
-        "description": "Korn Ferry's deep understanding of specific industries and markets is a key differentiator for clients.",
-        "frequency": 10,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They knew our business, they knew the nuts and bolts of our business.",
-            "interviewId": "Greg Aarssen, TriSummit Utilities Inc.",
-            "client": "Greg Aarssen",
-            "company": "TriSummit Utilities Inc.",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "They know the business, they know our industry, they know what they're doing.",
-            "interviewId": "Julie Tschida Brown, Zayo Group",
-            "client": "Julie Tschida Brown",
-            "company": "Zayo Group",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "Greg Aarssen, TriSummit Utilities Inc.",
-          "Julie Tschida Brown, Zayo Group",
-          "Michael De Lucca, OneBlood, Inc.",
-          "Francis Kint, Unknown",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim"
-        ]
-      },
-      {
-        "id": "theme-3",
-        "label": "Responsive and Proactive Communication",
-        "description": "Clients value Korn Ferry's responsiveness and proactive communication throughout the search process.",
-        "frequency": 11,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They were incredibly responsive.",
-            "interviewId": "Gary Knell, San Diego Zoo Wildlife Alliance",
-            "client": "Gary Knell",
-            "company": "San Diego Zoo Wildlife Alliance",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "We had one scheduled weekly call throughout the process... and they were always available for other queries.",
-            "interviewId": "Tim Rolfe, Logistics UK",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "Gary Knell, San Diego Zoo Wildlife Alliance",
-          "Tim Rolfe, Logistics UK",
-          "Greg Aarssen, TriSummit Utilities Inc.",
-          "Francis Kint, Unknown",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim"
-        ]
-      },
-      {
-        "id": "theme-4",
-        "label": "Expertise in Assessment and Tools",
-        "description": "Korn Ferry's use of assessment tools and structured processes adds value to the search and selection process.",
-        "frequency": 8,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "We use their psychometric tools for assessment, and they were very, very good.",
-            "interviewId": "Tim Rolfe, Logistics UK",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "They even brought in one of... a psychologist on their staff, and that was a useful session.",
-            "interviewId": "Gary Knell, San Diego Zoo Wildlife Alliance",
-            "client": "Gary Knell",
-            "company": "San Diego Zoo Wildlife Alliance",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "Tim Rolfe, Logistics UK",
-          "Gary Knell, San Diego Zoo Wildlife Alliance",
-          "Michael De Lucca, OneBlood, Inc.",
-          "Francis Kint, Unknown",
-          "Dr. Jan Stefan Scheld, Boehringer Ingelheim"
-        ]
-      }
-    ]
-  },
-  "promoterExperience": {
-    "name": "The Promoter Experience",
-    "description": "Themes that characterize what promoters value most about working with Korn Ferry, focusing on exceptional experiences and strong satisfaction.",
-    "themes": [
-      {
-        "id": "theme-5",
-        "label": "Trusted Long-term Relationships",
-        "description": "Promoters value the strong, trusted relationships built over time with Korn Ferry consultants, which foster confidence and loyalty.",
+        "label": "High-calibre candidate delivery",
+        "description": "Korn Ferry is selected for its ability to access, attract, and present high-quality candidate slates—often providing credible options and strong fit even for niche or senior roles.",
         "frequency": 15,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "I trust him with my business...Anywhere Chris went, I would go.",
-            "interviewId": "t-001",
-            "client": "Keith VanOrden",
-            "company": "The TCW Group",
+            "text": "“It was just really, really good... really high calibre people.”",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -264,10 +159,413 @@
             "score": 0
           },
           {
-            "text": "I knew the boss, I knew the consultant that I wanted to work with, because I have a deep trust in [Danny]'s... human touch.",
+            "text": "“It's been superb... we've upgraded our talent pool with these searches.”",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Cargill ended up getting an awesome human being... and he's here, and he's great.”",
+            "interviewId": "t-006",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“All three of them could do the job and match with our company culture... three excellent candidates on the same level.”",
+            "interviewId": "t-010",
+            "client": "Vanessa Didden",
+            "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They absolutely understood the brief... put a great long list together, managed the candidates really, really well.”",
+            "interviewId": "t-026",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They came up with a very good list of candidates... six, seven candidates that we all could have hired in the end.”",
+            "interviewId": "t-019",
+            "client": "Kristin Skogen Lund",
+            "company": "Delivery Hero Holding GMBH",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-002",
+          "t-003",
+          "t-004",
+          "t-006",
+          "t-008",
+          "t-010",
+          "t-012",
+          "t-013",
+          "t-014",
+          "t-015",
+          "t-019",
+          "t-024",
+          "t-026",
+          "t-028",
+          "t-029"
+        ]
+      },
+      {
+        "id": "theme-2",
+        "label": "Deep market and sector expertise",
+        "description": "Clients differentiate Korn Ferry by the consultants’ market knowledge, specialist credibility, and ability to shape roles and search strategy based on how the market actually works.",
+        "frequency": 12,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "“As Anne's a CPA... she was really additive... ‘you're calling this X, this is how it looks in the market’... [it] opened up the pool of talent.”",
+            "interviewId": "t-004",
+            "client": "Andre Buckles",
+            "company": "The Options Clearing Corporation (OCC)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It was obvious that they were experts. They had command.”",
+            "interviewId": "t-006",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They're extremely well prepared... they're very knowledgeable in the market... it ends up being quite an impressive conversation.”",
+            "interviewId": "t-012",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We needed someone with deep roots within this particular branch of the market... that's why we used Korn Ferry.”",
+            "interviewId": "t-027",
+            "client": "Gerd Pircher and Marco Trovo",
+            "company": "HSBC Continental Europe, Italy",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“She understands the healthcare business extremely well and she's really buttoned up on this.”",
+            "interviewId": "t-028",
+            "client": "Michael De Lucca",
+            "company": "OneBlood, Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Right from the onset, it was clear he had some subject matter expertise... a savvy and agility to understand higher education that was distinct.”",
+            "interviewId": "t-024",
+            "client": "Michael Citro",
+            "company": "University of Pennsylvania",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-002",
+          "t-003",
+          "t-004",
+          "t-006",
+          "t-008",
+          "t-012",
+          "t-015",
+          "t-018",
+          "t-022",
+          "t-024",
+          "t-027",
+          "t-028"
+        ]
+      },
+      {
+        "id": "theme-3",
+        "label": "Structured, end-to-end process ownership",
+        "description": "Korn Ferry is chosen for running a disciplined, end-to-end search process—briefing, materials, logistics, stakeholder management, and closing—reducing burden on internal teams.",
+        "frequency": 11,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "“They do everything... outside of [offer/comp], they really do everything.”",
+            "interviewId": "t-012",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Comprehensive end-to-end delivery... not all search firms are as adept and thorough in doing all of those aspects.”",
+            "interviewId": "t-020",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Their admin support was excellent... all the logistical arrangements... first class, all the way through.”",
+            "interviewId": "t-026",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“The M&A team had a PowerPoint... each week... profiles of every candidate... and a tracker... they laid all the groundwork.”",
+            "interviewId": "t-017",
+            "client": "Jen Anderson",
+            "company": "Generac Power Systems",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They looked over about 100 applications... condensed that to 11... then 7... then 4... and that... was plenty.”",
+            "interviewId": "t-025",
+            "client": "Duffield Ashmead IV",
+            "company": "Wadsworth Atheneum Museum of Art",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We set up a timeline... we were on a schedule... everything moved.”",
+            "interviewId": "t-028",
+            "client": "Michael De Lucca",
+            "company": "OneBlood, Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-003",
+          "t-006",
+          "t-010",
+          "t-012",
+          "t-014",
+          "t-017",
+          "t-020",
+          "t-024",
+          "t-025",
+          "t-026",
+          "t-028"
+        ]
+      },
+      {
+        "id": "theme-4",
+        "label": "Responsive, high-touch communication",
+        "description": "Clients select Korn Ferry because they feel kept in the loop through frequent, fast, and flexible communication—often described as accessible, proactive, and aligned to stakeholder schedules.",
+        "frequency": 13,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "“We'll communicate at any time, any day... they're very responsive... timing in these searches is very important... Korn Ferry's been able to deliver on that.”",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Their communication was exemplary.”",
+            "interviewId": "t-006",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Rebecca and I... will text, we will call... weekends, late into the evening... all of them are super responsive.”",
+            "interviewId": "t-014",
+            "client": "Briony McKinn",
+            "company": "IVC Acquisition Limited",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Communication is always absolutely stand out... we never feel blindsided... constant flow of communication.”",
+            "interviewId": "t-020",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They were incredibly responsive.”",
+            "interviewId": "t-030",
+            "client": "Gary Knell",
+            "company": "San Diego Zoo Wildlife Alliance",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They were always available for other queries... more ad hoc stuff.”",
+            "interviewId": "t-026",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-003",
+          "t-004",
+          "t-006",
+          "t-010",
+          "t-012",
+          "t-013",
+          "t-014",
+          "t-016",
+          "t-017",
+          "t-019",
+          "t-020",
+          "t-026",
+          "t-030"
+        ]
+      },
+      {
+        "id": "theme-5",
+        "label": "Assessment and data-driven confidence",
+        "description": "Korn Ferry differentiates through assessments, structured evaluation, and data that increase decision confidence, support stakeholder alignment, and sometimes extend into onboarding/development.",
+        "frequency": 12,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "“The psychometric testing piece was very detailed and very good reporting... that was really valuable.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“There's also a model... ranking them... in the key competencies... so it's not just subjective... it's also factual.”",
             "interviewId": "t-002",
-            "client": "Francis Kint",
-            "company": "Green Yard Foods NV",
+            "client": "Harry Boot",
+            "company": "Maracorp",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“That formal assessment review... was incredibly powerful... that's where we had the aha moment.”",
+            "interviewId": "t-004",
+            "client": "Andre Buckles",
+            "company": "The Options Clearing Corporation (OCC)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“All of our successful... candidates are assessed by Korn Ferry... we get a great richness of data... [often] as a development tool for when they land.”",
+            "interviewId": "t-020",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They ran... a significant battery of tests for our internal candidate... we felt very confident that we had the right person.”",
+            "interviewId": "t-032",
+            "client": "Greg Aarssen",
+            "company": "TriSummit Utilities Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We use their psychometric tools for assessment, and they were very, very good... used for a development plan.”",
+            "interviewId": "t-026",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -280,59 +578,34 @@
           "t-002",
           "t-003",
           "t-004",
-          "t-005"
+          "t-006",
+          "t-010",
+          "t-014",
+          "t-015",
+          "t-020",
+          "t-025",
+          "t-026",
+          "t-032"
         ]
-      },
+      }
+    ]
+  },
+  "promoterExperience": {
+    "name": "The Promoter Experience",
+    "description": "Themes that characterise what NPS Promoters (9–10) value most about working with Korn Ferry—what creates exceptional experiences, strong satisfaction, and repeat engagement.",
+    "themes": [
       {
         "id": "theme-6",
-        "label": "High-Quality Candidate Pools",
-        "description": "Promoters appreciate the high caliber and well-aligned candidate pools provided by Korn Ferry, which meet or exceed expectations.",
-        "frequency": 12,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They absolutely understood the brief, really fully targeted exactly the right people, put a great long list together.",
-            "interviewId": "t-006",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "In terms of the number of... the quality and the quantity of candidates, did they meet your expectations? – Yes, absolutely.",
-            "interviewId": "t-007",
-            "client": "Francis Kint",
-            "company": "Green Yard Foods NV",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "t-006",
-          "t-007",
-          "t-008",
-          "t-009",
-          "t-010"
-        ]
-      },
-      {
-        "id": "theme-7",
-        "label": "Responsive and Proactive Communication",
-        "description": "Promoters value Korn Ferry's consistent, proactive communication and responsiveness throughout the engagement process.",
+        "label": "Trusted partnership and continuity",
+        "description": "Promoters most value a relationship-led partnership built on trust, familiarity, and consistent consultant continuity that makes Korn Ferry a default choice for critical work.",
         "frequency": 14,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "They were incredibly responsive.",
-            "interviewId": "t-011",
-            "client": "Gary Knell",
-            "company": "San Diego Zoo Wildlife Alliance",
+            "text": "When the need ultimately arises, yeah, you're going to go to people that you know and that you trust and believe that also, at the end of the day, can deliver.",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -340,37 +613,10 @@
             "score": 0
           },
           {
-            "text": "We had one scheduled weekly call throughout the process... and they were always available for other queries, more ad hoc stuff.",
-            "interviewId": "t-012",
-            "client": "Tim Rolfe",
-            "company": "Logistics UK",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "t-011",
-          "t-012",
-          "t-013",
-          "t-014",
-          "t-015"
-        ]
-      },
-      {
-        "id": "theme-8",
-        "label": "Expertise and Market Knowledge",
-        "description": "Promoters highlight Korn Ferry's deep expertise and understanding of their industry and market, which adds significant value to the search process.",
-        "frequency": 13,
-        "sentiment": "positive",
-        "supportingQuotes": [
-          {
-            "text": "They know the business, they know our industry, they know what they're doing.",
-            "interviewId": "t-016",
-            "client": "Julie Tschida Brown",
-            "company": "Zayo Group",
+            "text": "They know me, and they know Carilion Clinic exceptionally well... we've developed a degree of psychological safety... enough trust to be completely honest with each other.",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -378,8 +624,63 @@
             "score": 0
           },
           {
-            "text": "She understands the healthcare business extremely well and she's really buttoned up on this.",
-            "interviewId": "t-017",
+            "text": "Part of it is indeed the trust I have in Olivier Top as a consultant.",
+            "interviewId": "t-008",
+            "client": "Vanessa Didden",
+            "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "It's definitely a personal relationship with the people... I've had good results.",
+            "interviewId": "t-014",
+            "client": "Lew Little",
+            "company": "Giving Home Health Care",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "We just hit it off... I trust him with my business... Anywhere Chris went, I would go.",
+            "interviewId": "t-022",
+            "client": "Keith VanOrden",
+            "company": "The TCW Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Would I ever use these people again? I can't imagine not using them again.",
+            "interviewId": "t-025",
+            "client": "Greg Aarssen",
+            "company": "TriSummit Utilities Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Definitely no brainer... I wouldn't even benchmark.",
+            "interviewId": "t-027",
+            "client": "Philippe Brands",
+            "company": "Avanos Headquarters",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "I would pick [Jena] again in a second.",
+            "interviewId": "t-024",
             "client": "Michael De Lucca",
             "company": "OneBlood, Inc.",
             "region": "",
@@ -390,25 +691,34 @@
           }
         ],
         "interviewIds": [
-          "t-016",
-          "t-017",
+          "t-002",
+          "t-003",
+          "t-006",
+          "t-008",
+          "t-009",
+          "t-011",
+          "t-012",
+          "t-014",
           "t-018",
           "t-019",
-          "t-020"
+          "t-022",
+          "t-023",
+          "t-024",
+          "t-027"
         ]
       },
       {
-        "id": "theme-9",
-        "label": "Collaborative and Flexible Approach",
-        "description": "Promoters value Korn Ferry's collaborative and flexible approach, which adapts to client needs and preferences.",
-        "frequency": 11,
+        "id": "theme-7",
+        "label": "High-calibre candidates and fit",
+        "description": "Promoters consistently praise Korn Ferry for delivering strong candidate slates—often multiple “hireable” finalists—well matched to role requirements and culture, including in niche or senior markets.",
+        "frequency": 13,
         "sentiment": "positive",
         "supportingQuotes": [
           {
-            "text": "Their proposal was very pragmatic and cost effective unlike some of the other [companies].",
-            "interviewId": "t-021",
-            "client": "Matthew Hussein",
-            "company": "Ferrero Trading Lux S.A.",
+            "text": "It was just really, really good... really high calibre people.",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -416,10 +726,65 @@
             "score": 0
           },
           {
-            "text": "They were very client-oriented, very service-oriented, very reactive... I really felt like a client.",
-            "interviewId": "t-022",
+            "text": "It's been superb... we've upgraded our talent pool with these searches, which is what my expectation was.",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Cargill ended up getting an awesome human being... and he's here, and he's great.",
+            "interviewId": "t-005",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "All three of them could do the job and match with our company culture... I have never seen this... three excellent candidates on the same level.",
+            "interviewId": "t-008",
             "client": "Vanessa Didden",
             "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They absolutely understood the brief... put a great long list together, managed the candidates really, really well.",
+            "interviewId": "t-029",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They came up with a very good list of candidates... six, seven candidates that we all could have hired in the end.",
+            "interviewId": "t-017",
+            "client": "Kristin Skogen Lund",
+            "company": "Delivery Hero Holding GMBH",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "We needed someone with deep roots... that's why we used Korn Ferry... they threw the net widely... and delivered on that.",
+            "interviewId": "t-020",
+            "client": "Gerd Pircher and Marco Trovo",
+            "company": "HSBC Continental Europe, Italy",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -428,9 +793,386 @@
           }
         ],
         "interviewIds": [
+          "t-002",
+          "t-003",
+          "t-005",
+          "t-008",
+          "t-012",
+          "t-013",
+          "t-014",
+          "t-017",
+          "t-018",
+          "t-019",
+          "t-020",
+          "t-024",
+          "t-029"
+        ]
+      },
+      {
+        "id": "theme-8",
+        "label": "Responsive, high-touch communication",
+        "description": "Promoters highlight fast, accessible, and proactive communication (texts, quick turnarounds, regular cadence) that keeps stakeholders confident and decisions moving.",
+        "frequency": 12,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "We'll communicate at any time, any day... they're very responsive... they're quick... timing in these searches is very important for me.",
+            "interviewId": "t-003",
+            "client": "Tony Seupaul",
+            "company": "Carilion Clinic",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Their communication was exemplary... We met every week. I would text... regularly.",
+            "interviewId": "t-005",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They were very client-oriented, very service-oriented, very reactive... I really felt like a client.",
+            "interviewId": "t-008",
+            "client": "Vanessa Didden",
+            "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Jerry's very communicative... keeping us in the loop... updates on every call, and really moving the process along.",
+            "interviewId": "t-011",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Rebecca and I... will text, we will call... weekends, late into the evening... all of them are super responsive.",
+            "interviewId": "t-013",
+            "client": "Briony McKinn",
+            "company": "IVC Acquisition Limited",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Communication is always absolutely stand out... we never feel blindsided... it's a constant flow of communication.",
+            "interviewId": "t-016",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "We had one scheduled weekly call throughout the process... and they were always available for other queries.",
+            "interviewId": "t-029",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-002",
+          "t-003",
+          "t-005",
+          "t-008",
+          "t-009",
+          "t-011",
+          "t-012",
+          "t-013",
+          "t-014",
+          "t-016",
+          "t-020",
+          "t-029"
+        ]
+      },
+      {
+        "id": "theme-9",
+        "label": "Consultative guidance and challenge",
+        "description": "Promoters value Korn Ferry as a thought partner that shapes the brief, brings realism and market insight, and constructively challenges assumptions to improve outcomes.",
+        "frequency": 10,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "I had a list ready of what I was looking for, and they put some more realism into it... that's what I appreciated... the flexibility.",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They were bold... it was obvious that they were experts. They had command.",
+            "interviewId": "t-005",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Asking really great questions... not been afraid to challenge which I love... there's no such thing as one size fits all.",
+            "interviewId": "t-009",
+            "client": "Lisa Bolger",
+            "company": "PartnerRe",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Dan really guided the strategy of the search as well, not just execution of it.",
+            "interviewId": "t-012",
+            "client": "Mike Arshinskiy",
+            "company": "Inflexion Private Equity Partners",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They pushed me... They force you into this 'what's really important' conversation.",
+            "interviewId": "t-022",
+            "client": "Keith VanOrden",
+            "company": "The TCW Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "We were also impressed with the strategic point of view... a broad look on how to shape a board... that's what set Korn Ferry apart.",
+            "interviewId": "t-015",
+            "client": "Dawn Willoughby",
+            "company": "International Flavors & Fragrances",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "It was always an open discussion... finding common grounds... 'If you want all of this, it's going to cost you way more.'",
+            "interviewId": "t-027",
+            "client": "Philippe Brands",
+            "company": "Avanos Headquarters",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-002",
+          "t-005",
+          "t-009",
+          "t-012",
+          "t-015",
+          "t-016",
+          "t-020",
           "t-021",
           "t-022",
-          "t-023",
+          "t-027"
+        ]
+      },
+      {
+        "id": "theme-10",
+        "label": "End-to-end ownership and execution",
+        "description": "Promoters appreciate Korn Ferry taking full process ownership—tight project management, logistics, candidate management, and offer closure—making complex searches feel seamless.",
+        "frequency": 9,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "They do everything... outside of [offer conversations], they really do everything.",
+            "interviewId": "t-011",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They are absolutely key... from the get-go and through to the end... comp negotiation... references... informal checks.",
+            "interviewId": "t-013",
+            "client": "Briony McKinn",
+            "company": "IVC Acquisition Limited",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Their admin support was excellent... all the logistical arrangements... it was just first class, all the way through.",
+            "interviewId": "t-029",
+            "client": "Tim Rolfe",
+            "company": "Logistics UK",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "We set up a timeline... we were on a schedule, we did Zoom calls, everything moved.",
+            "interviewId": "t-024",
+            "client": "Michael De Lucca",
+            "company": "OneBlood, Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "It was like really an easy way of interacting... to be efficient and to go forward... It was impeccable.",
+            "interviewId": "t-027",
+            "client": "Philippe Brands",
+            "company": "Avanos Headquarters",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Everything was really easy... my life is a very complicated one... but it all worked fine.",
+            "interviewId": "t-020",
+            "client": "Gerd Pircher and Marco Trovo",
+            "company": "HSBC Continental Europe, Italy",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-005",
+          "t-011",
+          "t-013",
+          "t-015",
+          "t-016",
+          "t-020",
+          "t-024",
+          "t-027",
+          "t-029"
+        ]
+      },
+      {
+        "id": "theme-11",
+        "label": "Credible assessments and data",
+        "description": "Promoters value Korn Ferry’s assessments, structured tools, and data as credibility-builders that improve decision quality, align stakeholders, and support onboarding/development.",
+        "frequency": 8,
+        "sentiment": "positive",
+        "supportingQuotes": [
+          {
+            "text": "There's also a model... ranking them... in the key competencies... so it's not just [subjective]... it's also factual.",
+            "interviewId": "t-002",
+            "client": "Harry Boot",
+            "company": "Maracorp",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "All of our successful... candidates are assessed by Korn Ferry... we get a great richness of data... quite often [we use it as] a development tool for when they land.",
+            "interviewId": "t-016",
+            "client": "Fiona Motley",
+            "company": "NatWest Group PLC",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "The value is you're getting input from an entire board... the tools help understand the skill set... It's a good way to get everybody to offer feedback and input.",
+            "interviewId": "t-024",
+            "client": "Michael De Lucca",
+            "company": "OneBlood, Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "They ran some significant... battery of tests for our internal candidate... we felt very confident that we had the right person.",
+            "interviewId": "t-025",
+            "client": "Greg Aarssen",
+            "company": "TriSummit Utilities Inc.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "What was written in the report of the assessment was aligned with the person I had in front of me... their assessment system works well.",
+            "interviewId": "t-008",
+            "client": "Vanessa Didden",
+            "company": "Heidelberg Materials Benelux SA",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "Yes, I use that tool. I find it very helpful.",
+            "interviewId": "t-022",
+            "client": "Keith VanOrden",
+            "company": "The TCW Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-002",
+          "t-008",
+          "t-013",
+          "t-016",
+          "t-017",
+          "t-022",
           "t-024",
           "t-025"
         ]
@@ -439,17 +1181,17 @@
   },
   "whereFallsShort": {
     "name": "Where the Experience Falls Short",
-    "description": "Identified themes where Korn Ferry's experience falls short based on client feedback.",
+    "description": "Recurring pain points and gaps that reduce perceived value, confidence, and ease of working with Korn Ferry—most often raised by detractors and passives—spanning candidate quality/alignment, pace and proactivity, communication/coordination, compensation handling, and consistency of delivery.",
     "themes": [
       {
-        "id": "theme-10",
-        "label": "Inconsistent Candidate Quality",
-        "description": "Clients expressed dissatisfaction with the quality and suitability of candidates presented.",
-        "frequency": 3,
+        "id": "theme-12",
+        "label": "Candidate quality and fit gaps",
+        "description": "Clients reported shortlists that felt average, off-brief, or insufficiently differentiated—sometimes requiring the client to supply the eventual hire or rely on their own network.",
+        "frequency": 5,
         "sentiment": "negative",
         "supportingQuotes": [
           {
-            "text": "Some of the people on the shortlist had minimal experience... after five minutes, you knew they just were nowhere near what you wanted.",
+            "text": "“Some of the people on the shortlist had minimal experience... after five minutes, you knew they just were nowhere near what you wanted.”",
             "interviewId": "t-001",
             "client": "Greg Austin",
             "company": "SYNLAB",
@@ -460,8 +1202,30 @@
             "score": 0
           },
           {
-            "text": "They didn't really generate the level of the candidates that we thought they should have.",
-            "interviewId": "t-020",
+            "text": "“We've just paid 70 grand in fees for someone that we gave them.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It felt more like he was trying to get us bodies... we need two or three people... as good as our internal candidate, or better.”",
+            "interviewId": "t-005",
+            "client": "Shannon Fulmer",
+            "company": "Western States Petroleum Association (WSPA)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They didn't really generate the level of the candidates that we thought they should have... Two of the three finalists were my contacts.”",
+            "interviewId": "t-026",
             "client": "Gary Knell",
             "company": "San Diego Zoo Wildlife Alliance",
             "region": "",
@@ -471,8 +1235,8 @@
             "score": 0
           },
           {
-            "text": "We ended up getting quite junior people for a director-level role... [that wasn't] going to work for our organisation.",
-            "interviewId": "t-015",
+            "text": "“We ended up getting quite junior people for a director-level role... [that wasn't] going to work for our organisation.”",
+            "interviewId": "t-018",
             "client": "Jen Anderson",
             "company": "Generac Power Systems",
             "region": "",
@@ -484,31 +1248,22 @@
         ],
         "interviewIds": [
           "t-001",
-          "t-020",
-          "t-015"
+          "t-005",
+          "t-026",
+          "t-018",
+          "t-028"
         ]
       },
       {
-        "id": "theme-11",
-        "label": "Communication and Coordination Issues",
-        "description": "Clients reported breakdowns in communication and coordination, leading to confusion and inefficiencies.",
-        "frequency": 4,
+        "id": "theme-13",
+        "label": "Slow pace and weak momentum",
+        "description": "Several interviews described a slow start, extended timelines, or a loss of momentum late-stage—creating stakeholder anxiety and sometimes contributing to missed hires.",
+        "frequency": 6,
         "sentiment": "negative",
         "supportingQuotes": [
           {
-            "text": "We had a candidate who couldn't seem to connect... it was like phone tag and email tag.",
+            "text": "“It just took way, way longer than we thought... the best part of five months, six months.”",
             "interviewId": "t-030",
-            "client": "Joanne DeSantis",
-            "company": "Project Management Institute",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "The reports would often land an hour or two before the call... you have no hope in hell of getting to it.",
-            "interviewId": "t-040",
             "client": "Jeanette Rooms",
             "company": "Ocorian",
             "region": "",
@@ -518,10 +1273,10 @@
             "score": 0
           },
           {
-            "text": "Early on, it was a little confusing... several different people... reaching out... we couldn't search for [emails] easily.",
-            "interviewId": "t-050",
-            "client": "Duffield Ashmead IV",
-            "company": "Wadsworth Atheneum Museum of Art",
+            "text": "“It was not quantity versus quality, but rather quality versus pace... it would have been better to just get...the first profile to work with.”",
+            "interviewId": "t-007",
+            "client": "Dr. Nina Johanna Haltern",
+            "company": "Tengelmann Twenty-One",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -529,10 +1284,43 @@
             "score": 0
           },
           {
-            "text": "They rely on us very heavily for everything logistical...It feels like they kind of expect us to do their logistics.",
-            "interviewId": "t-060",
-            "client": "Julie Tschida Brown",
-            "company": "Zayo Group",
+            "text": "“At one stage... are we putting all our eggs in one basket...”",
+            "interviewId": "t-006",
+            "client": "Michael Baker",
+            "company": "Cargill",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“I was not quite comfortable that we had a ready backup pool... keep interviews going until an offer is accepted... and the background checks been cleared.”",
+            "interviewId": "t-004",
+            "client": "Andre Buckles",
+            "company": "The Options Clearing Corporation (OCC)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It feels like it slows down considerably once two or three candidates are kind of at the top of the list.”",
+            "interviewId": "t-015",
+            "client": "Daryl Teitler",
+            "company": "Blue Cross Blue Shield of Nebraska",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It got off to such a good start... and then it sort of skidded off the runway.”",
+            "interviewId": "t-026",
+            "client": "Gary Knell",
+            "company": "San Diego Zoo Wildlife Alliance",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -542,103 +1330,25 @@
         ],
         "interviewIds": [
           "t-030",
-          "t-040",
-          "t-050",
-          "t-060"
-        ]
-      },
-      {
-        "id": "theme-12",
-        "label": "Compensation and Offer Management",
-        "description": "Clients experienced challenges with obtaining and managing compensation information, affecting offer processes.",
-        "frequency": 3,
-        "sentiment": "negative",
-        "supportingQuotes": [
-          {
-            "text": "Trying to get out of them what current comp was, was impossible.",
-            "interviewId": "t-040",
-            "client": "Jeanette Rooms",
-            "company": "Ocorian",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "They should have known those candidates were not going to move.",
-            "interviewId": "t-020",
-            "client": "Gary Knell",
-            "company": "San Diego Zoo Wildlife Alliance",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "They kept having to go back and forth... it took forever to put an offer together.",
-            "interviewId": "t-040",
-            "client": "Jeanette Rooms",
-            "company": "Ocorian",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "t-040",
-          "t-020"
-        ]
-      },
-      {
-        "id": "theme-13",
-        "label": "Diversity and Inclusion Gaps",
-        "description": "Clients noted a lack of diversity in candidate slates and consulting teams, impacting perceptions and outcomes.",
-        "frequency": 2,
-        "sentiment": "negative",
-        "supportingQuotes": [
-          {
-            "text": "We had to remind the guys a number of times that we want to see women as well as men.",
-            "interviewId": "t-040",
-            "client": "Jeanette Rooms",
-            "company": "Ocorian",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          },
-          {
-            "text": "All the consultants from Korn Ferry were all men... it didn't really sit very well.",
-            "interviewId": "t-040",
-            "client": "Jeanette Rooms",
-            "company": "Ocorian",
-            "region": "",
-            "solution": "",
-            "accountType": "",
-            "npsCategory": "",
-            "score": 0
-          }
-        ],
-        "interviewIds": [
-          "t-040"
+          "t-007",
+          "t-006",
+          "t-004",
+          "t-015",
+          "t-026"
         ]
       },
       {
         "id": "theme-14",
-        "label": "Assessment and Tool Utilization",
-        "description": "Clients found limited value in assessment tools, questioning their relevance and impact.",
-        "frequency": 2,
+        "label": "Communication and coordination friction",
+        "description": "Clients experienced misaligned communication preferences, slow responses, unclear points of contact, and scheduling/logistics errors that created avoidable effort and frustration.",
+        "frequency": 7,
         "sentiment": "negative",
         "supportingQuotes": [
           {
-            "text": "I wasn't blown away, [and] I don't think our president was blown away by it.",
-            "interviewId": "t-070",
-            "client": "Michael Citro",
-            "company": "University of Pennsylvania",
+            "text": "“Sometimes it would be overnight... and on occasion, instead of just replying to an email, there was a request to have a conversation... I always don't have the luxury... to carve out those times.”",
+            "interviewId": "t-004",
+            "client": "Andre Buckles",
+            "company": "The Options Clearing Corporation (OCC)",
             "region": "",
             "solution": "",
             "accountType": "",
@@ -646,8 +1356,208 @@
             "score": 0
           },
           {
-            "text": "We got that for free in some instances, but honestly, I didn't use it.",
-            "interviewId": "t-080",
+            "text": "“Sometimes it took 30 hours or so... you have an email to three [people] so you would have thought at least one of them could just tell me... but [we got nothing].”",
+            "interviewId": "t-007",
+            "client": "Dr. Nina Johanna Haltern",
+            "company": "Tengelmann Twenty-One",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“The reports would often land an hour or two before the call... you have no hope in hell of getting to it.”",
+            "interviewId": "t-030",
+            "client": "Jeanette Rooms",
+            "company": "Ocorian",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They would always send the book out... two hours before the meeting... You just haven't got time to look at it.”",
+            "interviewId": "t-024",
+            "client": "Paul Lester",
+            "company": "Hudson Advisors UK Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Three of us come on to the call and nobody shows up... the guy pulled out... 15 minutes before... and no one told us.”",
+            "interviewId": "t-029",
+            "client": "Leslie Fall",
+            "company": "Aquifer, Inc",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“My most important candidate got invited to a zoom interview with the other leading candidate.”",
+            "interviewId": "t-029",
+            "client": "Leslie Fall",
+            "company": "Aquifer, Inc",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Early on, it was a little confusing... several different people... reaching out.”",
+            "interviewId": "t-027",
+            "client": "Duffield Ashmead IV",
+            "company": "Wadsworth Atheneum Museum of Art",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-004",
+          "t-007",
+          "t-030",
+          "t-024",
+          "t-029",
+          "t-027",
+          "t-001"
+        ]
+      },
+      {
+        "id": "theme-15",
+        "label": "Compensation guidance and offer confusion",
+        "description": "Multiple clients cited weak compensation discovery/benchmarking, slow back-and-forth to confirm candidate expectations, and unclear ownership of offer/negotiation steps.",
+        "frequency": 6,
+        "sentiment": "negative",
+        "supportingQuotes": [
+          {
+            "text": "“When it came to saying... let's negotiate. What does she expect? And the answer was, I don't know.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“My view was that that initial offer and negotiation should come by the agency... But he felt that was our role, not his.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“He brought us someone who... was well over a million dollars in salary, and he knew ours was like at 600, 700,000 total.”",
+            "interviewId": "t-005",
+            "client": "Shannon Fulmer",
+            "company": "Western States Petroleum Association (WSPA)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Trying to get out of them what current comp was, was impossible... it took forever to put an offer together.”",
+            "interviewId": "t-030",
+            "client": "Jeanette Rooms",
+            "company": "Ocorian",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We didn't get any support... we got a very blanket 'the expectation is around about half a million'.”",
+            "interviewId": "t-030",
+            "client": "Jeanette Rooms",
+            "company": "Ocorian",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We potentially dodged a bullet... I was not quite comfortable that we had a ready backup pool we'd be able to immediately bring in and continue the process.”",
+            "interviewId": "t-004",
+            "client": "Andre Buckles",
+            "company": "The Options Clearing Corporation (OCC)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-001",
+          "t-005",
+          "t-030",
+          "t-004",
+          "t-007",
+          "t-022"
+        ]
+      },
+      {
+        "id": "theme-16",
+        "label": "Inconsistent delivery across teams",
+        "description": "Experience quality was reported to vary significantly by lead consultant/team, with weaker engagement, resourcing, or execution when the “A team” was not involved.",
+        "frequency": 5,
+        "sentiment": "negative",
+        "supportingQuotes": [
+          {
+            "text": "“It depends on the team that you're working with.”",
+            "interviewId": "t-012",
+            "client": "Cana Iwahara",
+            "company": "Macquarie Group Ltd.",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“I didn't feel like I was working exactly with Korn Ferry... I'm not sure that's endemic of Korn Ferry... the junior research analyst was average at best.”",
+            "interviewId": "t-013",
+            "client": "Mike Arshinskiy",
+            "company": "Inflexion Private Equity Partners",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Variation in experience and delivery style between teams.”",
+            "interviewId": "t-018",
+            "client": "Jen Anderson",
+            "company": "Generac Power Systems",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We got the message... we have limited capacity, so now we are splitting up and working individually... it was not the same great experience as we had at the beginning.”",
+            "interviewId": "t-032",
             "client": "Dr. Jan Stefan Scheld",
             "company": "Boehringer Ingelheim",
             "region": "",
@@ -655,11 +1565,96 @@
             "accountType": "",
             "npsCategory": "",
             "score": 0
+          },
+          {
+            "text": "“Once she was gone, it felt less prioritised... it just felt a little bit... an ownership thing.”",
+            "interviewId": "t-026",
+            "client": "Gary Knell",
+            "company": "San Diego Zoo Wildlife Alliance",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
           }
         ],
         "interviewIds": [
-          "t-070",
-          "t-080"
+          "t-012",
+          "t-013",
+          "t-018",
+          "t-032",
+          "t-026"
+        ]
+      },
+      {
+        "id": "theme-17",
+        "label": "Partnership, governance, and value tension",
+        "description": "Some clients felt Korn Ferry did not operate as a true partner—bypassing agreed governance, “managing up” past the primary contact, being insufficiently proactive/solution-led, or creating fee/value friction when clients contributed candidates.",
+        "frequency": 5,
+        "sentiment": "negative",
+        "supportingQuotes": [
+          {
+            "text": "“It was almost an element of, this is really difficult... rather than try to find me a solution.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“Twice when he went to [the Board Chair], he got time frames changed... and that not would not have happened had the internal group been able to have the conversation.”",
+            "interviewId": "t-005",
+            "client": "Shannon Fulmer",
+            "company": "Western States Petroleum Association (WSPA)",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“They're managing up... in a way that felt somewhat disrespectful to me and my role.”",
+            "interviewId": "t-028",
+            "client": "Julie Tschida Brown",
+            "company": "Zayo Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“It just seemed... penny smart, pound foolish... That behavior would make me not want to work with them again.”",
+            "interviewId": "t-028",
+            "client": "Julie Tschida Brown",
+            "company": "Zayo Group",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          },
+          {
+            "text": "“We've just paid 70 grand in fees for someone that we gave them, which feels a bit of a stink.”",
+            "interviewId": "t-001",
+            "client": "Greg Austin",
+            "company": "SYNLAB",
+            "region": "",
+            "solution": "",
+            "accountType": "",
+            "npsCategory": "",
+            "score": 0
+          }
+        ],
+        "interviewIds": [
+          "t-001",
+          "t-005",
+          "t-028",
+          "t-030",
+          "t-029"
         ]
       }
     ]

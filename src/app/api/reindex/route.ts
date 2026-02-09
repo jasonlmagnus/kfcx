@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { buildEmbeddingIndex } from "@/lib/ai/embeddings";
 import { generateThemeAnalysis, generateOpportunityAnalysis } from "@/lib/ai/analysis";
-import { syncVectorStore, getOrCreateAssistant } from "@/lib/ai/vector-store";
+import { syncVectorStore } from "@/lib/ai/vector-store";
 
 // Reindex can take 1–2 minutes (embeddings + vector store + AI analysis)
 export const maxDuration = 120;
@@ -26,9 +26,8 @@ export async function POST() {
     // Sync OpenAI vector store (for Chat)
     try {
       const { vectorStoreId, fileCount } = await syncVectorStore();
-      const assistantId = await getOrCreateAssistant(vectorStoreId);
       results.push(
-        `Vector store: synced (${fileCount} file(s)); assistant ready for Chat`
+        `Vector store: synced (${fileCount} file(s)); Chat ready (Responses API + file_search)`
       );
     } catch (error) {
       allOk = false;

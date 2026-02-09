@@ -1,10 +1,7 @@
 import OpenAI from "openai";
 
-/** Model for Chat Completions (legacy RAG path). */
+/** Model for all Responses API usage (chat + analysis). */
 export const CHAT_MODEL = "gpt-5.2";
-
-/** Model for Assistants API (vector store chat). gpt-5.2 not supported there yet. */
-export const ASSISTANT_MODEL = "gpt-4o";
 
 let client: OpenAI | null = null;
 

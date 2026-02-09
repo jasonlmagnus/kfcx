@@ -1,6 +1,6 @@
 /**
  * Reindex script: builds embeddings, syncs OpenAI vector store, generates themes and opportunities.
- * Writes OPENAI_VECTOR_STORE_ID and OPENAI_ASSISTANT_ID to .env.local when created.
+ * Writes OPENAI_VECTOR_STORE_ID to .env.local when created.
  *
  * Run from project root: npm run reindex
  * Requires OPENAI_API_KEY in .env.local (or env).
@@ -42,7 +42,7 @@ async function main(): Promise<void> {
   }
 
   const { buildEmbeddingIndex } = await import("../src/lib/ai/embeddings");
-  const { syncVectorStore, getOrCreateAssistant } = await import("../src/lib/ai/vector-store");
+  const { syncVectorStore } = await import("../src/lib/ai/vector-store");
   const { generateThemeAnalysis, generateOpportunityAnalysis } = await import("../src/lib/ai/analysis");
 
   console.log("Building embedding index...");
@@ -51,9 +51,8 @@ async function main(): Promise<void> {
 
   console.log("Syncing OpenAI vector store...");
   const { vectorStoreId, fileCount } = await syncVectorStore();
-  const assistantId = await getOrCreateAssistant(vectorStoreId);
-  console.log(`  Vector store: ${vectorStoreId} (${fileCount} file(s)); assistant: ${assistantId}`);
-  console.log("  IDs written to .env.local (OPENAI_VECTOR_STORE_ID, OPENAI_ASSISTANT_ID)");
+  console.log(`  Vector store: ${vectorStoreId} (${fileCount} file(s)); Chat will use Responses API + file_search`);
+  console.log("  OPENAI_VECTOR_STORE_ID written to .env.local");
 
   console.log("Generating theme and opportunity analysis (in parallel)...");
   const [themes, opps] = await Promise.all([

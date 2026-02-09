@@ -1,5 +1,5 @@
 /**
- * Sync only the OpenAI vector store (one file per interview) and ensure assistant is ready.
+ * Sync only the OpenAI vector store (one file per interview) for Responses API file_search.
  * Use after code changes to vector-store; skip full reindex.
  * Run: npx tsx scripts/sync-vector-store.ts
  */
@@ -38,13 +38,12 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  const { syncVectorStore, getOrCreateAssistant } = await import("../src/lib/ai/vector-store");
+  const { syncVectorStore } = await import("../src/lib/ai/vector-store");
 
   console.log("Syncing vector store (one file per interview)...");
   const { vectorStoreId, fileCount } = await syncVectorStore();
-  const assistantId = await getOrCreateAssistant(vectorStoreId);
-  console.log(`  Vector store: ${fileCount} files; assistant ready.`);
-  console.log("Done. Chat will use the updated store.");
+  console.log(`  Vector store: ${vectorStoreId} (${fileCount} files). Chat will use Responses API + file_search.`);
+  console.log("Done.");
 }
 
 main().catch((err) => {

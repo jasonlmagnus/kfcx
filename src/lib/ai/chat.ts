@@ -4,6 +4,33 @@ import { generateEmbedding, searchSimilar } from "./embeddings";
 import { readMetadataIndex } from "@/lib/data/store";
 import type { ChatMessage, EmbeddingChunk, InterviewMetadata } from "@/types";
 
+/** Stream a static response (deterministic, no model call). */
+export function streamStaticResponse(
+  text: string,
+  sources?: string[]
+): ReadableStream {
+  const encoder = new TextEncoder();
+  return new ReadableStream({
+    start(controller) {
+      controller.enqueue(
+        encoder.encode(`data: ${JSON.stringify({ content: text })}\n\n`)
+      );
+      if (sources && sources.length > 0) {
+        controller.enqueue(
+          encoder.encode(
+            `data: ${JSON.stringify({ sources, done: true })}\n\n`
+          )
+        );
+      } else {
+        controller.enqueue(
+          encoder.encode(`data: ${JSON.stringify({ done: true })}\n\n`)
+        );
+      }
+      controller.close();
+    },
+  });
+}
+
 /** Stream chat using Responses API with file_search (vector store). Preferred when vector store is synced. */
 export async function streamChatResponseWithVectorStore(
   messages: ChatMessage[],

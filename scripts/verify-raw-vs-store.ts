@@ -175,7 +175,9 @@ async function main(): Promise<void> {
   }
 
   // 5) originals in store: each interview's originalReportFile / originalTranscriptFile should exist in store/originals
-  const originalsList = await fs.readdir(STORE_ORIGINALS).catch(() => []);
+  const originalsList: string[] = await fs
+    .readdir(STORE_ORIGINALS)
+    .catch(() => []);
   for (const i of interviews) {
     if (i.originalReportFile) {
       const basename = path.basename(i.originalReportFile);
